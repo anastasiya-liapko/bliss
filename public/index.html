@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Bliss</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600&amp;subset=cyrillic" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/style.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
+  </head>
+
+  <body>
+  
+    <div class="page container d-flex flex-column p-sm-0">
+
+      <div class="page__background background position-absolute">
+        <canvas id="canvas" class="background__canvas" width="1440" height="3400">
+          <p>Ваш браузер не поддерживает рисование.</p>
+        </canvas>
+        <div class="d-none">
+          <img id="background__phone" class="background__phone" src="img/background-image.png" width="1069" height="958">
+          <img id="background__polygon-1" class="background__polygon-1" src="img/background-polygon-1.png" width="1147" height="1377">
+        </div>
+        
+      </div>
+      <!-- page-background -->
+
+      <div class="header container d-flex flex-column align-items-center flex-sm-row justify-content-sm-between align-items-sm-center mb-4 mb-sm-0 p-0">
+
+        <div class="header__logo logo order-2 order-sm-1 flex-grow-1 d-flex justify-content-start justify-content-md-center">
+          <img src="img/bliss-logotype.png" srcset="img/bliss-logotype@2x.png 2x, img/bliss-logotype@3x.png 3x" width="89" height="102">
+        </div>
+        <!-- header__logo -->
+
+        <div class="header__phone phone order-1 order-sm-2 d-flex align-items-center justify-content-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel: 88000000000" class="link link_black">8(800) 00-000-00</a>
+          </div>
+        </div>
+        <!-- header__phone -->
+
+      </div>
+      <!-- header -->
+
+      <div class="menu container p-0">
+
+        <div class="menu__title title d-flex flex-column align-items-center">
+          <span class="title_bold">Cервис мнгновенной выдачи кредитов</span>
+          <span class="title_light">для клиентов вашего интернет-магазина</span>
+        </div>
+        <!-- menu__title -->
+
+        <div class="menu__register register d-flex flex-column align-items-center">
+          <a href="#" class="register__btn btn btn_uppercase mb-4">Зарегистрироваться</a>
+          <a href="#" class="register__link link link_bold link_uppercase">У меня уже есть аккаунт</a>
+        </div>
+        
+        <div class="menu__list list d-flex flex-column  align-items-center flex-sm-row align-items-sm-center justify-content-sm-between">
+        
+          <a href="#" class="list__item check btn btn_round d-flex flex-column align-items-center justify-content-center mb-4 mb-sm-0">
+            <span class="icon icon-receipt mb-2 mb-md-4"></span>
+            <span class="name">Увеличение<br> чека</span>
+          </a>
+
+          <a href="#" class="list__item conversion btn btn_round d-flex flex-column align-items-center justify-content-center mb-4 mb-sm-0">
+            <span class="icon icon-conversion mb-2 mb-md-4"></span>
+            <span class="name">Увеличение конверсии</span>
+          </a>
+
+          <a href="#" class="list__item return btn btn_round d-flex flex-column align-items-center justify-content-center">
+            <span class="icon icon-return mb-2 mb-md-4"></span>
+            <span class="name"">Снижение возвратов</span>
+          </a>
+          
+        </div>
+        <!-- menu__list -->
+        
+      </div>
+      <!-- menu -->
+
+      <div class="swiper slider container p-0">
+        
+        <!-- Slider main container -->
+        <div class="swiper-container">
+
+          <div class="slider__header d-flex justify-content-center">
+            <span class="slider__title">Нам доверяют</span>
+          </div>
+
+          <!-- If we need navigation buttons -->
+          <div class="swiper-button-prev slider__prev">
+            <span class="icon icon-prev"></span>
+            <span class="slider__prev-name">Prev</span>
+          </div>
+          <div class="swiper-button-next slider__next">
+            <span class="icon icon-next"></span>
+            <span class="slider__next-name">Next</span>
+          </div>
+
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper slider__wrapper d-flex align-items-center">
+
+            <!-- Slides -->
+            <div class="swiper-slide">
+              <div class="slider__item slide slide_post d-flex justify-content-center">
+                <img src="img/post-office.png" srcset="img/post-office@2x.png 2x, img/post-office@3x.png 3x" width="250" height="121" alt="Почта России">
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slider__item slide slide_bork d-flex justify-content-center">
+                <img src="img/bork.png" srcset="img/bork@2x.png 2x, img/bork@3x.png 3x" width="315" height="62" alt="Bork">
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slider__item slide slide_euroset d-flex justify-content-center">
+                <img src="img/euroset.png" srcset="img/euroset@2x.png 2x, img/euroset@3x.png 3x" width="360" height="201" alt="Евросеть">
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slider__item slide slide_post d-flex justify-content-center">
+                <img src="img/post-office.png" srcset="img/post-office@2x.png 2x, img/post-office@3x.png 3x" width="250" height="121" alt="Почта России">
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slider__item slide slide_bork d-flex justify-content-center">
+                <img src="img/bork.png" srcset="img/bork@2x.png 2x, img/bork@3x.png 3x" width="315" height="62" alt="Bork">
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="slider__item slide slide_euroset d-flex justify-content-center">
+                <img src="img/euroset.png" srcset="img/euroset@2x.png 2x, img/euroset@3x.png 3x" width="360" height="201" alt="Евросеть">
+              </div>
+            </div>
+
+          </div>
+          
+        </div>
+        <!-- swiper -->
+        
+      </div>
+      <!-- slider -->
+
+      <div class="description container d-flex flex-column p-0">
+
+        <div class="description__first-paragraph paragraph text-left text-sm-center text-xl-left order-2">
+          <span class="paragraph__title paragraph__title_bigger-font d-block">Наши преимущества:</span>
+          <span class="paragraph__text d-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+          <a href="#" class="description__btn btn btn_uppercase">Зарегистрироваться</a>
+        </div>
+
+        <div class="description__phone-img order-1">
+          <img src="img/rectangle-1.png" srcset="img/rectangle-1@2x.png 2x, img/rectangle-1@3x.png 3x" width="606" height="359" alt="Phone">
+        </div>
+
+        <div class="description__second-paragraph paragraph text-left text-xl-right mt-5 mt-xl-0 order-4">
+          <span class="paragraph__title d-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore </span>
+          <span class="paragraph__text d-block">magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+        </div>
+
+        <div class="description__laptop-img order-3">
+          <img src="img/rectangle-2.png" srcset="img/rectangle-2@2x.png 2x, img/rectangle-2@3x.png 3x" width="606" height="359" alt="Laptop">
+        </div>
+
+      </div>
+      <!-- descr -->
+
+      <div class="footer container footer_high d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center p-0">
+
+        <div class="footer__logo logo flex-grow-sm-1 d-flex justify-content-sm-start mb-4 mb-sm-0">
+          <img src="img/bliss-logotype-txt.png" srcset="img/bliss-logotype-txt@2x.png 2x, img/bliss-logotype-txt@3x.png 3x" width="152" height="44">
+        </div>
+        <!-- header__logo -->
+
+        <div class="footer__phone phone d-flex align-items-center justify-content-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel: 88000000000" class="link link_black">8(800) 00-000-00</a>
+          </div>
+        </div>
+      <!-- header__phone -->
+
+      </div>
+      <!-- footer -->
+
+    </div>
+    <!-- page-content -->
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="    sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.js"></script>
+  <script src="js/swiper.js"></script>
+
+  <script src="js/canvas.js"></script>
+
+  <script src="js/forms.js"></script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+.radio 
+  display: none
+
+.radio-wrapper
+  cursor: pointer
+
+.radio-label
+  display: block
+  width: 215px
+  height: 50px 
+  padding-top: 15px
+  font-size: 1rem
+  font-weight: $regular
+  line-height: 1.25
+  color: $text-color
+  background-color: #f4f6f8
+
+.radio-label_left
+  border-radius: 25px 0 0 25px
+
+.radio-label_right
+  border-radius: 0 25px 25px 0
+
+.radio:checked + .radio-label
+  color: $btn-color
+  background-color: #c6273a

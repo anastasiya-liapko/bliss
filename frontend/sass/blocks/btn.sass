@@ -1,0 +1,55 @@
+.btn
+  width: 100%
+  height: 61px
+  padding: 20px 0
+  font-size: 1rem
+  font-weight: $bold
+  line-height: normal
+  color: $btn-color
+  border-radius: 37.4px
+  background-image: linear-gradient(125deg, rgb(245, 81, 95), rgb(159, 4, 27))
+  &:hover
+    color: $btn-color
+    background: rgb(159, 4, 27) linear-gradient(rgb(265, 101, 115), rgb(179, 24, 47))
+    box-shadow: 0 0 0 1px rgb(159, 4, 27) inset, 0 1px 1px #aaa
+  &:focus
+    box-shadow: none
+  &:active
+    color: $btn-color
+    background-image: linear-gradient(125deg, rgb(225, 61, 75), rgb(139, 0, 7))
+    box-shadow: 0 0 0 2px rgb(159, 4, 27) inset, 0 1px 1px #aaa
+  &:disabled:hover
+    color: $btn-color
+    background-image: linear-gradient(125deg, rgb(245, 81, 95), rgb(159, 4, 27))
+    box-shadow: none
+
+.btn_uppercase
+  text-transform: uppercase
+
+.btn_round
+  height: auto
+  padding: 0
+  border-radius: 50%
+  border: solid 7px rgb(219, 226, 231)
+  .name
+    width: 115px
+    height: 36px
+    font-size: 1.125rem
+    font-weight: $regular
+    font-style: normal
+    line-height: 1
+    color: $btn-color
+    white-space: normal
+  &:hover
+    border: solid 6px rgb(219, 226, 231)
+    box-shadow: 0 0 0 2px rgb(159, 4, 27) inset, 0 1px 1px #aaa
+  &:active
+    border: solid 8px rgb(219, 226, 231)
+    box-shadow: 0 0 0 3px rgb(159, 4, 27) inset, 0 1px 1px #aaa
+
+@media(min-width: 576px)
+
+  .btn
+    width: 405px
+
+

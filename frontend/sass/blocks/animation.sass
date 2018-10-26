@@ -1,0 +1,46 @@
+.animation
+  width: 100%
+  height: 30px
+  border-radius: 30px
+  overflow: hidden
+
+.animation__fixed
+  width: 100%
+  height: 30px
+  background-color: #f0f0f0
+  border-radius: 30px
+
+.animation__active
+  width: 100%
+  height: 30px
+  margin-top: -30px
+  background-image: linear-gradient(to right, #e54f6c, #c6273a)
+  border-radius: 30px
+  animation-name: animation
+  animation-duration: 179000ms
+  animation-timing-function: linear
+    
+@-webkit-keyframes animation
+  0%
+    transform: translateX(0)
+  100%
+    transform: translateX(-100%)
+@-moz-keyframes animation
+  0%
+    transform: translateX(0)
+  100%
+    transform: translateX(-100%)
+@-o-keyframes animation
+  0%
+    transform: translateX(0)
+  100%
+    transform: translateX(-100%)
+@keyframes animation
+  0%
+    transform: translateX(0)
+  100%
+    transform: translateX(-100%)
+
+
+
+
