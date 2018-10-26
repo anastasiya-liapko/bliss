@@ -20,10 +20,7 @@ $(document).ready(function() {
   var currentAddress = ['current-index', 'current-city', 'current-building', 'current-street', 'current-apartment']; 
 
   var requiredWithTwoAdresses = $.merge($.merge([], requiredWithOneAddress), currentAddress);
-
   var required = requiredWithOneAddress;
-  // console.log(requiredWithOneAddress);
-  // console.log(requiredWithTwoAdresses);
 
   var setError = function(array) {
     $.each(array, function(index, val) {
@@ -113,13 +110,11 @@ $(document).ready(function() {
         // $('#current-' + val.split('-').pop()).val(value);
       })
       required = requiredWithOneAddress;
-      console.log('checked' + required);
     } else {
       $.each(currentAddress, function(index, val) {
         $('#' + val).attr('disabled', false);
       })
       required = requiredWithTwoAdresses;
-      console.log('not-checked' + required);
     }
 
   });
@@ -162,6 +157,16 @@ $(document).ready(function() {
           email.addClass('input_error');
         }
 
+      } else if (name === 'phone') {
+          console.log(name);
+          if (validatePhoneNumber(value)) {
+          $('#valid-phone').text('');
+          phoneNumber.removeClass('input_error');
+        } else {
+          $('#valid-phone').text('Введите номер телефона в формате +65765766700');
+          phoneNumber.addClass('input_error');
+        }
+
       } else {
         
         $('#valid-' + name).text('');
@@ -177,24 +182,6 @@ $(document).ready(function() {
       })
     }
     
-  });
-  
-  phoneNumber.blur(function() {
-    var value = phoneNumber.val();
-
-    if (value !== '') {
-
-      if (validatePhoneNumber(value)) {
-        $('#valid-phone').text('');
-        phoneNumber.removeClass('input_error');
-      } else {
-        $('#valid-phone').text('Введите номер телефона в формате +65765766700');
-        phoneNumber.addClass('input_error');
-      }
-    } else {
-      $('#valid-phone').text('Это обязательное поле');
-      phoneNumber.addClass('input_error');
-    }
   });
 
   $('.phone-number').submit(function(event) {
