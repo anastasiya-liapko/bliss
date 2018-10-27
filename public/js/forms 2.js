@@ -2,60 +2,36 @@
 
 $(document).ready(function() {
 
-  // заменяет символы поля пароля на '*'
   $( "#sms" ).keyup(function() {
     var replacedValue = $(this).val().replace(/[\s\S]/g, "*");
     $(this).val(replacedValue);
   });
 
   var phoneNumber = $('#phone');
-  // var date = $('#birth');
+  var date = $('#birth');
   // var passportNumber = $('#passport');
   var codeSms = $('#sms');
   var terms = $('#terms');
   var match = $('#match');
   var email = $('#email');
 
-  var requiredWithOneAddress = ['last-name', 'name', 'patronymic', 'birth', 'passport', 'issyed-by', 'date-of-issue', 'record-index', 'record-city', 'record-building', 'record-street', 'record-apartment', 'email', 'patronymic', 'TIN', 'company-name', 'phone', 'sms'];
+  var requiredWithOneAddress = ['last-name', 'name', 'patronymic', 'birth', 'passport', 'issyed-by', 'date-of-issue', 'record-index', 'record-city', 'record-building', 'record-street', 'record-apartment', 'email', 'patronymic', 'TIN', 'company-name'];
 
   var currentAddress = ['current-index', 'current-city', 'current-building', 'current-street', 'current-apartment']; 
 
   var requiredWithTwoAdresses = $.merge($.merge([], requiredWithOneAddress), currentAddress);
   var required = requiredWithOneAddress;
 
-  var errorsTexts = 
-  {
-    birth: 'Введите дату в формате xx.xx.xxxx',
-    passport: 'Введите номер паспорта в формате 01 02 343543',
-    email: 'Введите e-mail в формате ivanov@gmail.com',
-    phone: 'Введите номер телефона в формате +65765766700'
-  };
-
-  var setErrors = function(array) {
+  var setError = function(array) {
     $.each(array, function(index, val) {
       $('#valid-' + index).text(val);
       $('#' + index).addClass('input_error');
     })
   };
 
-  var removeErrors = function() {
+  var removeError = function() {
     $('.error-text').text('');
     $('input').removeClass('input_error');
-  };
-
-  var setError = function(fieldName) {
-    $('#valid-' + fieldName).text(errorsTexts[fieldName]);
-    $('#' + fieldName).addClass('input_error');
-  }
-
-  var setErrorForRequiredField = function(fieldName) {
-    $('#valid-' + fieldName).text('Это обязательное поле');
-    $('#' + fieldName).addClass('input_error');
-  }
-
-  var removeError = function(fieldName) {
-    $('#valid-' + fieldName).text('');
-    $('#' + fieldName).removeClass('input_error');
   };
 
   var validateDate = function (value) {
@@ -121,17 +97,9 @@ $(document).ready(function() {
     }
   };
 
-  $('#terms').click(function() {
-    if ($(this).is(':checked')) {
-      $('#valid-terms').text('');
-    } else {
-      $('#valid-terms').text('Пожалуйста, отметьте согласие на обработку персональных данных');
-    }
-  })
+  match.click(function() {
 
-  $('#match').click(function() {
-
-    if ($(this).is(':checked')) {
+    if (match.is(':checked')) {
 
       $.each(currentAddress, function(index, val) {
         $('#' + val).attr('disabled', true);
@@ -162,30 +130,73 @@ $(document).ready(function() {
     if (value !== '') {
 
       if (name === 'birth') {
-        validateDate(value) ? removeError(name) : setError(name);
-      } else if (name === 'passport') {
-          validatePassportNumber(value) ? removeError(name) : setError(name);
-      } else if (name === 'email') {
-          validateEmail(value) ? removeError(name) : setError(name);
-      } else if (name === 'phone') {
-          validatePhoneNumber(value) ? removeError(name) : setError(name);
-      } else {
-        removeError(name);
 
-        if ($('#match').is(':checked')) {
+        if(validateDate(value)) {
+          $('#valid-' + name).text('');
+          $('#' + name).removeClass('input_error');
+          // $('#application').attr('disabled', false);
+        } else {
+          $('#valid-' + name).text('Введите дату в формате xx.xx.xxxx');
+          $('#' + name).addClass('input_error');
+          // $('#application').attr('disabled', true);
+        }
+
+      } else if (name === 'passport') {
+
+        if (validatePassportNumber(value)) {
+          $('#valid-' + name).text('');
+          $('#' + name).removeClass('input_error');
+        } else {
+          $('#valid-' + name).text('Введите номер паспорта в формате 01 02 343543');
+          $('#' + name).addClass('input_error');
+        }
+
+      } else if (name === 'email') {
+
+        if (validateEmail(value)) {
+          $('#valid-' + name).text('');
+          $('#' + name).removeClass('input_error');
+        } else {
+          $('#valid-' + name).text('Введите e-mail в формате ivanov@gmail.com');
+          $('#' + name).addClass('input_error');
+        }
+
+      } else if (name === 'phone') {
+          
+          if (validatePhoneNumber(value)) {
+          $('#valid-' + name).text('');
+          $('#' + name).removeClass('input_error');
+        } else {
+          $('#valid-' + name).text('Введите номер телефона в формате +65765766700');
+          $('#' + name).addClass('input_error');
+        }
+
+      } else {
+        
+        $('#valid-' + name).text('');
+        $('#' + name).removeClass('input_error');
+
+        if (match.is(':checked')) {
+
           $.each(currentAddress, function(index, val) {
             var addressValue = 'record-' + val.split('-').pop();
 
             if (name === addressValue) {
               $('#' + val).val($('#' + addressValue).val());
             }
-          })
-        }
 
+          })
+
+        }
       }
+      
     } else {
       $.each(required, function(index, val) {
-        name == val ? setErrorForRequiredField(name) : '';
+
+        if (name == val) {
+          $('#valid-' + name).text('Это обязательное поле');
+          $('#' + name).addClass('input_error');
+        }
       })
     }
     
@@ -212,11 +223,18 @@ $(document).ready(function() {
     var value = codeSms.val();
 
     if (value !== '' && terms.is(':checked')) {
-      removeError('sms');
+      $('#valid-sms').text('');
+      codeSms.removeClass('input_error');
       $('#valid-terms').text('');
     } else {
 
-      value === '' ? setErrorForRequiredField('sms') : removeError('sms');
+      if (value === '') {
+        $('#valid-sms').text('Это обязательное поле');
+        codeSms.addClass('input_error');
+      } else {
+        $('#valid-sms').text('');
+        codeSms.removeClass('input_error');
+      }
 
       if (!terms.is(':checked')) {
         $('#valid-terms').text('Пожалуйста, отметьте согласие на обработку персональных данных');
@@ -231,7 +249,9 @@ $(document).ready(function() {
   $('.anketa-application').submit(function(event) {
     var errors = {};
     var data = {};
-    removeErrors();
+    removeError();
+
+    // var data = $('.anketa-application').serializeArray();
 
     $(this).find('input').each(function() {
       data[$(this)[0].name] = $(this).val();
@@ -245,12 +265,12 @@ $(document).ready(function() {
 
     if (data['passport'] !== '') {
       var value = data['passport'];
-      validatePassportNumber(value) ? '' : errors['passport'] = errorTexts['passport'];
+      validatePassportNumber(value) ? '' : errors['passport'] = 'Введите номер паспорта в формате 01 02 343543';
     }
 
     if (data['birth'] !== '') {
       var value = data['birth'];
-      validateDate(value) ? '' : errors['birth'] = errorTexts['birth'];
+      validateDate(value) ? '' : errors['birth'] = 'Введите дату в формате xx.xx.xxxx';
     }
 
     if (data['email'] !== '') {
@@ -259,7 +279,7 @@ $(document).ready(function() {
     }
 
     if (!$.isEmptyObject(errors)) {
-      setErrors(errors);
+      setError(errors);
       event.preventDefault();
     } else {
       $('#application-modal').modal();
@@ -271,7 +291,9 @@ $(document).ready(function() {
   $('.anketa-shop').submit(function(event) {
     var errors = {};
     var data = {};
-    removeErrors();
+    removeError();
+
+    // var data = $('.anketa-application').serializeArray();
 
     $(this).find('input').each(function() {
       data[$(this)[0].name] = $(this).val();
@@ -289,7 +311,7 @@ $(document).ready(function() {
     }
 
     if (!$.isEmptyObject(errors)) {
-      setErrors(errors);
+      setError(errors);
       event.preventDefault();
     } else {
       // event.preventDefault();

@@ -2,36 +2,60 @@
 
 $(document).ready(function() {
 
+  // заменяет символы поля пароля на '*'
   $( "#sms" ).keyup(function() {
     var replacedValue = $(this).val().replace(/[\s\S]/g, "*");
     $(this).val(replacedValue);
   });
 
   var phoneNumber = $('#phone');
-  var date = $('#birth');
-  var passportNumber = $('#passport');
+  // var date = $('#birth');
+  // var passportNumber = $('#passport');
   var codeSms = $('#sms');
   var terms = $('#terms');
   var match = $('#match');
   var email = $('#email');
 
-  var requiredWithOneAddress = ['last-name', 'name', 'patronymic', 'birth', 'passport', 'issyed-by', 'date-of-issue', 'record-index', 'record-city', 'record-building', 'record-street', 'record-apartment', 'email'];
+  var requiredWithOneAddress = ['last-name', 'name', 'patronymic', 'birth', 'passport', 'issyed-by', 'date-of-issue', 'record-index', 'record-city', 'record-building', 'record-street', 'record-apartment', 'email', 'patronymic', 'TIN', 'company-name', 'phone', 'sms'];
 
   var currentAddress = ['current-index', 'current-city', 'current-building', 'current-street', 'current-apartment']; 
 
   var requiredWithTwoAdresses = $.merge($.merge([], requiredWithOneAddress), currentAddress);
   var required = requiredWithOneAddress;
 
-  var setError = function(array) {
+  var errorsTexts = 
+  {
+    birth: 'Введите дату в формате xx.xx.xxxx',
+    passport: 'Введите номер паспорта в формате 01 02 343543',
+    email: 'Введите e-mail в формате ivanov@gmail.com',
+    phone: 'Введите номер телефона в формате +65765766700'
+  };
+
+  var setErrors = function(array) {
     $.each(array, function(index, val) {
       $('#valid-' + index).text(val);
       $('#' + index).addClass('input_error');
     })
   };
 
-  var removeError = function() {
+  var removeErrors = function() {
     $('.error-text').text('');
     $('input').removeClass('input_error');
+  };
+
+  var setError = function(fieldName) {
+    $('#valid-' + fieldName).text(errorsTexts[fieldName]);
+    $('#' + fieldName).addClass('input_error');
+  }
+
+  var setErrorForRequiredField = function(fieldName) {
+    $('#valid-' + fieldName).text('Это обязательное поле');
+    $('#' + fieldName).addClass('input_error');
+  }
+
+  var removeError = function(fieldName) {
+    $('#valid-' + fieldName).text('');
+    $('#' + fieldName).removeClass('input_error');
   };
 
   var validateDate = function (value) {
@@ -97,22 +121,34 @@ $(document).ready(function() {
     }
   };
 
-  match.click(function() {
+  $('#terms').click(function() {
+    if ($(this).is(':checked')) {
+      $('#valid-terms').text('');
+    } else {
+      $('#valid-terms').text('Пожалуйста, отметьте согласие на обработку персональных данных');
+    }
+  })
 
-    if (match.is(':checked')) {
+  $('#match').click(function() {
+
+    if ($(this).is(':checked')) {
+
       $.each(currentAddress, function(index, val) {
         $('#' + val).attr('disabled', true);
         $('#' + val).removeClass('input_error');
         $('#valid-' + val).text('');
-        // автоматическое заполнение current address
-        // var value = $('#record-' + val.split('-').pop()).val();
-        // console.log(value);
-        // $('#current-' + val.split('-').pop()).val(value);
+
+        $.each(currentAddress, function(index, val) {
+          var addressValue = 'record-' + val.split('-').pop();
+          $('#' + val).val($('#' + addressValue).val());
+        })
+
       })
       required = requiredWithOneAddress;
     } else {
       $.each(currentAddress, function(index, val) {
         $('#' + val).attr('disabled', false);
+        $('#' + val).val('');
       })
       required = requiredWithTwoAdresses;
     }
@@ -126,59 +162,30 @@ $(document).ready(function() {
     if (value !== '') {
 
       if (name === 'birth') {
-
-        if(validateDate(value)) {
-          $('#valid-birth').text('');
-          date.removeClass('input_error');
-          // $('#application').attr('disabled', false);
-        } else {
-          $('#valid-birth').text('Введите дату в формате xx.xx.xxxx');
-          date.addClass('input_error');
-          // $('#application').attr('disabled', true);
-        }
-
+        validateDate(value) ? removeError(name) : setError(name);
       } else if (name === 'passport') {
-
-        if (validatePassportNumber(value)) {
-          $('#valid-passport').text('');
-          passportNumber.removeClass('input_error');
-        } else {
-          $('#valid-passport').text('Введите номер паспорта в формате 01 02 343543');
-          passportNumber.addClass('input_error');
-        }
-
+          validatePassportNumber(value) ? removeError(name) : setError(name);
       } else if (name === 'email') {
-
-        if (validateEmail(value)) {
-          $('#valid-email').text('');
-          email.removeClass('input_error');
-        } else {
-          $('#valid-email').text('Введите e-mail в формате ivanov@gmail.com');
-          email.addClass('input_error');
-        }
-
+          validateEmail(value) ? removeError(name) : setError(name);
       } else if (name === 'phone') {
-          console.log(name);
-          if (validatePhoneNumber(value)) {
-          $('#valid-phone').text('');
-          phoneNumber.removeClass('input_error');
-        } else {
-          $('#valid-phone').text('Введите номер телефона в формате +65765766700');
-          phoneNumber.addClass('input_error');
+          validatePhoneNumber(value) ? removeError(name) : setError(name);
+      } else {
+        removeError(name);
+
+        if ($('#match').is(':checked')) {
+          $.each(currentAddress, function(index, val) {
+            var addressValue = 'record-' + val.split('-').pop();
+
+            if (name === addressValue) {
+              $('#' + val).val($('#' + addressValue).val());
+            }
+          })
         }
 
-      } else {
-        
-        $('#valid-' + name).text('');
-        $('#' + name).removeClass('input_error');
       }
-      
     } else {
       $.each(required, function(index, val) {
-        if (name == val) {
-          $('#valid-' + name).text('Это обязательное поле');
-          $('#' + name).addClass('input_error');
-        }
+        name == val ? setErrorForRequiredField(name) : '';
       })
     }
     
@@ -205,18 +212,11 @@ $(document).ready(function() {
     var value = codeSms.val();
 
     if (value !== '' && terms.is(':checked')) {
-      $('#valid-sms').text('');
-      codeSms.removeClass('input_error');
+      removeError('sms');
       $('#valid-terms').text('');
     } else {
 
-      if (value === '') {
-        $('#valid-sms').text('Это обязательное поле');
-        codeSms.addClass('input_error');
-      } else {
-        $('#valid-sms').text('');
-        codeSms.removeClass('input_error');
-      }
+      value === '' ? setErrorForRequiredField('sms') : removeError('sms');
 
       if (!terms.is(':checked')) {
         $('#valid-terms').text('Пожалуйста, отметьте согласие на обработку персональных данных');
@@ -231,11 +231,9 @@ $(document).ready(function() {
   $('.anketa-application').submit(function(event) {
     var errors = {};
     var data = {};
-    removeError();
+    removeErrors();
 
-    // var data = $('.anketa-application').serializeArray();
-
-    $('.anketa-application').find('input').each(function() {
+    $(this).find('input').each(function() {
       data[$(this)[0].name] = $(this).val();
     })
 
@@ -247,12 +245,12 @@ $(document).ready(function() {
 
     if (data['passport'] !== '') {
       var value = data['passport'];
-      validatePassportNumber(value) ? '' : errors['passport'] = 'Введите номер паспорта в формате 01 02 343543';
+      validatePassportNumber(value) ? '' : errors['passport'] = errorTexts['passport'];
     }
 
     if (data['birth'] !== '') {
       var value = data['birth'];
-      validateDate(value) ? '' : errors['birth'] = 'Введите дату в формате xx.xx.xxxx';
+      validateDate(value) ? '' : errors['birth'] = errorTexts['birth'];
     }
 
     if (data['email'] !== '') {
@@ -261,11 +259,40 @@ $(document).ready(function() {
     }
 
     if (!$.isEmptyObject(errors)) {
-      setError(errors);
+      setErrors(errors);
       event.preventDefault();
     } else {
       $('#application-modal').modal();
       event.preventDefault();
+    }
+    
+  });
+
+  $('.anketa-shop').submit(function(event) {
+    var errors = {};
+    var data = {};
+    removeErrors();
+
+    $(this).find('input').each(function() {
+      data[$(this)[0].name] = $(this).val();
+    })
+
+    $.each(required, function(index, val) {
+      if (data[val] === '') {
+        errors[val] = 'Это обязательное поле';
+      }
+    })
+
+    if (data['email'] !== '') {
+      var value = data['email'];
+      validateEmail(value) ? '' : errors['email'] = 'Введите e-mail в формате ivanov@gmail.com';
+    }
+
+    if (!$.isEmptyObject(errors)) {
+      setErrors(errors);
+      event.preventDefault();
+    } else {
+      // event.preventDefault();
     }
     
   });
