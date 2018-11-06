@@ -2,12 +2,6 @@
 
 $(document).ready(function() {
 
-  // заменяет символы поля пароля на '*'
-  $( "#sms" ).keyup(function() {
-    var replacedValue = $(this).val().replace(/[\s\S]/g, "*");
-    $(this).val(replacedValue);
-  });
-
   var phoneNumber = $('#phone');
   // var date = $('#birth');
   // var passportNumber = $('#passport');
@@ -15,6 +9,42 @@ $(document).ready(function() {
   var terms = $('#terms');
   var match = $('#match');
   var email = $('#email');
+
+  var codeValue;
+  var value = '';
+
+  $( "#sms" ).keyup(function() {
+    var codeSms = $(this).val();
+    var newValue = $(this).val().split('*').join('');
+    value += newValue;
+    var code = value;
+   
+    var codeSplit = code;
+
+      if ($.type(code) === 'string') {
+        codeSplit = code.split('');
+      }
+      if ($.type(code) === 'array') {
+        code = code.join('');
+      }
+    
+    if (code !== '') {
+
+      if (codeSplit.length > codeSms.split('').length) {
+        var length = codeSplit.length - codeSms.split('').length;
+        var lessCodeValue = codeSplit.slice(0, -length);
+        value = lessCodeValue.join('');
+        code = lessCodeValue.join('');
+      } 
+    } else {
+      code = codeSms;
+    }
+
+    codeValue = code;
+    var replacedValue = codeSms.replace(/[\s\S]/g, "*");
+    $('#sms').val(replacedValue);
+    // $(this).element.value.replace(/[^*]/,'*');
+  });
 
   var requiredWithOneAddress = ['last-name', 'name', 'patronymic', 'birth', 'passport', 'issyed-by', 'date-of-issue', 'record-index', 'record-city', 'record-building', 'record-street', 'record-apartment', 'email', 'patronymic', 'TIN', 'company-name', 'phone', 'sms'];
 
@@ -210,6 +240,7 @@ $(document).ready(function() {
 
   $('.code-sms__form').submit(function(event) {
     var value = codeSms.val();
+    $('#code').val(codeValue);
 
     if (value !== '' && terms.is(':checked')) {
       removeError('sms');
@@ -245,12 +276,12 @@ $(document).ready(function() {
 
     if (data['passport'] !== '') {
       var value = data['passport'];
-      validatePassportNumber(value) ? '' : errors['passport'] = errorTexts['passport'];
+      validatePassportNumber(value) ? '' : errors['passport'] = errorsTexts['passport'];
     }
 
     if (data['birth'] !== '') {
       var value = data['birth'];
-      validateDate(value) ? '' : errors['birth'] = errorTexts['birth'];
+      validateDate(value) ? '' : errors['birth'] = errorsTexts['birth'];
     }
 
     if (data['email'] !== '') {
@@ -262,7 +293,15 @@ $(document).ready(function() {
       setErrors(errors);
       event.preventDefault();
     } else {
-      $('#application-modal').modal();
+      $.ajax({
+        method: "POST",
+        url: "../php/anketa.php",
+        data: data
+      })
+        .done(function( msg ) {
+          $('#application-modal').modal();
+        });
+      
       event.preventDefault();
     }
     
@@ -292,7 +331,7 @@ $(document).ready(function() {
       setErrors(errors);
       event.preventDefault();
     } else {
-      // event.preventDefault();
+      
     }
     
   });

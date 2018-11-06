@@ -54,25 +54,31 @@
       <!-- header -->
 
       <div class="code-sms message container mt-5 mb-5 p-0">
-        <form class="code-sms__form d-flex flex-column align-items-center" action="code-sms.html">
+        <div class="d-flex flex-column align-items-center" action="code-sms.html">
 
           <label for="sms" class="message__title text-center">Введите код из смс</label>
           <input id="sms" class="message__input input" name="sms" type="text" placeholder="****" value="">
           <span id="valid-sms" class="error-text"></span>
 
-          <label for="terms" class="checkbox-wrapper message__checkbox d-flex">
-            <input id="terms" class="checkbox mt-1" type="checkbox" name="terms" checked>
-            <span class="checkbox-custom"></span>
+          <form class="code-sms__form  d-flex flex-column align-items-center" action="code-sms.html" method="" enctype="multipart/form-data">
 
-            <span class="checkbox-label message__text text-center">
-              <span>Я подтверждаю что ознакомился с </span>
-              <a href="#" class="document link link_black">Условиями хранения</a>
-              <span>персональных данных и даю свое согласие на их обработку.</span>
-            <span>
-          </label>
-          <span id="valid-terms" class="error-text"></span>
+            <input id="code" class="message__code d-none" name="code" type="password" value="">
 
-          <button id="code-sms-btn" class="btn btn_uppercase message__btn" type="submit" name="code-sms">Далее</button>
+            <label for="terms" class="checkbox-wrapper message__checkbox d-flex">
+              <input id="terms" class="checkbox mt-1" type="checkbox" name="terms" checked>
+              <span class="checkbox-custom"></span>
+
+              <span class="checkbox-label message__text text-center">
+                <span>Я подтверждаю что ознакомился с </span>
+                <a href="#" class="document link link_black">Условиями хранения</a>
+                <span>персональных данных и даю свое согласие на их обработку.</span>
+              <span>
+            </label>
+            <span id="valid-terms" class="error-text"></span>
+
+            <button id="code-sms-btn" class="btn btn_uppercase message__btn" type="submit" name="code-sms">Далее</button>
+
+          </form>
 
           <span class="message__text code-sms__info text-center">
             <a id="code-sms-link" class="link link_disabled text-center d-block">Запросить повторную отправку SMS</a>
@@ -82,7 +88,7 @@
             <span class="seconds d-inline-block">59</span>
           </span>
 
-        </form>
+        </div>
 
       </div>
       <!-- code-sms -->
