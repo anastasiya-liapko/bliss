@@ -1,0 +1,9 @@
+ALTER TABLE organizations
+  DROP COLUMN document_snils,
+  DROP COLUMN document_passport,
+  DROP COLUMN document_statute_with_tax_mark,
+  DROP COLUMN document_participants_decision,
+  DROP COLUMN document_ogrn,
+  DROP COLUMN document_questionnaire_fl_115,
+  DROP COLUMN document_order_on_appointment,
+  DROP COLUMN document_statute_of_current_edition;

@@ -1,0 +1,197 @@
+.dropdown_outer
+  display: none
+  width: 100%
+  margin-bottom: 0
+  padding-left: 0
+  list-style: none
+
+.dropdown_inner
+  display: none
+  min-width: 100%
+  width: 100%
+  padding-left: 25px
+  list-style: none
+
+.dropdown_inner__item
+  display: flex
+
+.dropdown_inner__item-link
+  width: 100%
+
+.dropdown_page
+  border-bottom: 2px solid $text-color
+
+.dropdown__item
+  transition: all 0.2s ease
+
+.dropdown_inner .dropdown-link
+  padding-top: 5px
+  padding-bottom: 5px
+  white-space: nowrap
+
+.dropdown_side
+  margin-left: 0
+  margin-right: 0
+  // padding-top: 25px
+  // padding-bottom: 25px
+  padding-top: 15px
+  padding-bottom: 15px
+
+.dropdown__item-link
+  display: inline-block
+  padding-top: 15px
+  padding-bottom: 15px
+  padding-left: 15px
+  padding-right: 15px
+  font-size: 1.125rem
+  font-weight: 400
+  line-height: 1.125rem
+  color: $text-color
+  white-space: nowrap
+
+.dropdown_inner__item-link:hover,
+.dropdown__item-link:hover
+  cursor: pointer
+
+.dropdown-link
+  font-size: 0.875rem
+
+.dropdown-link_toggle
+  position: relative
+  padding-right: 30px
+  &:hover
+    cursor: pointer
+  &::before
+    content: ""
+    position: absolute
+    top: 50%
+    right: 5px
+    width: 8px
+    height: 2px
+    margin-top: -1px
+    background-color: rgb(0, 0, 0)
+    -webkit-transform: rotate(45deg)
+    transform: rotate(45deg)
+    transition: transform 0.2s ease
+  &::after
+    content: ""
+    position: absolute
+    top: 50%
+    right: 5px
+    width: 8px
+    height: 2px
+    margin-top: -1px
+    margin-right: -5px
+    background-color: rgb(0, 0, 0)
+    -webkit-transform: rotate(-45deg)
+    transform: rotate(-45deg)
+    transition: transform 0.2s ease
+  &.open::before
+    -webkit-transform: rotate(-45deg)
+    transform: rotate(-45deg)
+  &.open::after
+    -webkit-transform: rotate(45deg)
+    transform: rotate(45deg)
+.icon_down
+  position: relative
+  padding-right: 15px
+  padding-left: 15px
+
+.icon_down:hover
+  cursor: pointer
+
+// .icon_down:hover::before
+//   animation: slide-bottom-before 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite alternate both
+
+// .icon_down:hover::after
+// 	animation: slide-bottom-after 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite alternate both
+
+// .icon_down.is-active:hover::before
+//   animation: slide-top-before 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite alternate both
+
+// .icon_down.is-active:hover::after
+// 	animation: slide-top-after 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite alternate both
+
+.icon_down::before
+  content: ""
+  position: absolute
+  top: 50%
+  right: 50%
+  width: 8px
+  height: 2px
+  margin-top: -1px
+  background-color: rgb(0, 0, 0)
+  -webkit-transform: rotate(45deg)
+  transform: rotate(45deg)
+  transition: transform 0.2s ease
+
+.icon_down::after
+  content: ""
+  position: absolute
+  top: 50%
+  right: 50%
+  width: 8px
+  height: 2px
+  margin-top: -1px
+  margin-right: -5px
+  background-color: rgb(0, 0, 0)
+  -webkit-transform: rotate(-45deg)
+  transform: rotate(-45deg)
+  transition: transform 0.2s ease
+
+.icon_down.is-active::before
+  -webkit-transform: rotate(-45deg)
+  transform: rotate(-45deg)
+
+.icon_down.is-active::after
+  -webkit-transform: rotate(45deg)
+  transform: rotate(45deg)
+
+.dropdown_side
+  background-color: #dae0e6
+
+.dropdown__item_user
+  background-color: $error-color
+  .dropdown-link
+    color: $btn-color
+
+@media(min-width: 992px)
+
+  .dropdown__item-link
+    padding-left: 5px
+    padding-right: 5px
+
+  .dropdown_page .dropdown-link
+    font-size: 1rem
+
+  .dropdown_page .icon_down
+    display: none
+
+  .dropdown_page .icon_down::before,
+  .dropdown_page .icon_down::after
+    display: none
+
+  .dropdown_side
+    // width: 370px
+    width: 270px
+    margin-top: -235px
+    padding-top: 0
+    padding-bottom: 0
+
+  .dropdown_page
+    border-bottom: none
+
+  .dropdown-link_toggle
+    padding-right: 30px
+
+@media(min-width: 1200px)
+
+  .dropdown__item-link
+    padding-left: 18px
+    padding-right: 18px
+
+  .dropdown_inner
+    padding-left: 18px
+
+  .dropdown_page .dropdown-link
+    font-size: 1rem

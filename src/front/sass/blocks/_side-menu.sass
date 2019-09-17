@@ -1,0 +1,162 @@
+.side-menu
+  p
+    margin-top: 0
+    margin-bottom: 0
+
+.side-menu__back
+  background-color: #dae0e6
+
+.side-menu__content
+  width: 100%
+  margin-left: auto
+  padding-top: 34px
+  font-size: 17px
+  font-weight: 400
+  line-height: normal
+  color: $text-color
+
+.side-menu__page
+  position: absolute
+  left: 0
+  right: 0
+  z-index: 50
+  display: flex
+  flex-direction: column
+  // min-height: 100vh
+  min-height: 960px
+  padding-top: 63px
+  transform: translateX(-2000px)
+  opacity: 1
+  background-color: $light-grey
+  background-image: url('../img/page-background.png')
+  background-repeat: repeat-y
+  box-shadow: 0 6px 8px 5px rgba(0, 0, 0, 0.14)
+
+.side-menu__page.open
+  animation: slide-in-left 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both
+
+.side-menu__page.close
+  animation: slide-out-left 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both
+
+.side-menu
+  .dropdown_inner
+    margin-left: 15px
+    margin-top: 5px
+    margin-bottom: 5px
+    border-left: 4px solid #ce2f28
+
+.side-menu .dropdown-link,
+.page-menu .dropdown_inner-link
+  // transition: all 0.4s ease
+  transition: all 0.2s ease
+
+.side-menu .dropdown-link,
+.page-menu .dropdown_inner-link
+  // transition: all 0.6s ease
+  transition: all 0.3s ease
+
+.side-menu .dropdown__item
+  width: 100%
+
+.side-menu .dropdown-link
+  width: auto
+  position: relative
+  transition: letter-spacing 0.4s ease, font-weight 0.4s ease
+  &:hover,
+  &.active
+    font-weight: 700
+    letter-spacing: 1px
+
+.side-menu__close
+  width: 100%
+  height: 100px
+
+.side-menu__close-arrow
+  display: block
+  width: 100px
+  height: 100px
+  font-size: 40px
+  line-height: 100px
+  transform: rotate(180deg)
+
+.side-menu__close-arrow:hover
+  cursor: pointer
+
+.side-menu .dropdown__item-link
+  margin-left: 15px
+  padding-top: 10px
+  padding-bottom: 10px
+  padding-left: 0
+
+.side-menu__page
+  .header
+    height: 170px
+  .header__logo
+    margin-top: 50px
+
+.side-menu__link
+  color: #1c1d1e
+  &:hover
+    color: #1c1d1e
+
+@media(min-width: 576px)
+  .side-menu__page
+    .header__logo
+      justify-content: center !important
+      margin-top: 0
+
+@media(min-width: 992px)
+
+  .side-menu__content
+    margin-left: auto
+    padding-top: 64px
+
+  .side-menu
+    .dropdown_inner
+      margin-left: 5px
+      margin-top: 15px
+      margin-bottom: 15px
+
+  .side-menu__page,
+  .page__content
+    padding-top: 112px
+
+  .side-menu__back
+    z-index: -1
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 0
+    width: 33%
+    padding-top: 400px
+    padding-left: 130px
+
+  .side-menu__content
+    width: 600px
+    padding-top: 0
+
+  .side-menu
+    padding-top: 64px
+
+  .side-menu__page
+    .header
+      height: 225px
+
+  .side-menu
+    .dropdown__item-link
+      padding-top: 15px
+      padding-bottom: 15px
+
+@media(min-width: 1200px)
+
+  .side-menu__back
+    // width: 38%
+    width: 30%
+
+  .side-menu .dropdown_inner
+    margin-left: 20px
+
+  .side-menu__content
+    // width: 660px
+    width: 760px
+    padding-right: 60px

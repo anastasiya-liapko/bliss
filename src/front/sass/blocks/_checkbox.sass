@@ -1,0 +1,48 @@
+.checkbox
+  display: none
+
+.checkbox-custom
+  position: relative
+  width: 18px
+  height: 18px
+  border: 1px solid #979797
+  border-radius: 4px
+
+.checkbox-custom,
+.checkbox-label
+  display: inline-block
+  vertical-align: middle
+
+.checkbox-label
+  font-size: 1rem
+  font-weight: $regular
+  line-height: normal
+  letter-spacing: normal
+  text-align: center
+  color: #1c1d1e
+
+.checkbox-label_black
+  font-size: 0.875rem
+  color: #000000
+
+.checkbox:checked ~ .checkbox-custom::before
+  content: "\e907"
+  font-family: 'icomoon'
+  font-size: 6px
+  position: absolute
+  top: 50%
+  left: 50%
+  margin-top: -4px
+  margin-left: -4px
+
+.checkbox-wrapper
+  position: relative
+
+  &:hover
+    cursor: pointer
+
+  .error-text
+    position: absolute
+    bottom: -20px
+    width: 100%
+    text-align: center

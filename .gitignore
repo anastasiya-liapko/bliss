@@ -1,0 +1,39 @@
+# Node modules in the project root.
+/node_modules
+
+# Data base configuration file in any place.
+db.cfg.php
+
+# Any log files in any place.
+*.log
+
+# log archive in the project root.
+/logs.zip
+
+# Documents in the project root.
+/documents
+
+# Uploads in the project root.
+/uploads
+
+# PHPUnit phpunit config file.
+phpunit.xml
+
+# PHPUnit result cache files in any place.
+.phpunit.result.cache
+
+# PHPUnit coverage report in the project root.
+/coverage-report
+
+# PHPUnit coverage text report in any place.
+coverage-report.txt
+
+# Edited templates.
+public/documents/edited-templates/*
+!public/documents/edited-templates/.gitkeep
+
+# tmp folder.
+tmp/*
+!/tmp/.gitkeep
+
+

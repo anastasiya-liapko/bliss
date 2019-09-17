@@ -1,0 +1,11 @@
+В системе зарегистрировалась организация
+
+Ссылка на организацию: {{ abs_url('/admin/organizations.php') }}?id_filter_from={{ organization_id }}&id_filter_to={{ organization_id }}
+
+Ссылка на магазин: {{ abs_url('/admin/index.php') }}?id_filter_from={{ shop_id }}&id_filter_to={{ shop_id }}
+
+Чтобы покупатели данного магазина могли пользоваться системой Bliss, активируйте магазин в административной панели.
+
+----------
+
+Письмо отправлено автоматически с сайта Bliss ({{ abs_url() }}). На него не нужно отвечать.

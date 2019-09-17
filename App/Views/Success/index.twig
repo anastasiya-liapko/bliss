@@ -1,0 +1,200 @@
+{% extends "base.twig" %}
+
+{% block title %}{{ title }} | {{ site_name }}{% endblock %}
+
+{% block body %}
+
+  <div class="page container d-flex flex-column p-sm-0">
+    {% if is_test_mode_enabled == 1 %}
+      <div class="informer">Тестовый режим. Если вы полностью заполните заявку на получение кредита и получите
+        положительный ответ, на самом деле кредит <b>не будет</b> выдан. Деньги не будут переведены на счёт магазина.
+      </div>
+    {% endif %}
+    <div
+      class="header container d-flex flex-column align-items-center flex-sm-row justify-content-sm-between align-items-sm-center mb-4 mb-sm-0 mt-3 mt-sm-0 p-0">
+
+      <div
+        class="header__logo logo order-2 order-sm-1 flex-grow-1 d-flex justify-content-start justify-content-md-center">
+        <img src="{{ abs_url('/assets/front/img/bliss-logotype.png') }}"
+             srcset="{{ abs_url('/assets/front/img/bliss-logotype@2x.png') }} 2x, {{ abs_url('/assets/front/img/bliss-logotype@3x.png') }} 3x"
+             width="89" height="102" alt="">
+      </div><!-- header__logo -->
+
+      <div class="header__phone-wrapper order-1 order-sm-2 d-flex flex-column align-items-center align-items-sm-end">
+        <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+          </div>
+        </div><!-- header__phone -->
+
+        <p class="header__phone-hours">{{ work_time }}</p>
+
+        <div
+          class="header__phone phone order-1 order-sm-2 d-flex align-items-center justify-content-center justify-content-sm-end mb-3 mb-sm-0">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+          </div>
+        </div><!-- header__phone -->
+      </div>
+
+    </div><!-- header -->
+
+    <div class="done container message mb-5 p-0">
+      <div class="d-flex flex-column align-items-center">
+
+        <span class="icon icon-check-round"></span>
+
+        <span class="message__title text-center">Вам одобрили кредит</span>
+
+        <span
+          class="done__text message__text text-center mt-4">Кредит на вашу покупку одобрила компания {{ mfi_name }}.</span>
+
+        {% if loan_terms_link is not empty %}
+
+          <a href="{{ loan_terms_link|url_encode }}" class="document link link_black text-center mt-4">Ознакомиться с
+            условиями кредитования.</a>
+
+        {% endif %}
+
+        <span class="done__text message__text text-center mt-4">Ссылка на договор отправлена вам в СМС.</span>
+
+        <div class="done__credit-descr mt-4 mb-0">
+
+          {% if loan_period is not empty %}
+
+            <div class="text-center">
+              <span class="done__text message__text text-center mt-3 mb-3">Срок кредита: </span>
+              <span
+                class="done__text message__text message__text_black d-block d-sm-inline text-center mt-sm-3 mb-2 mb-sm-3">{{ loan_period }} мес.</span>
+            </div>
+
+          {% endif %}
+
+          {% if loan_body is not empty %}
+
+            <div class="text-center">
+              <span class="done__text message__text text-center mt-3 mb-3">Вы берёте в кредит: </span>
+              <span
+                class="done__text message__text message__text_black d-block d-sm-inline text-center mt-sm-3 mb-2 mb-sm-3">{{ loan_body }} руб.</span>
+            </div>
+
+          {% endif %}
+
+          {% if loan_amount is not empty %}
+
+            <div class="text-center">
+              <span class="done__text message__text text-center mt-3 mb-3">Вы возвращаете: </span>
+              <span
+                class="done__text message__text message__text_black d-block d-sm-inline text-center mt-sm-3 mb-2 mb-sm-3">{{ loan_amount }} руб.</span>
+            </div>
+
+          {% endif %}
+
+          {% if loan_cost is not empty %}
+
+            <div class="text-center">
+              <span class="done__text message__text text-center mt-3 mb-3">Вы переплачиваете: </span>
+              <span
+                class="done__text message__text message__text_black d-block d-sm-inline text-center mt-sm-3 mb-2 mb-sm-3">{{ loan_cost }} руб.</span>
+            </div>
+
+          {% endif %}
+
+          {% if loan_daily_percent_rate is not empty %}
+
+            <div class="text-center">
+              <span class="done__text message__text text-center mt-3 mb-3">Процентная ставка в день: </span>
+              <span
+                class="done__text message__text message__text_black d-block d-sm-inline text-center mt-sm-3 mb-2 mb-sm-3">{{ loan_daily_percent_rate }} (~ {{ loan_daily_amount }} руб.)</span>
+            </div>
+
+          {% endif %}
+
+          {% if static_loan_terms is not empty %}
+
+            {% for term in static_loan_terms %}
+              <p class="done__text message__text text-center mt-4 mb-3">{{ term|raw }}</p>
+            {% endfor %}
+
+          {% endif %}
+
+        </div><!-- done__credit-descr -->
+
+        <div class="code-sms message container mt-4 mb-2 p-0">
+          <div class="d-flex flex-column align-items-center">
+
+            <span class="done__text message__text message__text_width text-center mb-3">Остался последний шаг: ввести код из смс и ваш заказ будет оплачен.</span>
+
+            <form id="js-formCodeSms" class="d-flex flex-column align-items-center w-100 w-sm-auto"
+                  action="{{ form_action }}"
+                  method="post" enctype="multipart/form-data">
+
+              <label for="js-formCodeSmsInputCode" class="message__title text-center mb-0">Введите код из смс</label>
+              <input id="js-formCodeSmsInputCode" class="message__input input" name="sms_code" type="tel"
+                     placeholder="****" required>
+
+              <div
+                class="message__text message__text_width message__text_height code-sms__info text-center mt-3 mb-3">
+
+                <a id="js-codeSmsRepeatSend" href="javascript:void(0);" class="link link_disabled text-center d-block"
+                   data-link-action="{{ link_action }}">Запросить повторную отправку SMS</a>
+                <div id="js-codeSmsRepeatText">
+                  <span> можно будет через</span>
+                  <span id="js-codeSmsTimer" class="d-inline-block" data-timer-end="{{ timer_end }}"></span>
+                </div>
+
+              </div>
+
+              <button id="js-formCodeSmsBtnSubmit" class="btn btn_primary btn_big message__btn mt-4 mb-4" type="submit"
+                      disabled>
+                Завершить оплату
+              </button>
+
+              <a href="javascript:void(0);" data-action="{{ abs_url('/success/cancel-credit-application') }}"
+                 class="document link link_black text-center js-applicationChangeStatus">Отказаться от оплаты</a>
+
+            </form>
+
+          </div>
+
+        </div><!-- code-sms -->
+
+      </div>
+
+    </div><!-- done -->
+
+
+    <div
+      class="footer container d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center p-0">
+
+      <div class="footer__logo logo flex-grow-sm-1 d-flex justify-content-sm-start mb-4 mb-sm-0">
+        <img src="{{ abs_url('/assets/front/img/bliss-logotype-txt.png') }}"
+             srcset="assets/front/img/bliss-logotype-txt@2x.png 2x, {{ abs_url('/assets/front/img/bliss-logotype-txt@3x.png') }} 3x"
+             width="152" height="44" alt="">
+      </div><!-- header__logo -->
+
+      <div class="footer__phone-wrapper d-flex flex-column align-items-center align-items-sm-end">
+        <div class="footer__phone phone d-flex align-items-center justify-content-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+          </div>
+        </div><!-- footer__phone -->
+
+        <p class="footer__phone-hours">{{ work_time }}</p>
+
+        <div class="footer__phone phone d-flex align-items-center justify-content-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+          </div>
+        </div><!-- footer__phone -->
+      </div>
+
+    </div><!-- footer -->
+
+  </div><!-- page-content -->
+
+{% endblock %}

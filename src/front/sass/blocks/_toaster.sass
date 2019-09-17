@@ -1,0 +1,55 @@
+.toaster
+  position: fixed
+  left: 0
+  top: 20px
+  z-index: 9999
+  width: 100%
+  transition: 0.3s
+
+  &__close-btn
+    position: absolute
+    top: calc(50% - 7px)
+    right: 10px
+    line-height: 1
+    cursor: pointer
+
+  &__item
+    position: relative
+    width: 100%
+    max-width: 50%
+    min-width: 300px
+    margin: 0 auto 5px
+    padding: 5px
+    background-color: #fff
+    color: $text-color
+    border-radius: 5px
+    font-size: 14px
+    text-align: center
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2)
+    visibility: hidden
+    transition: 0.3s
+
+    &_active
+      visibility: visible
+      animation: fadeInUp 0.5s
+
+    &_status_error
+      background: $error-color
+      color: #fff
+
+      .toaster__close-btn
+        color: #fff
+
+    &_status_success
+      background: $success-color
+      color: #fff
+
+      .toaster__close-btn
+        color: #fff
+
+    a
+      color: #fff
+      text-decoration: underline
+
+    p:last-child
+      margin: 0

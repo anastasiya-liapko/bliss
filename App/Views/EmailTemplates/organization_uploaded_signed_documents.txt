@@ -1,0 +1,7 @@
+Организация загрузила подписанные документы
+
+Ссылка на организацию: {{ abs_url('/admin/organizations.php') }}?id_filter_from={{ organization_id }}&id_filter_to={{ organization_id }}
+
+----------
+
+Письмо отправлено автоматически с сайта Bliss ({{ abs_url() }}). На него не нужно отвечать.

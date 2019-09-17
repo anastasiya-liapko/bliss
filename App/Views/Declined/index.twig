@@ -1,0 +1,98 @@
+{% extends "base.twig" %}
+
+{% block title %}{{ title }} | {{ site_name }}{% endblock %}
+
+{% block body %}
+
+  <div class="page container d-flex flex-column p-sm-0">
+    <div
+      class="header container d-flex flex-column align-items-center flex-sm-row justify-content-sm-between align-items-sm-center mb-4 mb-sm-0 mt-3 mt-sm-0 p-0">
+
+      <div
+        class="header__logo logo order-2 order-sm-1 flex-grow-1 d-flex justify-content-start justify-content-md-center">
+        <img src="{{ abs_url('/assets/front/img/bliss-logotype.png') }}"
+             srcset="{{ abs_url('/assets/front/img/bliss-logotype@2x.png') }} 2x, {{ abs_url('/assets/front/img/bliss-logotype@3x.png') }} 3x"
+             width="89" height="102" alt="">
+      </div><!-- header__logo -->
+
+      <div class="header__phone-wrapper order-1 order-sm-2 d-flex flex-column align-items-center align-items-sm-end">
+        <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+          </div>
+        </div><!-- header__phone -->
+
+        <p class="header__phone-hours">{{ work_time }}</p>
+
+        <div
+          class="header__phone phone order-1 order-sm-2 d-flex align-items-center justify-content-center justify-content-sm-end mb-3 mb-sm-0">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+          </div>
+        </div><!-- header__phone -->
+      </div>
+
+    </div><!-- header -->
+
+    <div class="cancell container message mb-5 p-0">
+      {% if is_test_mode_enabled == 1 %}
+        <div class="informer">Тестовый режим. Если вы полностью заполните заявку на получение кредита и получите
+          положительный ответ, на самом деле кредит <b>не будет</b> выдан. Деньги не будут переведены на счет магазина.
+        </div>
+      {% endif %}
+      <div class="d-flex flex-column align-items-center">
+
+        <span class="icon icon-close-round"></span>
+
+        <span class="message__title text-center mb-3">Кредитные организации отказали</span>
+
+        {% if is_show_credit_history_information == 1 %}
+
+          <span class="message__text text-center mb-3">Вы можете узнать причину отказа, заказав выписку
+            в государственном бюро кредитных историй за 50 рублей
+          </span>
+
+          <a href="#" class="btn btn_primary btn_big message__btn">Смотреть кредитную историю</a>
+
+        {% endif %}
+
+        <a href="{{ callback_url }}" class="btn btn_primary btn_big message__btn">Вернуться на сайт магазина</a>
+
+      </div>
+
+    </div><!-- cancel -->
+
+    <div
+      class="footer container d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center p-0">
+
+      <div class="footer__logo logo flex-grow-sm-1 d-flex justify-content-sm-start mb-4 mb-sm-0">
+        <img src="{{ abs_url('/assets/front/img/bliss-logotype-txt.png') }}"
+             srcset="{{ abs_url('/assets/front/img/bliss-logotype-txt@2x.png') }} 2x, assets/front/img/bliss-logotype-txt@3x.png 3x"
+             width="152" height="44" alt="">
+      </div><!-- header__logo -->
+
+      <div class="footer__phone-wrapper d-flex flex-column align-items-center align-items-sm-end">
+        <div class="footer__phone phone d-flex align-items-center justify-content-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+          </div>
+        </div><!-- footer__phone -->
+
+        <p class="footer__phone-hours">{{ work_time }}</p>
+
+        <div class="footer__phone phone d-flex align-items-center justify-content-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+          </div>
+        </div><!-- footer__phone -->
+      </div>
+
+    </div><!-- footer -->
+
+  </div><!-- page-content -->
+
+{% endblock %}

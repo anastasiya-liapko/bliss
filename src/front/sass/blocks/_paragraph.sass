@@ -1,0 +1,33 @@
+.paragraph__title
+  font-size: 1.125rem
+  font-weight: $bold
+  line-height: 1.5
+  color: $text-color
+
+.paragraph__text
+  font-size: 0.9rem
+  font-weight: $regular
+  line-height: 1.5
+  color: $text-color
+  p
+    margin-bottom: 0.75rem
+  p:last-child
+    margin-bottom: 0
+
+.paragraph__title_bigger-font
+  margin-bottom: 15px
+  font-size: 1.55rem
+  line-height: normal
+
+@media(min-width: 576px)
+
+  .paragraph__title
+    line-height: normal
+
+  .paragraph__text
+    font-size: 1.125rem
+    line-height: 1.4
+
+  .paragraph__title_bigger-font
+    margin-bottom: 35px
+    font-size: 1.875rem

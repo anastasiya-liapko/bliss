@@ -1,0 +1,44 @@
+.list__item
+  width: 160px
+  height: 160px
+
+  &:hover
+    color: $btn-color
+    // bsackground-image: linear-gradient(125deg, rgb(245, 81, 95), rgb(159, 4, 27))
+    background-image: none
+    background-color: #9f041b
+    box-shadow: none
+    border: solid 7px rgb(219, 226, 231)
+    cursor: default !important
+
+  &:active
+    color: $btn-color
+    // background-image: linear-gradient(125deg, rgb(245, 81, 95), rgb(159, 4, 27))
+    background-image: none
+    background-color: #9f041b
+    box-shadow: none
+    border: solid 7px rgb(219, 226, 231)
+    cursor: default !important
+
+@media(min-width: 768px)
+
+  .list
+    padding: 0
+
+  .list__item
+    width: 220px
+    height: 220px
+
+@media(min-width: 992px)
+
+  .list
+    padding: 0 50px
+
+  .list__item
+    width: 261px
+    height: 261px
+
+@media(min-width: 1200px)
+
+  .list
+    padding: 0 130px

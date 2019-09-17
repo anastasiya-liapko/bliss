@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+  <link rel="shortcut icon" href="{{ abs_url('/assets/front/img/favicon.png') }}" type="image/png">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600&subset=cyrillic" rel="stylesheet">
+  <link rel="stylesheet" href="{{ abs_url('/assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ abs_url('/assets/vendor/swiper/css/swiper.min.css') }}">
+  <link rel="stylesheet" href="{{ abs_url('/assets/front/css/main.min.css?ver=1.1.13') }}">
+
+  <script src="{{ abs_url('/assets/vendor/sentry.min.js?ver=5.6.1') }}"></script>
+  <script>Sentry.init({ dsn: 'https://e14d82067f2f49e89b3a9aa3c27381f9@sentry.io/1524253' });</script>
+
+  {% if(is_dev_server == false) %}
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () {
+                (m[i].a = m[i].a || []).push(arguments)
+            };
+            m[i].l = 1 * new Date();
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(53382049, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    <noscript>
+      <div><img src="https://mc.yandex.ru/watch/53382049" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+  {% endif %}
+
+</head>
+
+<body class="body {{ body_class }}">
+{% block body %}
+{% endblock %}
+<div class="toaster"></div>
+<script defer src="{{ abs_url('/assets/vendor/jquery.min.js') }}"></script>
+<script defer src="{{ abs_url('/assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<script defer src="{{ abs_url('/assets/vendor/swiper/js/swiper.min.js') }}"></script>
+<script defer src="{{ abs_url('/assets/vendor/jquery.validate.min.js') }}"></script>
+<script defer src="{{ abs_url('/assets/vendor/additional-methods.min.js') }}"></script>
+<script defer src="{{ abs_url('/assets/vendor/jquery.inputmask.bundle.min.js') }}"></script>
+<script defer src="{{ abs_url('/assets/vendor/jquery.countdown.min.js') }}"></script>
+<script defer src="{{ abs_url('/assets/vendor/js.cookie.min.js') }}"></script>
+<script defer src="{{ abs_url('/assets/front/js/main.min.js?ver=1.1.13') }}"></script>
+</body>
+</html>

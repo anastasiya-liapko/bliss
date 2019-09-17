@@ -1,0 +1,14 @@
+<h1>В системе зарегистрировалась организация</h1>
+
+<p>Ссылка на организацию: {{ abs_url('/admin/organizations.php') }}?id_filter_from={{ organization_id }}
+  &id_filter_to={{ organization_id }}</p>
+
+<p>Ссылка на магазин: {{ abs_url('/admin/index.php') }}?id_filter_from={{ shop_id }}&id_filter_to={{ shop_id }}</p>
+
+<p>Чтобы покупатели данного магазина могли пользоваться системой Bliss, активируйте магазин в административной
+  панели.</p>
+
+<p>
+  <small>Письмо отправлено автоматически с сайта <a href="{{ abs_url() }}">bliss24.ru</a>. На него не надо отвечать.
+  </small>
+</p>

@@ -1,0 +1,441 @@
+{% extends "base.twig" %}
+
+{% block title %}{{ title }} | {{ site_name }}{% endblock %}
+
+{% block body %}
+
+  <div class="page container d-flex flex-column p-sm-0">
+
+    <div
+      class="header container d-flex flex-column align-items-center flex-sm-row justify-content-sm-between align-items-sm-center mb-4 mb-sm-0 mt-3 mt-sm-0 p-0">
+
+      <a href="{{ abs_url() }}" target="_blank"
+         class="header__logo logo order-2 order-sm-1 flex-grow-1 d-flex justify-content-start justify-content-md-center">
+        <img src="{{ abs_url('/assets/front/img/bliss-logotype.png') }}"
+             srcset="{{ abs_url('/assets/front/img/bliss-logotype@2x.png') }} 2x, {{ abs_url('/assets/front/img/bliss-logotype@3x.png') }} 3x"
+             width="89" height="102" alt="">
+      </a><!-- header__logo -->
+
+      <div class="header__phone-wrapper order-1 order-sm-2 d-flex flex-column align-items-center align-items-sm-end">
+        <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+          </div>
+        </div><!-- header__phone -->
+
+        <p class="header__phone-hours">{{ work_time }}</p>
+
+        <div
+          class="header__phone phone order-1 order-sm-2 d-flex align-items-center justify-content-center justify-content-sm-end mb-3 mb-sm-0">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+          </div>
+        </div><!-- header__phone -->
+      </div>
+
+    </div><!-- header -->
+
+    <form id="js-formProfileShop" class="anketa anketa-shop container d-flex flex-column align-items-center p-0"
+          action="{{ form_action }}" method="post" enctype="multipart/form-data">
+
+      <div class="anketa__title w-100 text-left text-sm-center text-lg-left mb-3">
+        <span class="message__title">Анкета магазина</span>
+      </div>
+
+      <span class="legend d-block w-100 text-left text-sm-center text-lg-left mb-3 mt-5">Общие данные</span>
+
+      <div
+        class="anketa__fieldset d-flex flex-column align-items-center flex-lg-row justify-content-lg-between justify-content-xl-start
+        align-items-lg-start w-100">
+
+        <div class="anketa__column anketa__column_left">
+
+          <div class="d-flex anketa-shop__radio">
+            <label for="js-formProfileShopInputEntrepreneur" class="radio-wrapper text-center w-50 m-0">
+              <input id="js-formProfileShopInputEntrepreneur" class="radio" type="radio" name="type"
+                     value="entrepreneur" checked>
+              <span class="radio-label radio-label_left w-100">ИП</span>
+            </label>
+
+            <label for="js-formProfileShopInputLlc" class="radio-wrapper text-center w-50 m-0">
+              <input id="js-formProfileShopInputLlc" class="radio" type="radio" name="type" value="llc">
+              <span class="radio-label radio-label_right w-100">ООО</span>
+            </label>
+          </div>
+
+          <div id="js-formProfileShopWrapperVat">
+            <label for="js-formProfileShopInputVat" class="label d-block">НДС</label>
+            <select id="js-formProfileShopInputVat" class="input input_black custom-select w-100" name="vat">
+              <option value="0">0%</option>
+              <option value="10">10%</option>
+              <option value="18">18%</option>
+              <option value="20">20%</option>
+              <option value="0">Без НДС</option>
+            </select>
+          </div>
+
+          <div id="js-formProfileShopWrapperLegalName" class="hide">
+            <label for="js-formProfileShopInputLegalName" class="label d-block">Юридическое наименование</label>
+            <input id="js-formProfileShopInputLegalName" class="input input_black w-100" type="text"
+                   name="legal_name">
+          </div>
+
+          <div id="js-formProfileShopWrapperTin">
+            <label for="js-formProfileShopInputTin" class="label d-block">ИНН</label>
+            <input id="js-formProfileShopInputTin" class="input input_black w-100" type="text" pattern="[0-9]*"
+                   name="tin" required>
+          </div>
+
+          <div id="js-formProfileShopWrapperCio" class="hide">
+            <label for="js-formProfileShopInputCio" class="label d-block">КПП</label>
+            <input id="js-formProfileShopInputCio" class="input input_black w-100" type="text" pattern="[0-9]*"
+                   name="cio">
+          </div>
+
+          <div id="js-formProfileShopWrapperBin">
+            <label for="js-formProfileShopInputBin" class="label d-block">ОГРН</label>
+            <input id="js-formProfileShopInputBin" class="input input_black w-100" type="text" pattern="[0-9]*"
+                   name="bin" required>
+          </div>
+
+          <div id="js-formProfileShopWrapperIsLicensedActivity">
+            <label for="js-formProfileShopInputIsLicensedActivity" class="label d-block">
+              Деятельность подлежит лицензированию?
+            </label>
+            <select id="js-formProfileShopInputIsLicensedActivity" class="input input_black custom-select w-100"
+                    name="is_licensed_activity" required>
+              <option value="1">да</option>
+              <option value="0">нет</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="anketa__column anketa__column_right">
+
+          <div id="js-formProfileShopWrapperLicenseType">
+            <label for="js-formProfileShopInputLicenseType" class="label d-block">Тип лицензии</label>
+            <input id="js-formProfileShopInputLicenseType" class="input input_black w-100" type="text"
+                   name="license_type">
+          </div>
+
+          <div id="js-formProfileShopWrapperLicenseNumber">
+            <label for="js-formProfileShopInputLicenseNumber" class="label d-block">Номер лицензии</label>
+            <input id="js-formProfileShopInputLicenseNumber" class="input input_black w-100" type="text"
+                   name="license_number">
+          </div>
+
+          <div id="js-formProfileShopWrapperCategoryId">
+            <label for="js-formProfileShopInputCategoryId" class="label d-block">Категория</label>
+            <select id="js-formProfileShopInputCategoryId" class="input input_black custom-select w-100"
+                    name="category_id" required>
+              {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div id="js-formProfileShopWrapperLegalAddress" class="hide">
+            <label for="js-formProfileShopInputLegalAddress" class="label d-block">Юридический адрес</label>
+            <input id="js-formProfileShopInputLegalAddress" class="input input_black w-100" type="text"
+                   name="legal_address">
+          </div>
+
+          <div id="js-formProfileShopWrapperRegistrationAddress">
+            <label for="js-formProfileShopInputRegistrationAddress" class="label d-block">Адрес регистрации</label>
+            <input id="js-formProfileShopInputRegistrationAddress" class="input input_black w-100" type="text"
+                   name="registration_address">
+          </div>
+
+          <div id="js-formProfileShopWrapperFactAddress">
+            <label for="js-formProfileShopInputFactAddress" class="label d-block">Фактический адрес</label>
+            <input id="js-formProfileShopInputFactAddress" class="input input_black w-100" type="text"
+                   name="fact_address" required>
+          </div>
+
+        </div>
+
+      </div>
+
+      <span class="legend d-block w-100 text-left text-sm-center text-lg-left mb-3 mt-5">Реквизиты</span>
+
+      <div
+        class="anketa__fieldset d-flex flex-column align-items-center flex-lg-row justify-content-lg-between
+        justify-content-xl-start align-items-lg-start w-100">
+
+        <div class="anketa__column anketa__column_left">
+
+          <div id="js-formProfileShopWrapperBik">
+            <label for="js-formProfileShopInputBik" class="label d-block">БИК</label>
+            <input id="js-formProfileShopInputBik" class="input input_black w-100" type="text" pattern="[0-9]*"
+                   name="bik" required>
+          </div>
+
+          <div id="js-formProfileShopWrapperBankName">
+            <label for="js-formProfileShopInputBankName" class="label d-block">Название банка</label>
+            <input id="js-formProfileShopInputBankName" class="input input_black w-100" type="text"
+                   name="bank_name" required>
+          </div>
+
+        </div>
+
+        <div class="anketa__column anketa__column_right">
+
+          <div id="js-formProfileShopWrapperCorrespondentAccount">
+            <label for="js-formProfileShopInputCorrespondentAccount" class="label d-block">
+              Корреспондентский счет
+            </label>
+            <input id="js-formProfileShopInputCorrespondentAccount" class="input input_black w-100" type="text"
+                   pattern="[0-9]*" name="correspondent_account" required>
+          </div>
+
+          <div id="js-formProfileShopWrapperSettlementAccount">
+            <label for="js-formProfileShopInputSettlementAccount" class="label d-block">Расчётный счёт</label>
+            <input id="js-formProfileShopInputSettlementAccount" class="input input_black w-100" type="text"
+                   pattern="[0-9]*" name="settlement_account" required>
+          </div>
+
+        </div>
+
+      </div>
+
+      <span class="legend d-block w-100 text-left text-sm-center text-lg-left mb-3 mt-5">Руководство</span>
+
+      <div
+        class="anketa__fieldset d-flex flex-column align-items-center flex-lg-row justify-content-lg-between
+        justify-content-xl-start align-items-lg-start w-100">
+
+        <div class="anketa__column anketa__column_left">
+
+          <div id="js-formProfileShopWrapperBossFullName">
+            <label for="js-formProfileShopInputBossFullName" class="label d-block">ФИО</label>
+            <input id="js-formProfileShopInputBossFullName" class="input input_black w-100" type="text"
+                   name="boss_full_name" required>
+          </div>
+
+          <div id="js-formProfileShopWrapperBossPassportNumber">
+            <label for="js-formProfileShopInputBossPassportNumber" class="label d-block">Серия и номер паспорта</label>
+            <input id="js-formProfileShopInputBossPassportNumber" class="input input_black w-100" type="text"
+                   name="boss_passport_number">
+          </div>
+
+          <div id="js-formProfileShopWrapperBossPassportIssuedDate">
+            <label for="js-formProfileShopInputBossPassportIssuedDate" class="label d-block">
+              Дата выдачи паспорта
+            </label>
+            <input id="js-formProfileShopInputBossPassportIssuedDate" class="input input_black w-100" type="text"
+                   name="boss_passport_issued_date" placeholder="дд.мм.гггг" autocomplete="off" required>
+          </div>
+
+          <div id="js-formProfileShopWrapperBossPassportDivisionCode">
+            <label for="js-formProfileShopInputBossPassportDivisionCode" class="label d-block">Код подразделения</label>
+            <input id="js-formProfileShopInputBossPassportDivisionCode" class="input input_black w-100" type="text"
+                   name="boss_passport_division_code" required>
+          </div>
+
+          <div id="js-formProfileShopWrapperBossPassportIssuedBy">
+            <label for="js-formProfileShopInputBossPassportIssuedBy" class="label d-block">Кем выдан паспорт</label>
+            <input id="js-formProfileShopInputBossPassportIssuedBy" class="input input_black w-100" type="text"
+                   name="boss_passport_issued_by">
+          </div>
+
+        </div>
+        <div class="anketa__column anketa__column_right">
+
+          <div id="js-formProfileShopWrapperBossPosition" class="hide">
+            <label for="js-formProfileShopInputBossPosition" class="label d-block">Должность</label>
+            <input id="js-formProfileShopInputBossPosition" class="input input_black w-100" type="text"
+                   name="boss_position">
+          </div>
+
+          <div id="js-formProfileShopWrapperBossBasisActs" class="hide">
+            <label for="js-formProfileShopInputBossBasisActs" class="label d-block">Действует на основании</label>
+            <select id="js-formProfileShopInputBossBasisActs" class="input input_black custom-select w-100"
+                    name="boss_basis_acts">
+              <option selected value> -- выбрать --</option>
+              <option value="statute">Устава</option>
+              <option value="proxy">Доверенности</option>
+              <option value="trust_management_agreement">Договора доверительного управления</option>
+            </select>
+          </div>
+
+          <div id="js-formProfileShopWrapperBossBasisActsNumber" class="hide">
+            <label for="js-formProfileShopInputBossBasisActsNumber" class="label d-block">
+              Серия и номер документа
+            </label>
+            <input id="js-formProfileShopInputBossBasisActsNumber" class="input input_black w-100" type="text"
+                   name="boss_basis_acts_number">
+          </div>
+
+          <div id="js-formProfileShopWrapperBossBasisActsIssuedDate" class="hide">
+            <label for="js-formProfileShopInputBossBasisActsIssuedDate" class="label d-block">
+              Дата выдачи документа
+            </label>
+            <input id="js-formProfileShopInputBossBasisActsIssuedDate" class="input input_black w-100" type="text"
+                   name="boss_basis_acts_issued_date" placeholder="дд.мм.гггг" autocomplete="off">
+          </div>
+
+          <div id="js-formProfileShopWrapperBossBirthDate">
+            <label for="js-formProfileShopInputBossBirthDate" class="label d-block">Дата рождения</label>
+            <input id="js-formProfileShopInputBossBirthDate" class="input input_black w-100" type="text"
+                   name="boss_birth_date" placeholder="дд.мм.гггг" autocomplete="off" required>
+          </div>
+
+          <div id="js-formProfileShopWrapperBossBirthPlace">
+            <label for="js-formProfileShopInputBossBirthPlace" class="label d-block">Место рождения</label>
+            <input id="js-formProfileShopInputBossBirthPlace" class="input input_black w-100" type="text"
+                   name="boss_birth_place" required>
+          </div>
+
+          <div id="js-formProfileShopWrapperPhone">
+            <label for="js-formProfileShopInputPhone" class="label d-block">Телефон</label>
+            <input id="js-formProfileShopInputPhone" class="input input_black" type="tel" name="phone"
+                   placeholder="+7(900)000-00-00" required>
+          </div>
+
+          <div id="js-formProfileShopWrapperEmail">
+            <label for="js-formProfileShopInputEmail" class="label d-block">Email</label>
+            <input id="js-formProfileShopInputEmail" class="input input_black" type="text" name="email" required>
+          </div>
+
+        </div>
+      </div>
+
+      <span class="legend d-block w-100 text-left text-sm-center text-lg-left mb-3 mt-5">Документы</span>
+
+      <div
+        class="anketa__fieldset d-flex flex-column align-items-center flex-lg-row justify-content-lg-between
+        justify-content-xl-start align-items-lg-start w-100">
+
+        <div class="anketa__column anketa__column_left">
+
+          <div id="js-formProfileShopWrapperDocumentSnils" class="mb-4">
+            <span class="label d-block">СНИЛС</span>
+            <div class="custom-file">
+              <label for="js-formProfileShopInputDocumentSnils" class="custom-file-label">
+                PDF, JPEG, максимум 30 МБ
+              </label>
+              <input id="js-formProfileShopInputDocumentSnils" class="custom-file-input custom-file-input__multiple" type="file"
+                     accept="application/pdf,image/jpg,image/jpeg" name="document_snils[]" multiple>
+            </div>
+          </div>
+
+          <div id="js-formProfileShopWrapperDocumentPassport" class="mb-4">
+            <span class="label d-block">
+              Копия паспорта, заверенная подписью и печатью ИП (развороты с фотографией и пропиской)
+            </span>
+            <div class="custom-file">
+              <label for="js-formProfileShopInputDocumentPassport" class="custom-file-label">
+                PDF, JPEG максимум 30 МБ
+              </label>
+              <input id="js-formProfileShopInputDocumentPassport" class="custom-file-input custom-file-input__multiple" type="file"
+                     accept="application/pdf,image/jpg,image/jpeg" name="document_passport[]" multiple>
+            </div>
+          </div>
+
+          <div id="js-formProfileShopWrapperDocumentStatuteWithTaxMark" class="mb-4 hide">
+            <span class="label d-block">
+              Устав с отметкой налогового органа на дату решения об избрании единоличного исполнительного органа
+            </span>
+            <div class="custom-file">
+              <label for="js-formProfileShopInputDocumentStatuteWithTaxMark" class="custom-file-label">
+                PDF, JPEG максимум 30 МБ
+              </label>
+              <input id="js-formProfileShopInputDocumentStatuteWithTaxMark" class="custom-file-input custom-file-input__multiple" type="file"
+                     accept="application/pdf,image/jpg,image/jpeg" name="document_statute_with_tax_mark[]" multiple>
+            </div>
+          </div>
+
+          <div id="js-formProfileShopWrapperDocumentParticipantsDecision" class="mb-4 hide">
+            <span class="label d-block">
+              Протокол общего собрания участников/Решение единственного участника
+            </span>
+            <div class="custom-file">
+              <label for="js-formProfileShopInputDocumentParticipantsDecision" class="custom-file-label">
+                PDF, JPEG максимум 30 МБ
+              </label>
+              <input id="js-formProfileShopInputDocumentParticipantsDecision" class="custom-file-input custom-file-input__multiple" type="file"
+                     accept="application/pdf,image/jpg,image/jpeg" name="document_participants_decision[]" multiple>
+            </div>
+          </div>
+
+        </div>
+        <div class="anketa__column anketa__column_right">
+
+          <div id="js-formProfileShopWrapperDocumentBin" class="mb-4">
+            <span class="label d-block">ОГРН</span>
+            <div class="custom-file">
+              <label for="js-formProfileShopInputDocumentBin" class="custom-file-label">
+                PDF, JPEG, максимум 30 МБ
+              </label>
+              <input id="js-formProfileShopInputDocumentBin" class="custom-file-input custom-file-input__multiple" type="file"
+                     accept="application/pdf,image/jpg,image/jpeg" name="document_bin[]" multiple>
+            </div>
+          </div>
+
+          <div id="js-formProfileShopWrapperDocumentStatuteOfCurrentEdition" class="mb-4 hide">
+            <span class="label d-block">Устав действующей редакции</span>
+            <div class="custom-file">
+              <label for="js-formProfileShopInputDocumentStatuteOfCurrentEdition" class="custom-file-label">
+                PDF, JPEG максимум 30 МБ
+              </label>
+              <input id="js-formProfileShopInputDocumentStatuteOfCurrentEdition" class="custom-file-input custom-file-input__multiple" type="file"
+                     accept="application/pdf,image/jpg,image/jpeg" name="document_statute_of_current_edition[]"
+                     multiple>
+            </div>
+          </div>
+
+          <div id="js-formProfileShopWrapperDocumentOrderOnAppointment" class="mb-4 hide">
+            <span class="label d-block">
+              Приказ о назначении единоличного исполнительного органа с подписью и печатью единоличного исполнительного
+              органа
+            </span>
+            <div class="custom-file">
+              <label for="js-formProfileShopInputDocumentOrderOnAppointment" class="custom-file-label">
+                PDF, JPEG максимум 30 МБ
+              </label>
+              <input id="js-formProfileShopInputDocumentOrderOnAppointment" class="custom-file-input custom-file-input__multiple" type="file"
+                     accept="application/pdf,image/jpg,image/jpeg" name="document_order_on_appointment[]" multiple>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <button id="js-formProfileShopBtnSubmit" class="btn btn_primary btn_big" type="submit">Далее</button>
+    </form><!-- anketa-shop -->
+
+    <div
+      class="footer container d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center p-0">
+
+      <div class="footer__logo logo flex-grow-sm-1 d-flex justify-content-sm-start mb-4 mb-sm-0">
+        <img src="{{ abs_url('/assets/front/img/bliss-logotype-txt.png') }}"
+             srcset="{{ abs_url('/assets/front/img/bliss-logotype-txt@2x.png') }} 2x, {{ abs_url('/assets/front/img/bliss-logotype-txt@3x.png') }} 3x"
+             width="152" height="44" alt="">
+      </div><!-- footer__logo -->
+
+      <div class="footer__phone-wrapper d-flex flex-column align-items-center align-items-sm-end">
+        <div class="footer__phone phone d-flex align-items-center justify-content-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+          </div>
+        </div><!-- footer__phone -->
+
+        <p class="footer__phone-hours">{{ work_time }}</p>
+
+        <div class="footer__phone phone d-flex align-items-center justify-content-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+          </div>
+        </div><!-- footer__phone -->
+      </div>
+
+    </div><!-- footer -->
+
+  </div><!-- page-content -->
+
+{% endblock %}

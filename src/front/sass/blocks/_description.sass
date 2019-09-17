@@ -1,0 +1,58 @@
+.description__phone-img,
+.description__laptop-img
+  img
+    width: 100%
+    height: auto
+
+.description__btn
+  margin-top: 33px
+
+.description__first-paragraph
+  margin: 30px 0
+
+.description__first-paragraph,
+.description__second-paragraph
+  margin-top: 20px
+
+@media(min-width: 1200px)
+
+  .description
+    position: relative
+
+  .description__phone-img,
+  .description__laptop-img
+    position: absolute
+    width: 606px
+    height: 359px
+
+    img
+      width: 606px
+      height: 359px
+
+  .description__phone-img
+    left: 560px
+
+  .description__laptop-img
+    right: 560px
+    bottom: 25px
+
+  .description__first-paragraph,
+  .description__second-paragraph
+    width: 541px
+
+  .description__first-paragraph
+    margin-bottom: 150px
+    margin-top: 0
+
+  .description__second-paragraph
+    margin-left: auto
+
+@media(min-width: 1440px)
+
+  .description__phone-img
+    right: -150px
+    left: auto
+
+  .description__laptop-img
+    left: -150px
+    right: auto

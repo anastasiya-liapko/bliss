@@ -1,0 +1,414 @@
+{% extends "base.twig" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+  <div class="fixed-menu"></div>
+  <div class="page container d-flex flex-column p-sm-0">
+
+    <!-- content -->
+    <div class="page-menu__wrapper row justify-cintent-center ml-0 mr-0">
+      <div class="page-menu">
+        <div class="container_desktop pl-0 pr-0">
+          <div class="row align-items-center justify-content-between ml-0 mr-0">
+
+            <div class="page-menu__arrow arrow arrow_mobile">
+              <button class="hamburger hamburger--arrow is-active" type="button">
+                <span class="hamburger-box">
+                  <span class="hamburger-inner"></span>
+                </span>
+              </button>
+            </div>
+
+            <button id="js-pageMenuToggle" class="hamburger hamburger_menu hamburger--elastic">
+              <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+              </span>
+            </button>
+
+            <div class="phone__number phone d-flex d-lg-none align-items-center mr-3 mr-lg-0">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+            </div>
+
+            <ul id="js-pageMenu"
+                class="page-menu__dropdown dropdown dropdown_page dropdown_outer row d-lg-flex flex-nowrap flex-column flex-lg-row align-items-start align-items-lg-center justify-content-start justify-content-lg-between ml-0 mr-0">
+              <div class="page-menu__arrow arrow arrow_desktop">
+                <button class="hamburger hamburger--arrow is-active" type="button">
+                      <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                      </span>
+                </button>
+              </div>
+              <li class="dropdown__item">
+                <a class="dropdown__item-link dropdown-link dropdown-link_top" data-link="about-project">О проекте</a>
+              </li>
+
+              <li class="dropdown__item row ml-0 mr-0">
+                <a
+                  class="dropdown__item-link dropdown-link dropdown-link_top dropdown-link_toggle dropdown-link_toggle-top"
+                  data-link="about-company">О компании</a>
+                <ul class="dropdown__item-list dropdown dropdown_inner">
+                  <li class="dropdown_inner__item">
+                    <a class="dropdown_inner__item-link dropdown-link dropdown-link_top"
+                       data-link="about-company-mission">Миссия</a>
+                  </li>
+                  <li class="dropdown_inner__item">
+                    <a class="dropdown_inner__item-link dropdown-link dropdown-link_top"
+                       data-link="about-company-value">Ценности</a>
+                  </li>
+                  <li class="dropdown_inner__item">
+                    <a class="dropdown_inner__item-link dropdown-link dropdown-link_top" data-link="about-company-news">
+                      Новости</a>
+                  </li>
+                  <li class="dropdown_inner__item">
+                    <a class="dropdown_inner__item-link dropdown-link dropdown-link_top"
+                       data-link="about-company-contacts">Контакты</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="dropdown__item">
+                <a class="dropdown__item-link dropdown-link dropdown-link_pr dropdown-link_top"
+                   data-link="how-to-connect">Как подключиться</a>
+              </li>
+              <li class="dropdown__item row ml-0 mr-0">
+                <a class="dropdown__item-link dropdown-link dropdown-link_top" data-link="about-affiliate-program">
+                  О партнерской программе</a>
+              </li>
+
+              <li class="dropdown__item row ml-0 mr-0">
+                <a
+                  class="dropdown__item-link dropdown-link dropdown-link_top dropdown-link_toggle dropdown-link_toggle-top"
+                  data-link="for-clients">Клиентам</a>
+
+                <ul class="dropdown__item-list dropdown dropdown_inner">
+                  <li class="dropdown_inner__item">
+                    <a class="dropdown_inner__item-link dropdown-link dropdown-link_top" data-link="for-shops">
+                      Интернет магазинам</a>
+                  </li>
+                  <li class="dropdown_inner__item">
+                    <a class="dropdown_inner__item-link dropdown-link dropdown-link_top"
+                       data-link="for-physical-persons">Физическим лицам</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="dropdown__item dropdown__item_user">
+                <a href="{{ abs_url('/admin-shops') }}"
+                   class="dropdown__item-link dropdown-link dropdown-link_no-click dropdown-link_pr">Личный кабинет</a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div><!-- page-menu -->
+
+    </div><!-- page-menu__wrapper -->
+
+    <div id="js-sideMenuPage" class="side-menu__page">
+      <div
+        class="header container d-none d-lg-flex flex-column align-items-center flex-sm-row justify-content-sm-between align-items-sm-center mb-4 mb-sm-0 p-0">
+
+        <div
+          class="header__logo logo d-flex order-2 order-sm-1 flex-grow-1 justify-content-start justify-content-md-center">
+          <img src="{{ abs_url('/assets/front/img/bliss-logotype.png') }}"
+               srcset="{{ abs_url('/assets/front/img/bliss-logotype@2x.png') }} 2x, assets/front/img/bliss-logotype@3x.png 3x"
+               width="89" height="102" alt="">
+        </div><!-- header__logo -->
+
+        <div class="header__phone-wrapper order-1 order-sm-2 d-flex flex-column align-items-center align-items-sm-end">
+          <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+            </div>
+          </div><!-- header__phone -->
+
+          <p class="header__phone-hours">{{ work_time }}</p>
+
+          <div
+            class="header__phone phone order-1 order-sm-2 d-flex align-items-center justify-content-center justify-content-sm-end mb-3 mb-sm-0">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+            </div>
+          </div><!-- header__phone -->
+        </div>
+
+      </div><!-- header -->
+
+      <div class="side-menu container_desktop pl-0 pr-0">
+
+        <div class="side-menu__back"></div>
+        <div class="row flex-column flex-lg-row ml-0 mr-0">
+          <ul id="js-sideMenu"
+              class="side-menu__dropdown dropdown dropdown_side dropdown_outer row d-flex flex-nowrap flex-column align-items-start justify-content-start pr-0">
+            <li class="dropdown__item">
+              <a class="dropdown__item-link dropdown-link" data-link="about-project">О проекте</a>
+            </li>
+            <li class="dropdown__item row ml-0 mr-0">
+              <a class="dropdown__item-link dropdown-link dropdown-link_toggle dropdown-link_toggle-bottom"
+                 data-link="about-company">О компании</a>
+
+              <ul class="dropdown__item-list dropdown dropdown_inner">
+                <li class="dropdown_inner__item">
+                  <a class="dropdown_inner__item-link dropdown-link dropdown-link_side"
+                     data-link="about-company-mission">Миссия</a>
+                </li>
+                <li class="dropdown_inner__item">
+                  <a class="dropdown_inner__item-link dropdown-link dropdown-link_side"
+                     data-link="about-company-value">Ценности</a>
+                </li>
+                <li class="dropdown_inner__item">
+                  <a class="dropdown_inner__item-link dropdown-link dropdown-link_side"
+                     data-link="about-company-news">Новости</a>
+                </li>
+                <li class="dropdown_inner__item">
+                  <a class="dropdown_inner__item-link dropdown-link dropdown-link_side"
+                     data-link="about-company-contacts">Контакты</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="dropdown__item">
+              <a class="dropdown__item-link dropdown-link" data-link="how-to-connect">
+                Как подключиться</a>
+            </li>
+
+            <li class="dropdown__item row ml-0 mr-0">
+              <a class="dropdown__item-link dropdown-link"
+                 data-link="about-affiliate-program">О партнерской программе</a>
+            </li>
+
+            <li class="dropdown__item row ml-0 mr-0">
+              <a class="dropdown__item-link dropdown-link dropdown-link_toggle dropdown-link_toggle-bottom"
+                 data-link="for-clients">Клиентам</a>
+
+              <ul class="dropdown__item-list dropdown dropdown_inner">
+                <li class="dropdown_inner__item">
+                  <a class="dropdown_inner__item-link dropdown-link dropdown-link_side"
+                     data-link="for-shops">Интернет магазинам</a>
+                </li>
+                <li class="dropdown_inner__item">
+                  <a class="dropdown_inner__item-link dropdown-link dropdown-link_side"
+                     data-link="for-physical-persons">Физическим лицам</a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+
+          <p id="js-sideMenuContent" class="side-menu__content text-left pl-3 pr-3 pl-lg-0 pr-lg-0">
+            Мы проводим разработки в сфере развития цифровых финансовых услуг и обеспечения их доступности для населения
+            и бизнеса.
+            Наша цель — сделать покупки Клиента в Интернете максимально удобными и быстрыми.
+            Предоставить простой и быстрый сервис для покупок в кредит в любом интернет-магазине: выглядит как кнопка,
+            оформляется за 5 минут.
+            Минимализм в процессе оформления – только заполнение нескольких полей, никаких бумаг!
+            Скорость — кредитное решение в течение 5 минут, подтверждение покупки по
+            Клиентоориентированность – экономия времени клиента, забота о здоровье
+            Надежность — доступность сервиса 24/7
+            Ценность для бизнеса – доказанная практика повышения эффективности показателей бизнеса.
+            в нашем Проекте появился надежный Партнер — компания Web-банкир — высокотехнологичная, молодая и амбициозная
+            финансовая компания.
+            Теперь наш сервис получил новое качество работы. Вместе — мы сила!
+            Как подключиться
+            Это очень просто: наши технические специалисты свяжутся с Вами, чтобы помочь установить плагин для
+            интеграции сервиса на страницу Вашего Интернет-магазина.
+            Обычно процесс занимает не более 10 минут. Чтобы начать — жми кнопку
+            Партнерская программа
+            Привлекайте новых клиентов — Интернет-магазины и получайте за это деньги — процент от оборота продаж в
+            кредит через систему BLISS-Финанс на постоянной основе.
+            Форма сотрудничества может быть любой:
+            Реферальная ссылка на Вашем сайте;
+            Ваш ID, который заполняет новый клиент при регистрации в нашей системе. Жми кнопку СТАТЬ ПАРТНЕРОМ
+            Аналогия с Тинькофф
+          </p>
+          <!-- </div> -->
+        </div>
+      </div><!-- side-menu -->
+
+      <div
+        class="footer container footer_high d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center p-0">
+
+        <div class="footer__logo logo flex-grow-sm-1 d-flex justify-content-sm-start mb-4 mb-sm-0">
+          <img src="{{ abs_url('/assets/front/img/bliss-logotype-txt.svg') }}"
+               width="152" height="44" alt="">
+        </div><!-- header__logo -->
+
+        <div class="footer__phone-wrapper d-flex flex-column align-items-center align-items-sm-end">
+          <div class="footer__phone phone d-flex align-items-center justify-content-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+            </div>
+          </div><!-- footer__phone -->
+
+          <p class="footer__phone-hours">{{ work_time }}</p>
+
+          <div class="footer__phone phone d-flex align-items-center justify-content-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+            </div>
+          </div><!-- footer__phone -->
+        </div>
+
+      </div><!-- footer -->
+    </div>
+    <!-- content -->
+
+
+    <div class="page__content">
+      <div
+        class="header container d-flex flex-column align-items-center flex-sm-row justify-content-sm-between align-items-sm-center mb-4 mb-sm-0 mt-4 mt-sm-0 p-0">
+
+        <div
+          class="header__logo logo order-2 order-sm-1 flex-grow-1 d-flex justify-content-start justify-content-md-center">
+          <img src="{{ abs_url('/assets/front/img/bliss-logotype.png') }}"
+               srcset="{{ abs_url('/assets/front/img/bliss-logotype@2x.png') }} 2x, assets/front/img/bliss-logotype@3x.png 3x"
+               width="89" height="102" alt="">
+        </div><!-- header__logo -->
+
+        <div class="header__phone-wrapper order-1 order-sm-2 d-flex flex-column align-items-center align-items-sm-end">
+          <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}
+              </a>
+            </div>
+          </div><!-- header__phone -->
+
+          <p class="header__phone-hours">{{ work_time }}</p>
+
+          <div
+            class="header__phone phone order-1 order-sm-2 d-flex align-items-center justify-content-center justify-content-sm-end mb-3 mb-sm-0">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+            </div>
+          </div><!-- header__phone -->
+        </div>
+
+      </div><!-- header -->
+
+      <div class="menu container p-0">
+
+        <h1 class="menu__title title d-flex flex-column align-items-center">
+          <span class="title_bold">Сервис мгновенной выдачи кредитов</span>
+          <span class="title_light">для клиентов вашего интернет-магазина</span>
+        </h1><!-- menu__title -->
+
+        <div class="menu__register register d-flex flex-column align-items-center">
+          <a href="{{ abs_url('/profile-shop') }}"
+             class="btn btn_primary btn_big register__btn mb-4">Зарегистрироваться</a>
+          <a href="{{ abs_url('/admin-shops') }}" class="register__link link link_bold link_uppercase">У меня уже есть
+            аккаунт</a>
+        </div>
+
+        <div
+          class="menu__list list d-flex flex-column  align-items-center flex-sm-row align-items-sm-center justify-content-sm-between">
+
+          <a href="javascript:void(0)"
+             class="list__item check btn btn_primary btn_round d-flex flex-column align-items-center justify-content-center mb-4 mb-sm-0">
+            <span class="icon icon-receipt mb-2 mb-md-4"></span>
+            <span class="name">Увеличение<br> чека</span>
+          </a>
+
+          <a href="javascript:void(0)"
+             class="list__item conversion btn btn_primary btn_round d-flex flex-column align-items-center justify-content-center mb-4 mb-sm-0">
+            <span class="icon icon-conversion mb-2 mb-md-4"></span>
+            <span class="name">Увеличение конверсии</span>
+          </a>
+
+          <a href="javascript:void(0)"
+             class="list__item return btn btn_primary btn_round d-flex flex-column align-items-center justify-content-center">
+            <span class="icon icon-return mb-2 mb-md-4"></span>
+            <span class="name">Снижение возвратов</span>
+          </a>
+
+        </div><!-- menu__list -->
+
+      </div><!-- menu -->
+
+      <div class="description container d-flex flex-column p-0">
+
+        <div class="description__first-paragraph paragraph text-left order-2">
+          <span class="paragraph__title paragraph__title_bigger-font d-block">Для интернет-магазина</span>
+          <div class="paragraph__text d-block">
+            <p>Это бесплатно для Интернет-магазина.</p>
+            <p>Технически просто – Ваш ИТ-специалист устанавливает плагин за 10 минут.</p>
+            <p>Вы экономите на почтовых расходах, отправляя оплаченные посылки, тем самым уменьшая долю посылок с
+              наложенным платежом (разница в тарифах до 40%!).
+            </p>
+            <p>Возможности Клиента для покупок возрастают (Корзина становится более полной, цена покупки возрастает) –
+              растет Ваш средний чек и товарооборот в среднем на 30%.
+            </p>
+            <p>Клиент оформляет кредит на покупку сам, не покидая сайт магазина.</p>
+          </div>
+        </div>
+
+        <div class="description__phone-img order-1">
+          <img src="{{ abs_url('/assets/front/img/bliss-benefits-1.jpg') }}" width="606" height="359" alt="Phone">
+        </div>
+
+        <div class="description__second-paragraph paragraph text-right mt-sm-5 mt-xl-0 order-4">
+          <span class="paragraph__title paragraph__title_bigger-font d-block">Для клиента</span>
+          <div class="paragraph__text d-block">
+            <p>Для оформления кредита не требуется печатать документы, так как процесс оформления полностью
+              безбумажный.
+            </p>
+            <p>Отсутствие звонков из Колл-центра.</p>
+            <p>Клиент получает возможность оформить понятный и доступный кредит за 5 минут, при наличии только паспорта,
+              в любой части России, независимо от места регистрации.
+            </p>
+            <p>Нам важно, чтобы наш Партнер получал качественный сервис, поэтому мы максимально сократили анкету клиента
+              и упростили процесс оформления.
+            </p>
+          </div>
+        </div>
+
+        <div class="description__laptop-img order-3">
+          <img src="{{ abs_url('/assets/front/img/rectangle-2.png') }}"
+               srcset="{{ abs_url('/assets/front/img/rectangle-2@2x.png') }} 2x, {{ abs_url('/assets/front/img/rectangle-2@3x.png') }} 3x"
+               width="606" height="359" alt="Laptop">
+        </div>
+
+      </div><!-- descr -->
+
+      <div
+        class="footer container footer_high d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center p-0">
+
+        <div class="footer__logo logo flex-grow-sm-1 d-flex justify-content-sm-start mb-4 mb-sm-0">
+          <img src="{{ abs_url('/assets/front/img/bliss-logotype-txt.png') }}"
+               srcset="{{ abs_url('/assets/front/img/bliss-logotype-txt@2x.png') }} 2x, {{ abs_url('/assets/front/img/bliss-logotype-txt@3x.png') }} 3x"
+               width="152" height="44" alt="">
+        </div><!-- footer__logo -->
+
+        <div class="footer__phone-wrapper d-flex flex-column align-items-center align-items-sm-end">
+          <div class="footer__phone phone d-flex align-items-center justify-content-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}
+              </a>
+            </div>
+          </div><!-- footer__phone -->
+
+          <p class="footer__phone-hours">{{ work_time }}</p>
+
+          <div class="footer__phone phone d-flex align-items-center justify-content-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+            </div>
+          </div><!-- footer__phone -->
+        </div>
+
+      </div><!-- footer -->
+    </div>
+
+  </div><!-- page-content -->
+
+{% endblock %}

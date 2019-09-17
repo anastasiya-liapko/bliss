@@ -1,0 +1,136 @@
+.input
+  height: 50px
+  font-size: 1rem
+  font-weight: $bold
+  line-height: 1.25
+  letter-spacing: 7.6px
+  text-align: center
+  color: #92979d
+  border-radius: 25px
+  border: solid 1px #dae0e6
+  background-color: #f4f6f8
+
+  &[readonly]
+    background-color: #e9ecef
+
+  &:focus
+    outline: none
+    border-color: #80bdff
+    box-shadow: 0 0 0 0.2rem rgba(128, 189, 255, .5)
+
+  &::placeholder
+    color: #92979d
+
+  &:focus::placeholder
+    color: transparent
+
+  &:disabled
+    color: rgba(28, 29, 30, .5)
+    opacity: 0.7
+
+  &:disabled::placeholder
+    opacity: 0.7
+
+  &::-webkit-inner-spin-button
+    display: none
+
+.input_black
+  padding: 12px 37px
+  font-weight: $regular
+  letter-spacing: normal
+  text-align: left
+  color: #1c1d1e
+
+  &::placeholder
+    color: rgba(28, 29, 30, 0.5)
+
+.label
+  font-size: 1rem
+  font-weight: $regular
+  line-height: normal
+  color: #9b9b9b
+
+.legend
+  font-size: 1.125rem
+  font-weight: $bold
+  line-height: normal
+  color: #000000
+
+.input_error
+  border: 1px solid #f5515f !important
+
+  &:focus
+    box-shadow: 0 0 0 0.2rem rgba(245, 81, 95, 0.5)
+
+.error-text
+  display: inline-block
+  font-size: 1rem
+  font-weight: $regular
+  line-height: normal
+  color: #f5515f
+  padding-top: 10px
+
+.custom-file
+  height: 50px
+
+.custom-file-input
+  position: absolute
+  z-index: -1
+  width: 0
+  height: 0
+
+.custom-file-label
+  position: relative
+  width: 100%
+  height: 50px
+  margin-bottom: 0
+  font-size: 1rem
+  border-radius: 0
+  border: dashed 1px #dae0e6
+  background-color: #f4f6f8
+  padding: 12px 37px 12px 50px
+  font-weight: $regular
+  letter-spacing: normal
+  text-align: left
+  color: rgba(28, 29, 30, 0.5)
+  white-space: nowrap
+  overflow: hidden
+  cursor: pointer
+
+  &::after
+    right: auto
+    left: 0
+    content: '+'
+    height: 100%
+    padding: 12px
+    border-radius: 0
+    border-color: transparent
+
+.custom-file__files-names
+  font-size: 13px
+  color: #9b9b9b
+
+.custom-file__file-name
+  position: relative
+  word-break: break-all
+  margin-bottom: 2px
+  padding-left: 25px
+
+.custom-file__close-btn
+  position: absolute
+  left: 0
+  display: inline-block
+  width: 20px
+  height: 20px
+  margin-right: 5px
+  padding: 0
+  background-color: #ced4da
+  font-weight: 300
+  text-align: center
+  vertical-align: middle
+  user-select: none
+  border: 1px solid transparent
+  border-radius: .25rem
+  line-height: 1.5
+  font-size: 10px
+  cursor: pointer

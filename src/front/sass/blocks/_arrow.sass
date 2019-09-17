@@ -1,0 +1,37 @@
+.arrow
+  width: 0
+  height: 64px
+  margin-left: 5px
+  transition: width 0.5s ease
+  overflow: hidden
+  &:hover .hamburger-box
+	  animation: slide-left 0.5s cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite alternate both
+
+.hamburger--arrow
+  padding-left: 10px
+  padding-right: 0
+
+.arrow_desktop
+  display: none
+
+.arrow.is-active
+  width: 50px
+
+.arrow .hamburger-inner::before,
+.arrow .hamburger-inner::after
+  width: 35px
+  left: 0
+
+.arrow .hamburger-inner::before
+  top: -7px
+
+.arrow .hamburger-inner::after
+  bottom: -7px
+
+@media(min-width: 992px)
+
+  .arrow_desktop
+    display: block
+
+  .arrow_mobile
+    display: none

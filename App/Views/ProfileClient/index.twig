@@ -1,0 +1,399 @@
+{% extends "base.twig" %}
+
+{% block title %}{{ title }} | {{ site_name }}{% endblock %}
+
+{% block body %}
+
+  <div id="js-page" class="page container p-sm-0"
+       {% if ajax.action is defined %}data-ajax-action="{{ ajax.action }}"{% endif %} {% if ajax.timeout is defined %}data-ajax-timeout="{{ ajax.timeout }}"{% endif %}>
+    {% if is_test_mode_enabled == 1 %}
+      <div class="informer">Тестовый режим. Если вы полностью заполните заявку на получение кредита и получите
+        положительный ответ, на самом деле кредит <b>не будет</b> выдан. Деньги не будут переведены на счет магазина.
+      </div>
+    {% endif %}
+    <div
+      class="header container d-flex flex-column align-items-center flex-sm-row justify-content-sm-between align-items-sm-center mb-4 mb-sm-0 mt-3 mt-sm-0 p-0">
+
+      <div
+        class="header__logo logo order-2 order-sm-1 flex-grow-1 d-flex justify-content-start justify-content-md-center">
+        <img src="{{ abs_url('/assets/front/img/bliss-logotype.png') }}"
+             srcset="{{ abs_url('/assets/front/img/bliss-logotype@2x.png') }} 2x, {{ abs_url('/assets/front/img/bliss-logotype@3x.png') }} 3x"
+             width="89" height="102" alt="">
+      </div><!-- header__logo -->
+
+      <div class="header__phone-wrapper order-1 order-sm-2 d-flex flex-column align-items-center align-items-sm-end">
+        <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+          </div>
+        </div><!-- header__phone -->
+
+        <p class="header__phone-hours">{{ work_time }}</p>
+
+        <div
+          class="header__phone phone order-1 order-sm-2 d-flex align-items-center justify-content-center justify-content-sm-end mb-3 mb-sm-0">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+          </div>
+        </div><!-- header__phone -->
+      </div>
+
+    </div><!-- header -->
+
+    <form id="js-formProfileClient"
+          class="anketa anketa-application container d-flex flex-column align-items-center p-0"
+          method="post" action="{{ form_action }}" enctype="multipart/form-data">
+
+      <div class="anketa__title w-100 text-left text-sm-center text-lg-left mb-3">
+        <span class="message__title">Анкета</span>
+      </div>
+
+      <div
+        class="anketa__fieldset d-flex flex-column align-items-center flex-lg-row justify-content-lg-between justify-content-xl-start align-items-lg-start w-100">
+
+        <div class="anketa__column anketa__column_left">
+          <label for="js-formProfileClientInputLastName" class="label d-block">Фамилия</label>
+          <input id="js-formProfileClientInputLastName" class="input input_black w-100" type="text" name="last_name"
+                 placeholder="Иванов"
+                 value="{{ client.last_name }}" required>
+
+          <label for="js-formProfileClientInputFirstName" class="label d-block">Имя</label>
+          <input id="js-formProfileClientInputFirstName" class="input input_black w-100" type="text" name="first_name"
+                 placeholder="Петр"
+                 value="{{ client.first_name }}" required>
+
+          <label for="js-formProfileClientInputMiddleName" class="label d-block">Отчество</label>
+          <input id="js-formProfileClientInputMiddleName" class="input input_black w-100" type="text" name="middle_name"
+                 placeholder="Сергеевич"
+                 value="{{ client.middle_name }}" required>
+
+          <label for="js-formProfileClientInputBirthDate" class="label d-block">Дата рождения</label>
+          <input id="js-formProfileClientInputBirthDate" class="input input_black w-100" type="tel" name="birth_date"
+                 value="{{ client.birth_date is empty ? '' : client.birth_date|date('d.m.Y') }}"
+                 placeholder="дд.мм.гггг" autocomplete="off" required>
+
+          <label for="js-formProfileClientInputBirthPlace" class="label d-block">Место рождения</label>
+          <input id="js-formProfileClientInputBirthPlace" class="input input_black w-100" type="text" name="birth_place"
+                 value="{{ client.birth_place }}"
+                 placeholder="г. Москва" required>
+
+          <label for="js-formProfileClientInputSex" class="label d-block">Пол</label>
+          <select id="js-formProfileClientInputSex" class="input input_black custom-select w-100" name="sex" required>
+            <option value="male" {% if client.sex == 'male' %}selected{% endif %}>Мужской</option>
+            <option value="female" {% if client.sex == 'female' %}selected{% endif %}>Женский</option>
+          </select>
+
+          <label for="js-formProfileClientInputIsLastNameChanged"
+                 class="checkbox-wrapper w-100 text-left text-sm-center text-lg-left mt-5 mb-3">
+            <input id="js-formProfileClientInputIsLastNameChanged" class="checkbox" type="checkbox"
+                   name="is_last_name_changed"
+                   {% if client.is_last_name_changed == 1 %}checked{% endif %}>
+            <span class="checkbox-custom"></span>
+            <span class="checkbox-label checkbox-label_black">Была изменена фамилия</span>
+          </label>
+
+          <div id="js-formProfileClientWrapperPreviousLastName"
+               class="{% if client.is_last_name_changed != 1 %}hide{% endif %}">
+            <label for="js-formProfileClientInputPreviousLastName" class="label d-block">Предыдущая фамилия
+              заемщика</label>
+            <input id="js-formProfileClientInputPreviousLastName" class="input input_black w-100" type="text"
+                   name="previous_last_name" value="{{ client.previous_last_name }}" placeholder="Сидоров" required>
+          </div>
+        </div>
+
+        <div class="anketa__column">
+          <label for="js-formProfileClientInputTin" class="label d-block">ИНН</label>
+          <input id="js-formProfileClientInputTin" class="input input_black w-100" type="tel"
+                 name="tin" placeholder="433443534378" value="{{ client.tin }}" required>
+
+          <label for="js-formProfileClientInputSnils" class="label d-block">СНИЛС</label>
+          <input id="js-formProfileClientInputSnils" class="input input_black w-100" type="tel"
+                 name="snils" placeholder="116-973-386 85" value="{{ client.snils }}" required>
+
+          <label for="js-formProfileClientInputPassportNumber" class="label d-block">Серия и номер паспорта</label>
+          <input id="js-formProfileClientInputPassportNumber" class="input input_black w-100" type="tel"
+                 name="passport_number" placeholder="01 02 343543" value="{{ client.passport_number }}" required>
+
+          <label for="js-formProfileClientInputPassportDivisionCode" class="label d-block">Код подразделения</label>
+          <input id="js-formProfileClientInputPassportDivisionCode" class="input input_black w-100" type="tel"
+                 name="passport_division_code" placeholder="770-001" value="{{ client.passport_division_code }}"
+                 required>
+
+          <label for="js-formProfileClientInputPassportIssuedBy" class="label d-block">Кем выдан паспорт</label>
+          <input id="js-formProfileClientInputPassportIssuedBy" class="input input_black w-100" type="text"
+                 name="passport_issued_by"
+                 placeholder="УВД Тверского района" value="{{ client.passport_issued_by }}" required>
+
+          <label for="js-formProfileClientInputPassportIssuedDate" class="label d-block">Дата выдачи паспорта</label>
+          <input id="js-formProfileClientInputPassportIssuedDate" class="input input_black w-100" type="tel"
+                 name="passport_issued_date" placeholder="дд.мм.гггг"
+                 value="{{ client.passport_issued_date is empty ? '' : client.passport_issued_date|date('d.m.Y') }}"
+                 autocomplete="off" required>
+        </div>
+
+      </div>
+
+      <span class="legend d-block w-100 text-left text-sm-center text-lg-left mb-3 mt-5">Сведения о работе</span>
+
+      <div
+        class="anketa__fieldset d-flex flex-column align-items-center flex-lg-row justify-content-lg-between justify-content-xl-start align-items-lg-start w-100">
+        <div class="anketa__column anketa__column_left">
+          <label for="js-formProfileClientInputWorkplace" class="label d-block">Место работы</label>
+          <input id="js-formProfileClientInputWorkplace" class="input input_black" type="text"
+                 name="workplace" placeholder="ООО Ромашка" value="{{ client.workplace }}" required>
+        </div>
+
+        <div class="anketa__column">
+          <label for="js-formProfileClientInputSalary" class="label d-block">Ежемесячный доход</label>
+          <input id="js-formProfileClientInputSalary" class="input input_black" type="tel"
+                 name="salary" placeholder="15000" value="{{ client.salary }}" required>
+        </div>
+      </div>
+
+      <span class="legend d-block w-100 text-left text-sm-center text-lg-left mb-3 mt-5">Адрес регистрации</span>
+
+      <div
+        class="anketa__fieldset d-flex flex-column align-items-center flex-lg-row justify-content-lg-between justify-content-xl-start align-items-lg-start w-100">
+
+        <div class="anketa__column anketa__column_left">
+          <label for="js-formProfileClientInputRegZipCode" class="label d-block">Почтовый индекс</label>
+          <input id="js-formProfileClientInputRegZipCode" class="input input_black" type="tel"
+                 name="reg_zip_code" placeholder="123123" value="{{ client.reg_zip_code }}" required>
+
+          <label for="js-formProfileClientInputRegCity" class="label d-block">Город</label>
+          <input id="js-formProfileClientInputRegCity" class="input input_black w-100" type="text" name="reg_city"
+                 placeholder="Москва" value="{{ client.reg_city }}" required>
+
+          <label for="js-formProfileClientInputRegStreet" class="label d-block">Улица</label>
+          <input id="js-formProfileClientInputRegStreet" class="input input_black" type="text" name="reg_street"
+                 placeholder="ул. Ленина" value="{{ client.reg_street }}">
+        </div>
+
+        <div class="anketa__column">
+          <label for="js-formProfileClientInputRegBuilding" class="label d-block">Дом и корпус</label>
+          <input id="js-formProfileClientInputRegBuilding" class="input input_black w-100" type="text"
+                 name="reg_building" placeholder="65" value="{{ client.reg_building }}" required>
+
+          <label for="js-formProfileClientInputRegApartment" class="label d-block">Квартира</label>
+          <input id="js-formProfileClientInputRegApartment" class="input input_black" type="tel" name="reg_apartment"
+                 placeholder="12" value="{{ client.reg_apartment }}">
+        </div>
+
+      </div>
+
+      <span
+        class="legend d-block w-100 text-left text-sm-center text-lg-left mb-3 mt-5">Адрес фактического проживания</span>
+
+      <label for="js-formProfileClientInputIsAddressMatched"
+             class="checkbox-wrapper w-100 text-left text-sm-center text-lg-left mb-3">
+        <input id="js-formProfileClientInputIsAddressMatched" class="checkbox" type="checkbox" name="is_address_matched"
+               {% if client.is_address_matched == 1 %}checked{% endif %}>
+        <span class="checkbox-custom"></span>
+        <span class="checkbox-label checkbox-label_black">Совпадает с адресом регистрации</span>
+      </label>
+
+      <div
+        class="anketa__fieldset d-flex flex-column align-items-center flex-lg-row justify-content-lg-between justify-content-xl-start align-items-lg-start w-100">
+
+        <div class="anketa__column anketa__column_left">
+          <label for="js-formProfileClientInputFactZipCode" class="label d-block">Почтовый индекс</label>
+          <input id="js-formProfileClientInputFactZipCode" class="input input_black" type="tel"
+                 name="fact_zip_code" placeholder="123123" value="{{ client.fact_zip_code }}"
+                 {% if client.is_address_matched== 1 %}readonly{% endif %} required>
+
+          <label for="js-formProfileClientInputFactCity" class="label d-block">Город</label>
+          <input id="js-formProfileClientInputFactCity" class="input input_black" type="text" name="fact_city"
+                 placeholder="Москва" value="{{ client.fact_city }}"
+                 {% if client.is_address_matched== 1 %}readonly{% endif %} required>
+
+          <label for="js-formProfileClientInputFactStreet" class="label d-block">Улица</label>
+          <input id="js-formProfileClientInputFactStreet" class="input input_black" type="text" name="fact_street"
+                 placeholder="ул. Ленина" value="{{ client.fact_street }}"
+                 {% if client.is_address_matched== 1 %}readonly{% endif %}>
+        </div>
+
+        <div class="anketa__column">
+          <label for="js-formProfileClientInputFactBuilding" class="label d-block">Дом и корпус</label>
+          <input id="js-formProfileClientInputFactBuilding" class="input input_black" type="text" name="fact_building"
+                 placeholder="65" value="{{ client.fact_building }}"
+                 {% if client.is_address_matched== 1 %}readonly{% endif %} required>
+
+          <label for="js-formProfileClientInputFactApartment" class="label d-block">Квартира</label>
+          <input id="js-formProfileClientInputFactApartment" class="input input_black" type="tel" name="fact_apartment"
+                 placeholder="12" value="{{ client.fact_apartment }}"
+                 {% if client.is_address_matched== 1 %}readonly{% endif %}>
+        </div>
+
+      </div>
+
+      <div
+        class="anketa__fieldset d-flex flex-column align-items-center flex-lg-row justify-content-lg-between justify-content-xl-start align-items-lg-start w-100 mt-5">
+
+        <div class="anketa__column anketa__column_left">
+
+          <div class="anketa__column anketa__column_left">
+            <label for="js-formProfileClientInputEmail" class="label d-block">Email</label>
+            <input id="js-formProfileClientInputEmail" class="input input_black" type="text" name="email"
+                   placeholder="ivanov@gmail.com"
+                   value="{{ client.email }}" required>
+          </div>
+
+          <div class="anketa__column">
+            <div class="anketa__column anketa__column_left">
+              <label for="js-formProfileClientInputPhone" class="label d-block">Телефон</label>
+              <input id="js-formProfileClientInputPhone" class="input input_black" type="tel" name="phone"
+                     value="{{ client.phone }}" required readonly>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="anketa__column">
+
+          <div class="anketa__column anketa__column_left">
+            <label for="js-formProfileClientInputAdditionalPhone" class="label d-block">Дополнительный телефон</label>
+            <input id="js-formProfileClientInputAdditionalPhone" class="input input_black" type="tel"
+                   name="additional_phone" placeholder="+7(900)000-00-00" value="{{ client.additional_phone }}">
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        class="anketa__fieldset d-flex flex-column align-items-center flex-lg-row justify-content-lg-between justify-content-xl-start align-items-lg-start w-100 mt-5">
+
+
+        <div class="anketa__column anketa__column_left">
+          <div id="js-formProfileClientWrapperPhotoPassportMainSpread" class="mb-4">
+            <span class="label d-block">Фотография главного разворота <br>паспорта</span>
+            <div class="custom-file">
+              <label for="js-formProfileClientInputPhotoPassportMainSpread" class="custom-file-label">
+                JPEG, PNG максимум 10 МБ
+              </label>
+              <input id="js-formProfileClientInputPhotoPassportMainSpread" class="custom-file-input" type="file"
+                     accept="image/jpg,image/jpeg,image/png" name="photo_passport_main_spread"
+                     {% if is_photos_required == true %}required{% endif %}>
+            </div>
+          </div>
+        </div>
+
+        <div class="anketa__column">
+          <div id="js-formProfileClientWrapperPhotoClientFaceWithPassportMainSpread" class="mb-4">
+            <span class="label d-block">Фотография лица анфас рядом с главным разворотом паспорта</span>
+            <div class="custom-file">
+              <label for="js-formProfileClientInputPhotoClientFaceWithPassportMainSpread" class="custom-file-label">
+                JPEG, PNG максимум 10 МБ
+              </label>
+              <input id="js-formProfileClientInputPhotoClientFaceWithPassportMainSpread" class="custom-file-input"
+                     type="file"
+                     accept="image/jpg,image/jpeg,image/png" name="photo_client_face_with_passport_main_spread"
+                     {% if is_photos_required == true %}required{% endif %}>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <button id="js-formProfileClientBtnSubmit" class="btn btn_primary btn_big mb-0 mt-5" type="submit">
+        Отправить заявку на кредит
+      </button>
+    </form><!-- anketa -->
+
+    <div
+      class="footer container d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-center p-0">
+
+      <div class="footer__logo logo flex-grow-sm-1 d-flex justify-content-sm-start mb-4 mb-sm-0">
+        <img src="{{ abs_url('/assets/front/img/bliss-logotype-txt.png') }}"
+             srcset="{{ abs_url('/assets/front/img/bliss-logotype-txt@2x.png') }} 2x, {{ abs_url('/assets/front/img/bliss-logotype-txt@3x.png') }} 3x"
+             width="152" height="44" alt="">
+      </div><!-- footer__logo -->
+
+      <div class="footer__phone-wrapper d-flex flex-column align-items-center align-items-sm-end">
+        <div class="footer__phone phone d-flex align-items-center justify-content-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+          </div>
+        </div><!-- footer__phone -->
+
+        <p class="footer__phone-hours">{{ work_time }}</p>
+
+        <div class="footer__phone phone d-flex align-items-center justify-content-end">
+          <div class="phone__number d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <a href="tel:{{ phone_link }}" class="link link_black">{{ phone_number }}</a>
+          </div>
+        </div><!-- footer__phone -->
+      </div>
+
+    </div><!-- footer -->
+
+  </div><!-- page-content -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="js-modalSendRequest" tabindex="-1" role="dialog" aria-hidden="true"
+       data-open="{{ modal_send_request_open }}">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content application-modal">
+
+        <div class="modal-body d-flex flex-column align-items-center">
+
+          <h5 class="modal__title">Заявка отправлена</h5>
+
+          <div class="modal__text text-center mb-4">
+            <p>Рассмотрение продлится некоторое время. Не закрывайте данную страницу.</p>
+          </div>
+
+          <div id="js-profileClientProgressBar" class="progress-bar modal__progress-bar"
+               data-end-after="{{ progressbar_end_after }}">
+            <div class="progress-bar__inner"></div>
+          </div>
+
+          <div class="timer modal__timer">
+            <span class="icon icon-clock d-inline-block align-middle"></span>
+            <span id="js-profileClientTimer" class="d-inline-block align-middle"
+                  data-timer-enable="{{ timer_enable }}"
+                  data-timer-end="{{ timer_end }}"></span>
+          </div>
+
+        </div><!-- modal-body -->
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="js-modalNoResponse" tabindex="-1" role="dialog" aria-hidden="true"
+       data-open="{{ modal_no_response_open }}">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+
+        <div class="modal-body d-flex flex-column align-items-center">
+
+          <h5 class="modal__title">Кредитные организации пока не ответили</h5>
+
+          <div class="modal__text text-center mb-4">
+            <p>Приносим извинения за длительное ожидание. Как только кредитные организации дадут ответ, мы пришлем вам
+              смс, и вы сможете продолжить оформление заказа.</p>
+          </div>
+
+          <div class="modal__btn-container text-center">
+
+            <button type="button" class="btn btn_outline_primary mb-2 js-applicationChangeStatus"
+                    data-action="{{ abs_url('/profile-client/cancel-request') }}">Отказаться от кредита
+            </button>
+            <button type="button" class="btn btn_primary js-applicationChangeStatus"
+                    data-action="{{ abs_url('/profile-client/wait-response') }}">Продолжить рассмотрение заявки
+            </button>
+
+          </div>
+        </div><!-- modal-body -->
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

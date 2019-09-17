@@ -1,0 +1,141 @@
+*
+{
+	font-family: Helvetica;
+}
+
+
+img
+{
+	display:block;
+	margin:0;
+}
+
+
+body, html
+{
+	height:100%;	
+}
+
+
+#authDiv
+{
+    background: none repeat scroll 0 0 #F1F3F2;
+    border: 1px solid #D3D3D3;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    height: 200px;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: -100px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    width: 400px;
+}
+
+#authDiv h2
+{
+	font-size:22px;
+	margin:5px 5px 15px 5px;
+}
+
+#authDiv input[type=text],#authDiv input[type=password]
+{
+   border: 1px solid #D3D3D3;
+    border-radius: 5px;
+    margin: 5px 0;
+    padding: 15px;
+    width: 98%;
+}
+
+
+#authDiv input[type=submit]
+{
+    border: 1px solid #D3D3D3;
+    border-radius: 5px;
+    margin: 10px 8px 0 0;
+    padding: 10px;
+	float:right;
+}
+
+
+#mainTable
+{
+	min-height:500px;
+}
+
+#mainTable td
+{
+	background:#fafafa;
+	min-height:500px;	
+	padding:15px;
+}
+
+#menu a
+{
+	border: 1px solid #E0E0E0;
+    border-radius: 5px;
+    color: #444444;
+    display: block;
+    font-size: 14px;
+    margin: 5px;
+    padding: 5px;
+    text-decoration: none;
+    color:#333;
+}
+
+
+#menu a:hover
+{
+	background: #e0e0e5;	
+}
+
+
+#menu a.active
+{
+	background: #90d0f5;	
+	color:#000;
+}
+.icon {
+	display:inline;
+	margin-right:5px;
+	margin-left:5px;
+}
+td {
+	font-size:12px;
+}
+.pagination {
+	list-style:none;
+}
+.pagination li a{
+	float:left;
+	display:block;
+	padding:5px;
+	background:#f5f5f5;
+	border:1px solid #b2b2b2;
+	color:#333;
+	text-decoration:none;
+	margin-right:5px;
+}
+.pagination li a:hover {
+	background:#fff;
+}
+.pagination li.active a {
+	background:#c80000;
+	color:#fff;
+	border:1px solid #000;
+}
+#mainTable tr.income td, #mainTable tr.notincome td {
+	background:green;
+	color:#fff;
+}
+#mainTable tr.notincome td {
+	background:red;
+}
+.image-radio {
+	float:left;
+	margin:5px;
+}
+span.image-radio input[type="radio"]:checked + img, .active img{
+    border:3px solid green;
+}

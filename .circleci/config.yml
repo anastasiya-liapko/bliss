@@ -1,0 +1,111 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/php:latest
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: rootpw
+          MYSQL_DATABASE: alef
+          MYSQL_USER: alef
+          MYSQL_PASSWORD: alef
+    steps:
+      - run:
+          name: Send Telegram Notification
+          command: |
+            echo $CIRCLE_ARTIFACTS;
+            curl --data-urlencode "parse_mode=HTML" --data-urlencode "chat_id=-1001304189617" --data-urlencode "text=Запускаю автотесты" https://api.telegram.org/bot661216265:AAEXilxn_51FaY4O7NJwq3MS_7MR-dLP0DI/sendMessage
+      - run:
+          name: Install PHP extensions
+          command: |
+            sudo docker-php-ext-install pdo_mysql
+            sudo docker-php-ext-enable pdo_mysql
+            echo -e "error_reporting = E_ALL;
+            display_errors = On;" | sudo tee /usr/local/etc/php/php.ini > /dev/null
+      - checkout
+      - run:
+          name: Install SOAP module
+          command: |
+            sudo rm /etc/apt/preferences.d/no-debian-php
+            sudo apt-get update -yqq
+            sudo apt-get -y install libxml2-dev php-soap
+            sudo docker-php-ext-install soap
+            sudo docker-php-ext-enable soap
+      - run:
+          name: Waiting for MySQL to be ready
+          command: |
+            for i in `seq 1 30`;
+            do
+            nc -z 127.0.0.1 3306 && echo Success && exit 0
+            echo -n .
+            sleep 1
+            done
+            echo Failed waiting for MySQL && exit 1
+      - run:
+          name: Install MySQL CLI
+          command: |
+            sudo apt-get update && sudo apt-get upgrade
+            sudo apt-get install default-mysql-client
+      - run:
+          name: Install Baseline
+          command: |
+            mysql -h 127.0.0.1 -ualef -palef alef < ./.sql/baseline/V1_0__baseline.sql;
+      - run:
+          name: Install Tests SQL scripts
+          command: |
+            for FILE in `ls ./.sql/tests/*.sql | sort -V`; do echo "$FILE"; mysql -h 127.0.0.1 -ualef -palef alef < "$FILE"; done;
+      - run:
+          name: Create db.cfg.php
+          command: |
+            echo "<?php define('DB_HOST', '127.0.0.1'); define('DB_USER', 'alef'); define('DB_PASS', 'alef'); define('DB_NAME', 'alef'); define('DIESEL_SERVER', 'local');" > ./db.cfg.php
+
+      - run:
+          name: Execution rights to phpunit
+          command: chmod +x ./vendor/phpunit/phpunit/phpunit
+      - run:
+          name: Run tests
+          command: |
+            set +e
+            touch coverage-report.txt
+            phpunitres=$(./vendor/phpunit/phpunit/phpunit | tee /dev/tty)
+            echo $? > ./circlecitestexitcode.log
+            echo "$phpunitres" > ./circlecitestresult.log
+            zip -r coverage-report.zip ./coverage-report
+      - store_artifacts:
+          path: coverage-report.zip
+      - store_artifacts:
+          path: coverage-report.txt
+      - run:
+          when: always
+          name: Send results to Telegram
+          command: |
+            phpunitres=$(cat ./circlecitestresult.log)
+            exitcode=$(cat ./circlecitestexitcode.log)
+            echo "phpunitres ${phpunitres}"
+            echo "exitcode ${exitcode}"
+            unlink ./circlecitestresult.log
+            zipurl=$(curl https://circleci.com/api/v1.1/project/bitbucket/alefdevelopment/bliss_web/latest/artifacts?circle-token=bea7b952063f24d366c7a944a24e8021f8617dd6 2>/dev/null | grep coverage-report\.zip | grep url)
+            zipurl="${zipurl//  \"url\" \: \"/}"
+            zipurl="${zipurl//\"/}"
+            zipurl+="?circle-token=bea7b952063f24d366c7a944a24e8021f8617dd6"
+            phpunitres+=$(cat ./coverage-report.txt)
+            phpunitres+=$'\n';
+            phpunitres+=$'\n';
+            phpunitres+="<a href='${zipurl}'>Ссылка на отчет Code Coverage</a>"
+            phpunitres+=$'\n';
+            phpunitres+=$'\n';
+            echo "${phpunitres}"
+            if [ $exitcode -eq 0 ]
+            then
+                phpunitres+="✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅";
+            else
+                phpunitres+="🛑 🛑 🛑 🛑 🛑 🛑 🛑 🛑 🛑 🛑 🛑 🛑 🛑";
+            fi
+            mlen=${#phpunitres}
+            ((mlen--))
+            step=4000
+            for i in `seq 0 ${step} ${mlen}`; do
+                teletext=${phpunitres:$i:${step}}
+            	curl --data-urlencode "parse_mode=HTML" --data-urlencode "chat_id=-1001304189617" --data-urlencode "text=$teletext" https://api.telegram.org/bot661216265:AAEXilxn_51FaY4O7NJwq3MS_7MR-dLP0DI/sendMessage
+            done
+            exit $exitcode

@@ -1,0 +1,250 @@
+.btn-primary,
+.btn-secondary {
+  border-radius: 10px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+  color: #dee2e6;
+}
+
+.table_tr {
+  cursor: pointer;
+}
+
+.table__th {
+  min-width: 110px;
+}
+
+.table__th_sm {
+  min-width: 0;
+}
+
+.table__sort-button {
+  display: inline-flex;
+  flex-direction: column;
+  padding-left: 0;
+}
+
+.table__filter-button {
+  padding-right: 0;
+}
+
+.table__sort-button:hover,
+.table__sort-button:focus,
+.table__filter-button:hover,
+.table__filter-button:focus {
+  text-decoration: none;
+}
+
+.table__sort-button .fas,
+.table__filter-button .fas {
+  color: #dee2e6;
+  font-size: 16px;
+  line-height: 0;
+}
+
+.table__th_sort-down .fa-sort-down {
+  color: #c6273a;
+}
+
+.table__th_sort-up .fa-sort-up {
+  color: #c6273a;
+}
+
+.page-item.active .page-link {
+  background-color: #c6273a;
+  border-color: #c6273a;
+}
+
+.badge-primary {
+  background-color: #c6273a;
+}
+
+.badge_status {
+  max-width: 172px;
+}
+
+.text-wrap {
+  white-space: initial;
+}
+
+.modal-footer {
+  justify-content: center;
+}
+
+.btn-secondary {
+  color: inherit;
+  background-color: #ddd;
+  border-color: #ddd;
+}
+
+.react-datepicker__input-container .form-control {
+  max-width: 94px;
+}
+
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__month-text--keyboard-selected,
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range {
+  background-color: #c6273a;
+}
+
+.react-datepicker__day--keyboard-selected:hover,
+.react-datepicker__month-text--keyboard-selected:hover {
+  background-color: #a21f30;
+}
+
+.react-datepicker__header {
+  background-color: #fff;
+}
+
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle {
+  border-bottom-color: #fff;
+}
+
+body.concept .content {
+  margin-top: 30px;
+}
+
+body.concept .content-header {
+  margin-bottom: 0;
+}
+
+body.concept .content-header h2 {
+  font-size: 30px;
+}
+
+body.concept .page-link,
+body.concept .page-link:hover {
+  color: #c6273a;
+}
+
+body.concept .table thead th {
+  cursor: initial;
+}
+
+body.concept .modal-body {
+  padding: 1rem;
+}
+
+body.concept .form-group label {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  margin: inherit;
+}
+
+body.concept .popover-body {
+  height: initial;
+  background-color: #fff;
+  padding: .5rem .75rem;
+}
+
+body.concept .input-group input,
+body.concept .input-group select {
+  padding: .375rem .75rem;
+}
+
+body.concept .form-group label {
+  margin-bottom: 1rem;
+}
+
+body.concept .content {
+  margin-left: 20px;
+}
+
+body.concept .input-group input,
+body.concept .input-group select {
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  margin-right: initial !important;
+}
+
+body.concept .logout-wrap {
+  display: flex;
+  align-items: center;
+}
+
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.create-order-form__add-button {
+  position: absolute;
+  top: -6px;
+  left: 145px;
+}
+
+.create-order-form__form-control[readonly] {
+  background: none;
+}
+
+.create-order-form__input-group-text {
+  border: none;
+  background: inherit;
+}
+
+.notifier {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #c6273a;
+  border-radius: 50px;
+  color: #c6273a;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.notifier:hover {
+  background-color: #c6273a;
+  color: #fff;
+}
+
+@media (min-width: 992px) {
+  .modal-xl {
+    max-width: 800px;
+  }
+
+  .notifier {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .modal-xl {
+    max-width: 1140px;
+  }
+
+  @supports (position: sticky) {
+    .content-wrap {
+      overflow: initial;
+    }
+
+    body.concept .table_sticky-header .table__th {
+      position: sticky;
+      top: 70px;
+      z-index: 1;
+      padding: 10px;
+      background-color: #fff;
+      outline: 1px solid #f5f5f5;
+    }
+  }
+}
