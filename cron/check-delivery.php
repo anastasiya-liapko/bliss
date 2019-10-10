@@ -20,26 +20,22 @@ set_time_limit(0);
 $orders = \App\Models\Order::getByDeliveryServiceSlug('russian_post');
 
 if (! empty($orders)) {
-    try {
-        $russian_post = new \App\Logistics\RussianPost();
+    $russian_post = new \App\Logistics\RussianPost();
 
-        foreach ($orders as $order) {
-            $item_data = $russian_post->getItemStatus($order['tracking_code']);
+    foreach ($orders as $order) {
+        $item_data = $russian_post->getItemStatus($order['tracking_code']);
 
-            /* @var \App\Models\Request $request */
-            $request   = \App\Models\Request::findByShopIdAndOrderId($order['shop_id'], $order['id']);
-            $crediting = new \App\Crediting($request->getId());
+        /* @var \App\Models\Request $request */
+        $request   = \App\Models\Request::findByShopIdAndOrderId($order['shop_id'], $order['id']);
+        $crediting = new \App\Crediting($request->getId());
 
-            if (isset($item_data['status']) && $item_data['status'] === 'issued') {
-                $crediting->confirmByShop($item_data['date'], $order['delivery_service_id'], $order['tracking_code']);
-            } elseif (isset($item_data['status']) && $item_data['status'] === 'canceled_by_client_upon_receipt') {
-                $crediting->cancelByClientUponReceipt();
-            }
-
-            sleep(1);
+        if (isset($item_data['status']) && $item_data['status'] === 'issued') {
+            $crediting->confirmByShop($item_data['date'], $order['delivery_service_id'], $order['tracking_code']);
+        } elseif (isset($item_data['status']) && $item_data['status'] === 'canceled_by_client_upon_receipt') {
+            $crediting->cancelByClientUponReceipt();
         }
-    } catch (Exception $exception) {
-        // I'm busy doing nothing.
+
+        sleep(1);
     }
 }
 

@@ -9,6 +9,7 @@ use App\Models\RememberedClient;
 use App\PlainRule;
 use App\SiteInfo;
 use App\SMS;
+use App\TelegramClientBot;
 use Core\Controller;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
@@ -54,6 +55,15 @@ class PhoneNumber extends Controller
                 $this->session->getFlashBag()->add('error', $error);
             }
 
+            if (! Config::isDevServer()) {
+                $telegram_client_bot = new TelegramClientBot();
+
+                $telegram_client_bot->clientGetError(
+                    $this->http_request->request->getInt('shop_id'),
+                    $this->errors
+                );
+            }
+
             return $this->redirect($this->getAbsUrl('/error'));
         }
 
@@ -77,6 +87,15 @@ class PhoneNumber extends Controller
         if (! $remembered_client->create()) {
             foreach ($remembered_client->getErrors() as $error) {
                 $this->session->getFlashBag()->add('error', $error);
+            }
+
+            if (! Config::isDevServer()) {
+                $telegram_client_bot = new TelegramClientBot();
+
+                $telegram_client_bot->clientGetError(
+                    $this->http_request->request->getInt('shop_id'),
+                    $remembered_client->getErrors()
+                );
             }
 
             return $this->redirect($this->getAbsUrl('/error'));

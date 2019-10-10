@@ -58,7 +58,8 @@ class Declined extends Controller
                 'declined',
                 $this->remembered_client->getOrderId(),
                 $shop->getSecretKey(),
-                $this->remembered_client->getCallbackUrl()
+                $this->remembered_client->getCallbackUrl(),
+                $shop->getIsOldIntegration()
             ),
             'is_show_credit_history_information' => 0,
         ]);
@@ -117,6 +118,7 @@ class Declined extends Controller
      * @param string $order_id_in_shop The order id in shop.
      * @param string $secret_key The shop secret key.
      * @param string $callback_url The callback url.
+     * @param int $is_old_integration Is the old integration.
      *
      * @return string
      * @throws Exception
@@ -125,13 +127,15 @@ class Declined extends Controller
         string $status,
         string $order_id_in_shop,
         string $secret_key,
-        string $callback_url
+        string $callback_url,
+        int $is_old_integration
     ): string {
         return $this->request->getCallbackUrlWithParameters(
             $status,
             $order_id_in_shop,
             $secret_key,
-            $callback_url
+            $callback_url,
+            $is_old_integration
         );
     }
 

@@ -36,6 +36,21 @@ class ShopTest extends TestCase
     }
 
     /**
+     * Tests the getIsOldIntegration method.
+     *
+     * @return void
+     */
+    public function testGetIsOldIntegration(): void
+    {
+        /** @var Shop|MockObject $stub */
+        $stub = $this->getMockBuilder(Shop::class)
+                     ->setMethods(null)
+                     ->getMock();
+
+        $this->assertEquals(0, $stub->getIsOldIntegration());
+    }
+
+    /**
      * Tests the getOrganizationId method.
      *
      * @return void

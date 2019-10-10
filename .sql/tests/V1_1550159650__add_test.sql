@@ -279,6 +279,11 @@ CREATE TABLE db_migrations
 ) ENGINE = INNODB
   DEFAULT CHARSET = utf8 COMMENT 'миграции базы данных';
 
+/* V1_1566818961__add_column_for_shop */
+
+ALTER TABLE shops
+    ADD COLUMN is_old_integration TINYINT(1) UNSIGNED DEFAULT 0 COMMENT 'старая ли интеграция';
+
 /* admins */
 INSERT INTO admins (id, name, email, password_hash, role)
 VALUES (1, 'Супер администратор', 'admin@bliss24.ru', 'de65262646860a5aba74c271718c2f32', 'super_admin');

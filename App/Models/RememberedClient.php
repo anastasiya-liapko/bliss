@@ -700,17 +700,54 @@ class RememberedClient extends Model
             return;
         }
 
-        if ($this->signature !== hash('sha256', $this->shop_id . $this->order_id . $this->order_price
-                . $this->callback_url . $this->is_loan_postponed . $this->goods . $this->is_test_mode_enabled
-                . $shop->getSecretKey())) {
-            $this->errors[] = 'Неверная подпись магазина.';
+        $signature = Request::createRequestSignature(
+            $this->shop_id,
+            $this->order_id,
+            $this->order_price,
+            $this->goods,
+            $this->callback_url,
+            $this->is_loan_postponed,
+            $this->is_test_mode_enabled,
+            $shop->getSecretKey()
+        );
 
-            return;
+        // TODO remove it after update all shops.
+        $is_old_integration = $shop->getIsOldIntegration();
+
+        // TODO remove it after update all shops.
+        if ($is_old_integration) {
+            // @codeCoverageIgnoreStart
+            $signature_old = Request::createOldRequestSignature(
+                $this->shop_id,
+                $this->order_id,
+                $this->order_price,
+                $this->callback_url,
+                $this->is_loan_postponed,
+                $this->goods,
+                $this->is_test_mode_enabled,
+                $shop->getSecretKey()
+            );
+
+            if ($this->signature !== $signature && $this->signature !== $signature_old) {
+                $this->errors[] = 'Неверная подпись магазина.';
+
+                return;
+            }
+
+            // TODO remove it after update all shops.
+            if (Helper::isSerialized($this->goods)) {
+                $this->goods = $this->oldGetSerializedGoods();
+            }
+            // @codeCoverageIgnoreEnd
         }
 
-        // TODO remove it after update all plugins.
-        if (Helper::isSerialized($this->goods)) {
-            $this->goods = $this->oldGetSerializedGoods(); // @codeCoverageIgnore
+        // TODO refactor it after update all shops.
+        if (! $is_old_integration) {
+            if ($this->signature !== $signature) {
+                $this->errors[] = 'Неверная подпись магазина.';
+
+                return;
+            }
         }
 
         $goods_array = json_decode($this->goods, true);
@@ -799,9 +836,9 @@ class RememberedClient extends Model
      *
      * @codeCoverageIgnore
      *
-     * TODO delete it after update all plugins.
-     *
      * @return string
+     * @todo delete it after update all plugins.
+     *
      */
     private function oldGetSerializedGoods(): string
     {

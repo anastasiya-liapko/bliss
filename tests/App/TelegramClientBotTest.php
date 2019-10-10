@@ -16,6 +16,26 @@ use PHPUnit\Framework\TestCase;
 class TelegramClientBotTest extends TestCase
 {
     /**
+     * Tests the clientGetError method.
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function testClientGetError(): void
+    {
+        $mock = new MockHandler([
+            new Response(200, [], '{"ok":true,"result":{}}'),
+        ]);
+
+        $handler = HandlerStack::create($mock);
+
+        $telegram_client_bot = new TelegramClientBot($handler);
+        $telegram_client_bot->clientGetError(1, ['Ошибка']);
+
+        $this->assertTrue(true);
+    }
+
+    /**
      * Tests the clientCanceledLoanUponReceipt method.
      *
      * @return void
@@ -24,7 +44,6 @@ class TelegramClientBotTest extends TestCase
     public function testClientCanceledLoanUponReceipt(): void
     {
         $mock = new MockHandler([
-            new Response(200, [], '{"ok":true,"result":{}}'),
             new Response(200, [], '{"ok":true,"result":{}}'),
         ]);
 
@@ -52,7 +71,6 @@ class TelegramClientBotTest extends TestCase
     {
         $mock = new MockHandler([
             new Response(200, [], '{"ok":true,"result":{}}'),
-            new Response(200, [], '{"ok":true,"result":{}}'),
         ]);
 
         $handler = HandlerStack::create($mock);
@@ -78,7 +96,6 @@ class TelegramClientBotTest extends TestCase
     public function testClientWaitingForLimit(): void
     {
         $mock = new MockHandler([
-            new Response(200, [], '{"ok":true,"result":{}}'),
             new Response(200, [], '{"ok":true,"result":{}}'),
         ]);
 
@@ -106,7 +123,6 @@ class TelegramClientBotTest extends TestCase
     {
         $mock = new MockHandler([
             new Response(200, [], '{"ok":true,"result":{}}'),
-            new Response(200, [], '{"ok":true,"result":{}}'),
         ]);
 
         $handler = HandlerStack::create($mock);
@@ -132,7 +148,6 @@ class TelegramClientBotTest extends TestCase
     public function testClientCreatedRequest(): void
     {
         $mock = new MockHandler([
-            new Response(200, [], '{"ok":true,"result":{}}'),
             new Response(200, [], '{"ok":true,"result":{}}'),
         ]);
 
@@ -160,7 +175,6 @@ class TelegramClientBotTest extends TestCase
     public function testClientConfirmedPhoneNumber(): void
     {
         $mock = new MockHandler([
-            new Response(200, [], '{"ok":true,"result":{}}'),
             new Response(200, [], '{"ok":true,"result":{}}'),
         ]);
 

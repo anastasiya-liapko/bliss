@@ -65,6 +65,13 @@ class Shop extends Model
     private $organization_id;
 
     /**
+     * Is the old integration.
+     *
+     * @var int
+     */
+    private $is_old_integration = 0;
+
+    /**
      * The Shop constructor.
      *
      * @param array $data (optional) Initial property values.
@@ -228,6 +235,16 @@ class Shop extends Model
     public function getOrganizationId(): ?int
     {
         return $this->organization_id;
+    }
+
+    /**
+     * Gets is the old integration.
+     *
+     * @return int
+     */
+    public function getIsOldIntegration(): int
+    {
+        return $this->is_old_integration;
     }
 
     /**

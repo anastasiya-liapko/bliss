@@ -33,7 +33,6 @@ class Form {
     }
 
     $.ajax({
-      cache: false,
       data,
       dataType: 'json',
       processData,

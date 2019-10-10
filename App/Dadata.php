@@ -77,14 +77,14 @@ class Dadata
     }
 
     /**
-     * Cleans the address.
+     * Gets the address info.
      *
      * @param string $address The address
      *
-     * @return mixed
+     * @return array|false
      * @throws Exception
      */
-    public function cleanAddress(string $address)
+    public function getAddressInfo(string $address)
     {
         try {
             $response = $this->http_client->post('clean/address', [
@@ -99,15 +99,30 @@ class Dadata
             if ($response->getStatusCode() === 200) {
                 $stream = $response->getBody();
                 $stream->rewind();
-                $result = json_decode($stream->getContents());
+                $result = json_decode($stream->getContents(), true);
 
-                return $result[0]->result;
+                return $result[0];
             }
         } catch (Exception $exception) {
             $this->sendAlarmByTelegramBot($exception);
         }
 
         return false;
+    }
+
+    /**
+     * Cleans the address.
+     *
+     * @param string $address The address.
+     *
+     * @return string|false
+     * @throws Exception
+     */
+    public function cleanAddress(string $address)
+    {
+        $address_info = $this->getAddressInfo($address);
+
+        return $address_info['result'] ?? false;
     }
 
     /**

@@ -17,28 +17,15 @@ set_time_limit(0);
 /**
  * Deletes expired clients records.
  */
-try {
-    \App\Models\RememberedClient::deleteExpiredRecords();
-} catch (Exception $exception) {
-    // I'm busy doing nothing.
-}
-
+\App\Models\RememberedClient::deleteExpiredRecords();
 /**
  * Deletes expired shops tokens records.
  */
-try {
-    \App\Models\ShopToken::deleteExpiredRecords();
-} catch (Exception $exception) {
-    // I'm busy doing nothing.
-}
+\App\Models\ShopToken::deleteExpiredRecords();
 
 /**
  * Deletes expired locked phone records.
  */
-try {
-    \App\Models\LockedPhone::deleteExpiredRecords();
-} catch (Exception $exception) {
-    // I'm busy doing nothing.
-}
+\App\Models\LockedPhone::deleteExpiredRecords();
 
 die();

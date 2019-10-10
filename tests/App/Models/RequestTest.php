@@ -245,26 +245,33 @@ class RequestTest extends TestCase
         $stub->method('getId')
              ->willReturn(1);
 
-        $signature = hash('sha256', 1 . 1 . 'canceled' . 1 . 'FMNDesQ58G8y4O8bgGPvsEGFPwEe8Gdj');
+        $signature_template = 'order_id=1&request_id=1&status=canceled&is_test_mode_enabled=1'
+            . '&secret_key=FMNDesQ58G8y4O8bgGPvsEGFPwEe8Gdj';
+        $signature          = hash('sha256', $signature_template);
 
-        $expected = "http://example.ru?order_id=1&request_id=1&status=canceled"
-            . "&is_test_mode_enabled=1&signature={$signature}";
+        $expected = "http://example.ru?order_id=1&request_id=1&status=canceled&is_test_mode_enabled=1"
+            . "&signature={$signature}";
 
         $this->assertEquals($expected, $stub->getCallbackUrlWithParameters(
             'canceled',
             1,
             'FMNDesQ58G8y4O8bgGPvsEGFPwEe8Gdj',
-            'http://example.ru'
+            'http://example.ru',
+            0
         ));
 
-        $expected = "http://example.ru?test=1&order_id=1&request_id=1&status=canceled"
-            . "&is_test_mode_enabled=1&signature={$signature}";
+        $signature_template = '11canceled1FMNDesQ58G8y4O8bgGPvsEGFPwEe8Gdj';
+        $signature          = hash('sha256', $signature_template);
+
+        $expected = "http://example.ru?test=1&order_id=1&request_id=1&status=canceled&is_test_mode_enabled=1"
+            . "&signature={$signature}";
 
         $this->assertEquals($expected, $stub->getCallbackUrlWithParameters(
             'canceled',
             1,
             'FMNDesQ58G8y4O8bgGPvsEGFPwEe8Gdj',
-            'http://example.ru?test=1'
+            'http://example.ru?test=1',
+            1
         ));
     }
 
@@ -414,6 +421,76 @@ class RequestTest extends TestCase
         $this->assertFalse($request_repeat->create(), 'Attempt to create an existing requisition');
 
         return $request;
+    }
+
+    /**
+     * Tests the createOldRequestSignature method.
+     *
+     * @return void
+     */
+    public function testCreateOldRequestSignature()
+    {
+        $shop_id              = 1;
+        $order_id             = 1;
+        $order_price          = 3000;
+        $goods                = '[{"name":"\u041d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Sony","price":3200,'
+            . '"quantity":1,"is_returnable":1}]';
+        $callback_url         = 'https://example.com';
+        $is_loan_postponed    = 1;
+        $is_test_mode_enabled = 1;
+        $secret_key           = 'FMNDesQ58G8y4O8bgGPvsEGFPwEe8Gdj';
+
+        $expected = hash('sha256', $shop_id . $order_id . $order_price . $callback_url
+            . $is_loan_postponed . $goods . $is_test_mode_enabled . $secret_key);
+
+        $this->assertEquals($expected, Request::createOldRequestSignature(
+            $shop_id,
+            $order_id,
+            $order_price,
+            $callback_url,
+            $is_loan_postponed,
+            $goods,
+            $is_test_mode_enabled,
+            $secret_key
+        ));
+    }
+
+    /**
+     * Tests the createRequestSignature method.
+     *
+     * @return void
+     */
+    public function testCreateRequestSignature()
+    {
+        $shop_id              = 1;
+        $order_id             = 1;
+        $order_price          = 3000;
+        $goods                = '[{"name":"\u041d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Sony","price":3200,'
+            . '"quantity":1,"is_returnable":1}]';
+        $callback_url         = 'https://example.com';
+        $is_loan_postponed    = 1;
+        $is_test_mode_enabled = 1;
+        $secret_key           = 'FMNDesQ58G8y4O8bgGPvsEGFPwEe8Gdj';
+
+        $expected = hash('sha256', 'shop_id=' . $shop_id
+            . '&order_id=' . $order_id
+            . '&order_price=' . $order_price
+            . '&goods=' . $goods
+            . '&callback_url=' . $callback_url
+            . '&is_loan_postponed=' . $is_loan_postponed
+            . '&is_test_mode_enabled=' . $is_test_mode_enabled
+            . '&secret_key=' . $secret_key);
+
+        $this->assertEquals($expected, Request::createRequestSignature(
+            $shop_id,
+            $order_id,
+            $order_price,
+            $goods,
+            $callback_url,
+            $is_loan_postponed,
+            $is_test_mode_enabled,
+            $secret_key
+        ));
     }
 
     /**

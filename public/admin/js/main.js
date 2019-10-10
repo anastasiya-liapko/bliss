@@ -423,10 +423,24 @@ function initPresentationSwitch()
 
 }
 
+
+
+function initMenuSearch()
+{
+
+	$(document).on('input', '.search-field', function(event)
+	{
+    	showMenuContents($(this).val());
+	});
+
+
+}
+
 $(document).ready(function()
 {
 	initSiema();
 	initPresentationSwitch();
+	initMenuSearch();
 
 	$(document).on('click', '.js-extra-filters', function()
 	{
@@ -1550,6 +1564,63 @@ function initAjaxSelectField()
 	});
 
 }
+
+function getElementsByXPath(xpath, parent) {
+    var results = [];
+    var query = document.evaluate(xpath, parent || document,
+        null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+    for (var i = 0, length = query.snapshotLength; i < length; ++i) {
+        results.push(query.snapshotItem(i));
+    }
+    return results;
+}
+
+function showMenuContents(txt) {
+    var search_text = txt.trim().toLowerCase();
+    var group_for_open = [];
+
+    //скроем все группы меню
+    var all_submenu = getElementsByXPath("//ul[@class='submenu']");
+    for (var n = 0; n < all_submenu.length; n++) {
+        all_submenu[n].style.display = 'none';
+    }
+
+    //найдем все элементы
+    var all_elements = getElementsByXPath("//li/a");
+
+    for (var n = 0; n < all_elements.length; n++) {
+        item = all_elements[n];
+        item_text = item.text.toLowerCase();
+        if (item_text.indexOf(search_text) >= 0) {
+            parent = item.parentElement.parentElement;
+            if (item.className.indexOf('submenu-caption') >= 0) {
+                //это заголовок группы, нужно сохранить подгруппу
+                group_for_open.push(item.parentElement.nextElementSibling);
+                caret = item.querySelector('i');
+                caret.classList.add('open-caret');
+            } else if (parent.className.indexOf('submenu') >= 0) {
+                //это группа, нужно раскрыть заголовок
+                parent.previousElementSibling.style.display = '';
+                parent.style.display = '';
+                caret = parent.previousElementSibling.querySelector('a > i');
+                caret.classList.add('open-caret');
+            }
+            item.parentElement.style.display = '';
+        } else {
+            item.parentElement.style.display = 'none';
+        }
+    }
+
+    //возмем все сохраненные подгруппы, и развернем их
+    for (var n = 0; n < group_for_open.length; n++) {
+        var item = group_for_open[n];
+        item.style.display = '';
+        for (var i = 0; i < item.childElementCount; i++) {
+            item.childNodes[i].style.display = '';
+        }
+    }
+}
+
 
 $('input[name="phone"]').inputmask('+7(999)999-99-99');
 $('input[name="snils"]').inputmask('999-999-999 99');

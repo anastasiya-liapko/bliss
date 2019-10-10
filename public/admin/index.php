@@ -72,6 +72,7 @@ function processMenu($html)
 	   }
 	   ob_start();
 	   $df = fopen("php://output", 'w');
+	   fprintf($df, chr(0xEF).chr(0xBB).chr(0xBF));
 	   fputcsv($df, array_keys($array[0]));
 	   foreach ($array as $row)
 	   {
@@ -141,6 +142,7 @@ $next_order['email']='asc';
 $next_order['is_activated']='asc';
 $next_order['secret_key']='asc';
 $next_order['']='asc';
+$next_order['is_old_integration']='asc';
 
 		if($_REQUEST['sort_order']=='asc')
 		{
@@ -329,6 +331,20 @@ $next_order['']='asc';
 
 			<div class="genesis-header-property">
 				   <a href=\'?'.get_query().'&srch-term='.$_REQUEST['srch-term'].'&sort_by=&sort_order='. ($next_order['']) .'\' class=\'sort\' column=\'\' sort_order=\''.$sort_order[''].'\'>Заказы'. $sort_icon[''].'</a>
+			</div>
+
+			<div class="genesis-header-property">
+				<nobr>
+					<a href=\'?'.get_query().'&srch-term='.$_REQUEST['srch-term'].'&sort_by=is_old_integration&sort_order='. ($next_order['is_old_integration']) .'\' class=\'sort\' column=\'is_old_integration\' sort_order=\''.$sort_order['is_old_integration'].'\'>Старая интеграция'. $sort_icon['is_old_integration'].'</a>
+					
+      <span class=\'fa fa-filter filter btn btn-default\' data-placement=\'bottom\' data-content=\'<div class="input-group text-center">
+              <input type="checkbox" class="filter-checkbox" name="is_old_integration_filter">
+              <span class="input-group-btn">
+                <button class="btn btn-primary add-filter" type="button"><span class="fa fa-filter"></a></button>
+              </span>
+            </div>\'>
+      </span>
+				</nobr>
 			</div>
 					<div class="genesis-header-property"></div>
 				</div>
@@ -540,6 +556,31 @@ $next_order['']='asc';
  		</div>';
 })($item))."
 	</div>")."
+".(function_exists("processTD")?processTD("<div class='genesis-item-property '>
+		<span class='genesis-attached-column-info'>
+			<span class='buttons-panel'>".'<a href=\'?'.get_query().'&srch-term='.$_REQUEST['srch-term'].'&sort_by=is_old_integration&sort_order='. ($next_order['is_old_integration']) .'\' class=\'sort\' column=\'is_old_integration\' sort_order=\''.$sort_order['is_old_integration'].'\'>'. (str_replace('style="margin-left:5px;"','',$sort_icon['is_old_integration'] ?? '<span class="fa fa-sort"></span>')).'</a>'."
+      <span class='fa fa-filter filter ' data-placement='bottom' data-content='<div class=\"input-group text-center\">
+              <input type=\"checkbox\" class=\"filter-checkbox\" name=\"is_old_integration_filter\">
+              <span class=\"input-group-btn\">
+                <button class=\"btn btn-primary add-filter\" type=\"button\"><span class=\"fa fa-filter\"></a></button>
+              </span>
+            </div>'>
+      </span></span>
+			<span class='genesis-attached-column-name'>Старая интеграция:</span>
+		</span>
+		<div class='checkbox-container'><input  data-url='engine/ajax.php?action=editable&table=shops' data-pk='{$item['id']}' data-name='is_old_integration' type='checkbox'".($item['is_old_integration']==1?" checked ":" ")." class='ajax-checkbox'></div></div>", $item, "Старая интеграция"):"<div class='genesis-item-property '>
+		<span class='genesis-attached-column-info'>
+			<span class='buttons-panel'>".'<a href=\'?'.get_query().'&srch-term='.$_REQUEST['srch-term'].'&sort_by=is_old_integration&sort_order='. ($next_order['is_old_integration']) .'\' class=\'sort\' column=\'is_old_integration\' sort_order=\''.$sort_order['is_old_integration'].'\'>'. (str_replace('style="margin-left:5px;"','',$sort_icon['is_old_integration'] ?? '<span class="fa fa-sort"></span>')).'</a>'."
+      <span class='fa fa-filter filter ' data-placement='bottom' data-content='<div class=\"input-group text-center\">
+              <input type=\"checkbox\" class=\"filter-checkbox\" name=\"is_old_integration_filter\">
+              <span class=\"input-group-btn\">
+                <button class=\"btn btn-primary add-filter\" type=\"button\"><span class=\"fa fa-filter\"></a></button>
+              </span>
+            </div>'>
+      </span></span>
+			<span class='genesis-attached-column-name'>Старая интеграция:</span>
+		</span>
+		<div class='checkbox-container'><input  data-url='engine/ajax.php?action=editable&table=shops' data-pk='{$item['id']}' data-name='is_old_integration' type='checkbox'".($item['is_old_integration']==1?" checked ":" ")." class='ajax-checkbox'></div></div>")."
 					<div class='genesis-control-cell'><a href='#' class='edit_btn'><i class='fa fa-edit' style='color:grey;'></i></a> <a href='#' class='delete_btn'><i class='fa fa-trash' style='color:red;'></i></a></div>
 				</div>";
 
@@ -682,6 +723,16 @@ $connected_mfi_values = q('SELECT t.id, REPLACE(t.name, "\"", "&quot;") as nm, 1
 		</div>
 
 	
+
+
+						<div class="form-group">
+							<label class="control-label" for="textinput">Старая интеграция</label>
+							<div>
+								<input id="is_old_integration" name="is_old_integration" class=""  type="checkbox"  value="1" '.($item["is_old_integration"]==1?"checked":"").'>
+							</div>
+						</div>
+
+					
 					<div class="text-center not-editable">
 						
 					</div>
@@ -887,6 +938,16 @@ $connected_mfi_values = q('SELECT t.id, REPLACE(t.name, "\"", "&quot;") as nm, 1
 
 	
 
+
+						<div class="form-group">
+							<label class="control-label" for="textinput">Старая интеграция</label>
+							<div>
+								<input id="is_old_integration" name="is_old_integration" class=""  type="checkbox"  value="1" '.($item["is_old_integration"]==1?"checked":"").'>
+							</div>
+						</div>
+
+					
+
 				</fieldset>
 				<div>
 					<a href="?'.(http_build_query(array_filter($_REQUEST, function($k){return !in_array($k, ['action', 'genesis_edit_id']);}, ARRAY_FILTER_USE_KEY))).'" class="btn cancel" >Закрыть</a>
@@ -1028,6 +1089,7 @@ $set[] = is_null($_REQUEST['name'])?"`name`=NULL":"`name`='".addslashes($_REQUES
 $set[] = is_null($_REQUEST['email'])?"`email`=NULL":"`email`='".addslashes($_REQUEST['email'])."'";
 $set[] = is_null($_REQUEST['is_activated'])?"`is_activated`=NULL":"`is_activated`='".addslashes($_REQUEST['is_activated'])."'";
 $set[] = is_null($_REQUEST['secret_key'])?"`secret_key`=NULL":"`secret_key`='".addslashes($_REQUEST['secret_key'])."'";
+$set[] = is_null($_REQUEST['is_old_integration'])?"`is_old_integration`=NULL":"`is_old_integration`='".addslashes($_REQUEST['is_old_integration'])."'";
 
 			if(count($set)>0)
 			{
@@ -1122,6 +1184,12 @@ if(isset2($_REQUEST['is_activated_filter']))
 }
     
 
+if(isset2($_REQUEST['is_old_integration_filter']))
+{
+  $filters[] = "`is_old_integration` = '{$_REQUEST['is_old_integration_filter']}'";
+}
+    
+
 		$filter="";
 		if(count($filters)>0)
 		{
@@ -1209,6 +1277,19 @@ if(isset2($_REQUEST['is_activated_filter']))
   <div class='filter-tag'>
       <input type='hidden' class='filter' name='is_activated_filter' value='{$_REQUEST['is_activated_filter']}'>
        <span class='fa fa-times remove-tag'></span> Активен: <b>".($_REQUEST['is_activated_filter']?"Вкл":"Выкл")."</b>
+  </div>";
+
+  $filter_caption = "Фильтры: ";
+}
+
+
+
+if(isset2($_REQUEST['is_old_integration_filter']))
+{
+  $filter_divs .= "
+  <div class='filter-tag'>
+      <input type='hidden' class='filter' name='is_old_integration_filter' value='{$_REQUEST['is_old_integration_filter']}'>
+       <span class='fa fa-times remove-tag'></span> Старая интеграция: <b>".($_REQUEST['is_old_integration_filter']?"Вкл":"Выкл")."</b>
   </div>";
 
   $filter_caption = "Фильтры: ";

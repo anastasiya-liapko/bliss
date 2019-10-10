@@ -237,6 +237,9 @@
 
 	$auth_google = 0; 
 
+	$menu_search_field = 0; 
+
+
 
 	$vk_client_id = '7072037'; 
 
@@ -270,4 +273,4 @@
 
 	$tinypng_key = ''; 
 
-	$generation_date = '2019-08-09'; 
+	$generation_date = '2019-08-26'; 

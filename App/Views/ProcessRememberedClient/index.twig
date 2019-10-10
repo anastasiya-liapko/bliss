@@ -16,14 +16,19 @@
       </div><!-- header__logo -->
 
       <div class="header__phone-wrapper order-1 order-sm-2 d-flex flex-column align-items-center align-items-sm-end">
-        <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
-          <div class="phone__number d-flex align-items-center">
-            <span class="icon icon-phone"></span>
-            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
-          </div>
-        </div><!-- header__phone -->
 
-        <p class="header__phone-hours">{{ work_time }}</p>
+        {% if second_phone_number %}
+          <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+            </div>
+          </div><!-- header__phone -->
+        {% endif %}
+
+        {% if second_phone_number and work_time %}
+          <p class="header__phone-hours">{{ work_time }}</p>
+        {% endif %}
 
         <div
           class="header__phone phone order-1 order-sm-2 d-flex align-items-center justify-content-center justify-content-sm-end mb-3 mb-sm-0">
@@ -44,9 +49,9 @@
         <span class="done__text message__text text-center mt-3 mb-3">{{ message }}</span>
 
         <script type="text/javascript">
-          setTimeout(function () {
-            window.location.replace('{{ redirect_link }}');
-          }, 3000);
+            setTimeout(function () {
+                window.location.replace('{{ redirect_link }}');
+            }, 3000);
         </script>
       </div>
 
@@ -62,14 +67,19 @@
       </div><!-- footer__logo -->
 
       <div class="footer__phone-wrapper d-flex flex-column align-items-center align-items-sm-end">
-        <div class="footer__phone phone d-flex align-items-center justify-content-end">
-          <div class="phone__number d-flex align-items-center">
-            <span class="icon icon-phone"></span>
-            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
-          </div>
-        </div><!-- footer__phone -->
 
-        <p class="footer__phone-hours">{{ work_time }}</p>
+        {% if second_phone_number %}
+          <div class="footer__phone phone d-flex align-items-center justify-content-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+            </div>
+          </div><!-- footer__phone -->
+        {% endif %}
+
+        {% if second_phone_number and work_time %}
+          <p class="footer__phone-hours">{{ work_time }}</p>
+        {% endif %}
 
         <div class="footer__phone phone d-flex align-items-center justify-content-end">
           <div class="phone__number d-flex align-items-center">

@@ -401,12 +401,12 @@ class RememberedClientTest extends TestCase
             'shop_id'              => 1,
             'order_id'             => 9,
             'order_price'          => 3000,
-            'callback_url'         => rawurlencode('http://example.ru'),
+            'callback_url'         => 'http://example.ru',
             'is_loan_postponed'    => 0,
             'goods'                => '[{"name":"\u041d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Sony",'
                 . '"price":3200,"quantity":1,"is_returnable":1}]',
             'is_test_mode_enabled' => 0,
-            'signature'            => '1fe45011cf0950216dfbeec717fba3448b077ab2158c4bf7af816ea4669d7bc2',
+            'signature'            => 'cf09699817300379694ab3e77670f3a07e01310ce1508885abe5263532c2bdab',
         ]);
 
         for ($i = 0; $i < 3; $i++) {
@@ -429,12 +429,12 @@ class RememberedClientTest extends TestCase
             'shop_id'              => 1,
             'order_id'             => 9,
             'order_price'          => 3000,
-            'callback_url'         => rawurlencode('http://example.ru'),
+            'callback_url'         => 'http://example.ru',
             'is_loan_postponed'    => 0,
             'goods'                => '[{"name":"\u041d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Sony",'
                 . '"price":3200,"quantity":1,"is_returnable":1}]',
             'is_test_mode_enabled' => 0,
-            'signature'            => '1fe45011cf0950216dfbeec717fba3448b077ab2158c4bf7af816ea4669d7bc2',
+            'signature'            => 'cf09699817300379694ab3e77670f3a07e01310ce1508885abe5263532c2bdab',
         ]);
 
         $remembered_client->create();
@@ -455,12 +455,12 @@ class RememberedClientTest extends TestCase
             'shop_id'              => 1,
             'order_id'             => 9,
             'order_price'          => 3000,
-            'callback_url'         => rawurlencode('http://example.ru'),
+            'callback_url'         => 'http://example.ru',
             'is_loan_postponed'    => 0,
             'goods'                => '[{"name":"\u041d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Sony",'
                 . '"price":3200,"quantity":1,"is_returnable":1}]',
             'is_test_mode_enabled' => 0,
-            'signature'            => '1fe45011cf0950216dfbeec717fba3448b077ab2158c4bf7af816ea4669d7bc2',
+            'signature'            => 'cf09699817300379694ab3e77670f3a07e01310ce1508885abe5263532c2bdab',
         ]);
 
         $remembered_client->create();
@@ -503,46 +503,46 @@ class RememberedClientTest extends TestCase
 
         $remembered_client = new RememberedClient($this->getConstructorData([
             'goods'     => '[]',
-            'signature' => 'ff7ffd740213b5887a043a90ff44eec1e1d364b4eafa978de63ba54b35c3021a',
+            'signature' => 'e70d1a79bcb659e1de88fa0abc448bec99e15f94eda471128f73ce3e7d78ae35',
         ]));
         $this->assertFalse($remembered_client->create(), 'Parameter goods must be array');
 
         $remembered_client = new RememberedClient($this->getConstructorData([
             'goods'     => '[[]]',
-            'signature' => 'd81feb0f2b1cbebccb22af57811533b2c896c8e0694bd9b0d81bcf5b9ce21728',
+            'signature' => '6d1690d3f845e7c6a264737f0c7ca167ea0b544b956ebcf268a8c67e0aa6642f',
         ]));
         $this->assertFalse($remembered_client->create(), 'Parameter goods must be array');
 
         $remembered_client = new RememberedClient($this->getConstructorData([
             'goods'     => '[{"price":3200,"quantity":1,"is_returnable":1}]',
-            'signature' => '548f6e9a711da2dde9d7100184e3ce064611075f6932c2e280fd4aa88eb58e5a',
+            'signature' => '9547af8c6624d2e772728be284ca97f3b605a9a0e2dfc304d87a0d33018c9b5f',
         ]));
         $this->assertFalse($remembered_client->create(), 'Required parameter missing — goods["name"]');
 
         $remembered_client = new RememberedClient($this->getConstructorData([
             'goods'     => '[{"name":"\u041d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Sony","quantity":1,'
                 . '"is_returnable":1}]',
-            'signature' => '37aa1fdd4b5b4ac063f6a4ddedca52eef261bda941a4bbdb269e3f57597584fe',
+            'signature' => '10ab5e0a3668aa1a8b2296a5a1e45133f0c1ccd4d98c83b78a51f75035ee6186',
         ]));
         $this->assertFalse($remembered_client->create(), 'Required parameter missing — goods["price"]');
 
         $remembered_client = new RememberedClient($this->getConstructorData([
             'goods'     => '[{"name":"\u041d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Sony","price":3200,'
                 . '"is_returnable":1}]',
-            'signature' => '954e7b798b88486872478f1a5ac333a8e59bf48f09c184f20f64e4e508574732',
+            'signature' => 'aa04c3bc8f129d620265ae4821c48da0c46237528d248d320be1af7a1736b44e',
         ]));
         $this->assertFalse($remembered_client->create(), 'Required parameter missing — goods["quantity"]');
 
         $remembered_client = new RememberedClient($this->getConstructorData([
             'goods'     =>
                 '[{"name":"\u041d\u0430\u0443\u0448\u043d\u0438\u043a\u0438 Sony","price":3200,"quantity":1}]',
-            'signature' => '13b36f3ea5bbd1087c6c64853c7e56504faf6e0101f6791af9853817c0e8641b',
+            'signature' => '1a2c6c0df8727482435e9e8ec4b1139bae19f56222f77954f34e09172c9d96e9',
         ]));
         $this->assertFalse($remembered_client->create(), 'Required parameter missing — goods["is_returnable"]');
 
         $remembered_client = new RememberedClient($this->getConstructorData([
             'order_price' => 3500,
-            'signature'   => '33d127a63251cbe443efdbe88cc0088fcf852f8b091fc1b80939bccdc511908a',
+            'signature'   => '70a02a84bcee2cd05308f64a4264269f7fd5650d016cb7872720b0c9fbcbd6d2',
         ]));
         $this->assertFalse(
             $remembered_client->create(),
@@ -627,7 +627,7 @@ class RememberedClientTest extends TestCase
             'order_id'             => array_key_exists('order_id', $data) ? $data['order_id'] : 9,
             'order_price'          => array_key_exists('order_price', $data) ? $data['order_price'] : 3000,
             'callback_url'         =>
-                array_key_exists('callback_url', $data) ? $data['callback_url'] : rawurlencode('http://example.ru'),
+                array_key_exists('callback_url', $data) ? $data['callback_url'] : 'http://example.ru',
             'is_loan_postponed'    =>
                 array_key_exists('is_loan_postponed', $data) ? $data['is_loan_postponed'] : 0,
             'goods'                => array_key_exists('goods', $data) ? $data['goods'] :
@@ -636,7 +636,7 @@ class RememberedClientTest extends TestCase
             'is_test_mode_enabled' =>
                 array_key_exists('is_test_mode_enabled', $data) ? $data['is_test_mode_enabled'] : 0,
             'signature'            => array_key_exists('signature', $data) ? $data['signature'] :
-                '1fe45011cf0950216dfbeec717fba3448b077ab2158c4bf7af816ea4669d7bc2',
+                'cf09699817300379694ab3e77670f3a07e01310ce1508885abe5263532c2bdab',
         ];
     }
 }

@@ -206,6 +206,68 @@ class Request extends Model
     }
 
     /**
+     * Creates the request signature.
+     *
+     * @param int $shop_id The shop id.
+     * @param string $order_id The order id in shop.
+     * @param float $order_price The order price.
+     * @param string $goods The goods encoded in json.
+     * @param string $callback_url The callback url.
+     * @param int $is_loan_postponed Is the loan postponed.
+     * @param int $is_test_mode_enabled Id the test mode enabled.
+     * @param string $secret_key The shop secret key.
+     *
+     * @return string
+     */
+    public static function createRequestSignature(
+        int $shop_id,
+        string $order_id,
+        float $order_price,
+        string $goods,
+        string $callback_url,
+        int $is_loan_postponed,
+        int $is_test_mode_enabled,
+        string $secret_key
+    ): string {
+        return hash('sha256', 'shop_id=' . $shop_id
+            . '&order_id=' . $order_id
+            . '&order_price=' . $order_price
+            . '&goods=' . $goods
+            . '&callback_url=' . $callback_url
+            . '&is_loan_postponed=' . $is_loan_postponed
+            . '&is_test_mode_enabled=' . $is_test_mode_enabled
+            . '&secret_key=' . $secret_key);
+    }
+
+    /**
+     * Creates the old request signature.
+     *
+     * @param int $shop_id The shop id.
+     * @param string $order_id The order id in shop.
+     * @param float $order_price The order price.
+     * @param string $goods The goods encoded in json.
+     * @param string $callback_url The callback url.
+     * @param int $is_loan_postponed Is the loan postponed.
+     * @param int $is_test_mode_enabled Id the test mode enabled.
+     * @param string $secret_key The shop secret key.
+     *
+     * @return string
+     */
+    public static function createOldRequestSignature(
+        int $shop_id,
+        string $order_id,
+        float $order_price,
+        string $callback_url,
+        int $is_loan_postponed,
+        string $goods,
+        int $is_test_mode_enabled,
+        string $secret_key
+    ): string {
+        return hash('sha256', $shop_id . $order_id . $order_price . $callback_url
+            . $is_loan_postponed . $goods . $is_test_mode_enabled . $secret_key);
+    }
+
+    /**
      * Creates the request.
      *
      * @return bool True if success, false otherwise.
@@ -436,6 +498,7 @@ class Request extends Model
      * @param string $order_id The order id.
      * @param string $shop_secret_key The shop secret key.
      * @param string $callback_url The callback url.
+     * @param int $is_old_integration Is the old integration.
      *
      * @return string
      */
@@ -443,13 +506,9 @@ class Request extends Model
         string $request_status,
         string $order_id,
         string $shop_secret_key,
-        string $callback_url
+        string $callback_url,
+        int $is_old_integration
     ): string {
-        $signature = hash(
-            'sha256',
-            $order_id . $this->getId() . $request_status . $this->getIsTestModeEnabled() . $shop_secret_key
-        );
-
         $callback_url_decoded = rawurldecode($callback_url);
 
         if (strpos($callback_url_decoded, '?') === false) {
@@ -458,8 +517,24 @@ class Request extends Model
             $callback_url_decoded .= '&';
         }
 
-        return $callback_url_decoded . 'order_id=' . $order_id . '&request_id=' . $this->getId() . '&status='
-            . $request_status . '&is_test_mode_enabled=' . $this->getIsTestModeEnabled() . '&signature=' . $signature;
+        // TODO refactor it after update all shops.
+        if ($is_old_integration) {
+            $signature = hash('sha256', $order_id . $this->getId() . $request_status
+                . $this->getIsTestModeEnabled() . $shop_secret_key);
+        } else {
+            $signature = hash('sha256', 'order_id=' . $order_id
+                . '&request_id=' . $this->getId()
+                . '&status=' . $request_status
+                . '&is_test_mode_enabled=' . $this->getIsTestModeEnabled()
+                . '&secret_key=' . $shop_secret_key);
+        }
+
+        return $callback_url_decoded
+            . 'order_id=' . $order_id
+            . '&request_id=' . $this->getId()
+            . '&status=' . $request_status
+            . '&is_test_mode_enabled=' . $this->getIsTestModeEnabled()
+            . '&signature=' . $signature;
     }
 
     /**

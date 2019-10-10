@@ -1853,7 +1853,7 @@ body.concept .genesis-presentation-table
 	right: 5px;
 }
 
-.genesis-presentation-table .genesis-header-property .sort span:after
+/* .genesis-presentation-table .genesis-header-property .sort span:after
 {
 	content: "\f176";
 	font-family: "FontAwesome";
@@ -1863,7 +1863,7 @@ body.concept .genesis-presentation-table
 	-o-transition: 0.3s;
 	transition: 0.3s;
 	display: inline-block;
-}
+} */
 
 .genesis-presentation-table .genesis-header-property .sort.up span:after
 {
@@ -2363,7 +2363,8 @@ body.concept .genesis-presentation-list
 {
 	background-color:#c6273a;
 }
-
+.search-field { width:100%; padding: 10px 20px; border-width:0px;border-bottom-width:2px;border-color:black;  }
+.search-field::placeholder {color: gray;}
 
 body.login {
  background-image: none !important;

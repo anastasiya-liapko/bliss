@@ -17,14 +17,19 @@
       </div><!-- header__logo -->
 
       <div class="header__phone-wrapper order-1 order-sm-2 d-flex flex-column align-items-center align-items-sm-end">
-        <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
-          <div class="phone__number d-flex align-items-center">
-            <span class="icon icon-phone"></span>
-            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
-          </div>
-        </div><!-- header__phone -->
 
-        <p class="header__phone-hours">{{ work_time }}</p>
+        {% if second_phone_number %}
+          <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+            </div>
+          </div><!-- header__phone -->
+        {% endif %}
+
+        {% if second_phone_number and work_time %}
+          <p class="header__phone-hours">{{ work_time }}</p>
+        {% endif %}
 
         <div
           class="header__phone phone order-1 order-sm-2 d-flex align-items-center justify-content-center justify-content-sm-end mb-3 mb-sm-0">
@@ -75,7 +80,8 @@
                 <label for="js-formProfileShopSecondStepInputContract" class="custom-file-label">
                   PDF, JPEG максимум 30 МБ
                 </label>
-                <input id="js-formProfileShopSecondStepInputContract" class="custom-file-input custom-file-input__multiple" type="file"
+                <input id="js-formProfileShopSecondStepInputContract"
+                       class="custom-file-input custom-file-input__multiple" type="file"
                        accept="application/pdf,image/jpg,image/jpeg" name="document_contract[]" multiple>
               </div>
             </div>
@@ -85,7 +91,8 @@
               <div class="custom-file">
                 <label for="js-formProfileShopSecondStepInputDocumentQuestionnaireFl115"
                        class="custom-file-label">PDF, JPEG максимум 30 МБ</label>
-                <input id="js-formProfileShopSecondStepInputDocumentQuestionnaireFl115" class="custom-file-input custom-file-input__multiple"
+                <input id="js-formProfileShopSecondStepInputDocumentQuestionnaireFl115"
+                       class="custom-file-input custom-file-input__multiple"
                        type="file" accept="application/pdf,image/jpg,image/jpeg" name="document_questionnaire_fl_115[]"
                        multiple>
               </div>
@@ -101,7 +108,8 @@
                 <label for="js-formProfileShopSecondStepInputJoiningApplication" class="custom-file-label">
                   PDF, JPEG максимум 30 МБ
                 </label>
-                <input id="js-formProfileShopSecondStepInputJoiningApplication" class="custom-file-input custom-file-input__multiple" type="file"
+                <input id="js-formProfileShopSecondStepInputJoiningApplication"
+                       class="custom-file-input custom-file-input__multiple" type="file"
                        accept="application/pdf,image/jpg,image/jpeg" name="document_joining_application[]" multiple>
               </div>
             </div>
@@ -128,14 +136,19 @@
       </div><!-- header__logo -->
 
       <div class="footer__phone-wrapper d-flex flex-column align-items-center align-items-sm-end">
-        <div class="footer__phone phone d-flex align-items-center justify-content-end">
-          <div class="phone__number d-flex align-items-center">
-            <span class="icon icon-phone"></span>
-            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
-          </div>
-        </div><!-- footer__phone -->
 
-        <p class="footer__phone-hours">{{ work_time }}</p>
+        {% if second_phone_number %}
+          <div class="footer__phone phone d-flex align-items-center justify-content-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+            </div>
+          </div><!-- footer__phone -->
+        {% endif %}
+
+        {% if second_phone_number and work_time %}
+          <p class="footer__phone-hours">{{ work_time }}</p>
+        {% endif %}
 
         <div class="footer__phone phone d-flex align-items-center justify-content-end">
           <div class="phone__number d-flex align-items-center">

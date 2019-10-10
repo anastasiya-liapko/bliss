@@ -331,6 +331,7 @@ function renderMenu($active)
 	            <nav class="left-sidebar">
 	              <button class="btn menu-toggler"><span class="top"></span><span class="mid"></span><span class="bot"></span></button>
 	              <ul class="nav-list">
+				  	'.($menu_search_field==1?'<input type="text" value="" placeholder="Поиск..." class="search-field">':'').'
 	                '.$html.'
 	              </ul><a class="logo" href="http://l.alef.im/" target="_blank"><img src="style/logo-alef-dev.svg" alt="logo"></a>
 	            </nav>

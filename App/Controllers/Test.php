@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Helper;
+use App\Models\Request;
 use App\SiteInfo;
 use Core\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,8 +28,6 @@ class Test extends Controller
         $shop_id              = 1;
         $order_id             = mt_rand();
         $order_price          = 3000;
-        $callback_url         = $this->getAbsUrl('/test');
-        $is_loan_postponed    = 1;
         $goods                = [
             [
                 'name'          => 'Наушники внутриканальные Sony MDR-EX15LP Black',
@@ -38,10 +37,21 @@ class Test extends Controller
             ],
         ];
         $goods_encoded        = json_encode($goods);
+        $callback_url         = $this->getAbsUrl('/test');
+        $is_loan_postponed    = 1;
         $is_test_mode_enabled = 1;
         $secret_key           = 'FMNDesQ58G8y4O8bgGPvsEGFPwEe8Gdj';
-        $signature            = hash('sha256', $shop_id . $order_id . $order_price . $callback_url
-            . $is_loan_postponed . $goods_encoded . $is_test_mode_enabled . $secret_key);
+
+        $signature = Request::createRequestSignature(
+            $shop_id,
+            $order_id,
+            $order_price,
+            $goods_encoded,
+            $callback_url,
+            $is_loan_postponed,
+            $is_test_mode_enabled,
+            $secret_key
+        );
 
         return $this->render('Test/index.twig', [
             'title'                => 'Тестовая страница',
@@ -55,9 +65,9 @@ class Test extends Controller
             'shop_id'              => $shop_id,
             'order_id'             => $order_id,
             'order_price'          => $order_price,
+            'goods'                => $goods_encoded,
             'callback_url'         => $callback_url,
             'is_loan_postponed'    => $is_loan_postponed,
-            'goods'                => $goods_encoded,
             'is_test_mode_enabled' => $is_test_mode_enabled,
             'signature'            => $signature,
         ]);

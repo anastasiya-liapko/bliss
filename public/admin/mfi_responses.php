@@ -50,6 +50,7 @@ function processTD($html, $item, $column)
 	   }
 	   ob_start();
 	   $df = fopen("php://output", 'w');
+	   fprintf($df, chr(0xEF).chr(0xBB).chr(0xBF));
 	   fputcsv($df, array_keys($array[0]));
 	   foreach ($array as $row)
 	   {
@@ -961,7 +962,7 @@ $status_values = '[{"text":"Заявка одобрена", "value":"approved"},
 			}
 		}
 
-		$sql = "SELECT 1 as stub  FROM (SELECT main_table.* , (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_11a2bd13 WHERE value=main_table.mfi_id) as mfi_id_text FROM mfi_responses main_table) temp $srch $filter $where $order";
+		$sql = "SELECT 1 as stub  FROM (SELECT main_table.* , (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_12514afa WHERE value=main_table.mfi_id) as mfi_id_text FROM mfi_responses main_table) temp $srch $filter $where $order";
 
 		$debug = (isset($_REQUEST['alef_debug']) && $_REQUEST['alef_debug']==1);
 		if(in_array($_SERVER['SERVER_NAME'], ["test-genesis.alef.im", "devtest-genesis.alef.im", "localhost"]) || $debug)
@@ -1026,7 +1027,7 @@ $status_values = '[{"text":"Заявка одобрена", "value":"approved"},
 		$debug = (isset($_REQUEST['alef_debug']) && $_REQUEST['alef_debug']==1);
 		if($pagination == 1)
 		{
-			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT  main_table.* , (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_11a2bd13 WHERE value=main_table.mfi_id) as mfi_id_text FROM mfi_responses main_table) temp $srch $filter $where $order LIMIT :start, :limit";
+			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT  main_table.* , (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_12514afa WHERE value=main_table.mfi_id) as mfi_id_text FROM mfi_responses main_table) temp $srch $filter $where $order LIMIT :start, :limit";
 			if(function_exists("processSelectQuery"))
 			{
 				$sql = processSelectQuery($sql);
@@ -1048,7 +1049,7 @@ $status_values = '[{"text":"Заявка одобрена", "value":"approved"},
 		}
 		else
 		{
-			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT main_table.* , (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_11a2bd13 WHERE value=main_table.mfi_id) as mfi_id_text FROM mfi_responses main_table) temp $srch $filter $where $order";
+			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT main_table.* , (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_12514afa WHERE value=main_table.mfi_id) as mfi_id_text FROM mfi_responses main_table) temp $srch $filter $where $order";
 			if(in_array($_SERVER['SERVER_NAME'], ["test-genesis.alef.im", "devtest-genesis.alef.im", "localhost"]) || $debug)
 			{
 				echo "<!--SQL DATA {$sql} -->";

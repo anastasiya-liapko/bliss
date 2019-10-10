@@ -275,7 +275,8 @@ class Success extends Controller
             $status,
             $this->remembered_client->getOrderId(),
             $shop->getSecretKey(),
-            $this->remembered_client->getCallbackUrl()
+            $this->remembered_client->getCallbackUrl(),
+            $shop->getIsOldIntegration()
         );
 
         return $callback_url;

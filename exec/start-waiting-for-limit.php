@@ -16,11 +16,6 @@ set_exception_handler('Core\Error::exceptionHandler');
 set_time_limit(0);
 
 $crediting = new \App\Crediting($argv[1]);
-
-try {
-    $crediting->startWaitingForLimit();
-} catch (Exception $exception) {
-    // I'm busy doing nothing.
-}
+$crediting->startWaitingForLimit();
 
 die();

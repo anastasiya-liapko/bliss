@@ -28,14 +28,14 @@ class SiteInfo
      *
      * @var string
      */
-    const SECOND_PHONE = '8(495)991-04-29';
+    const SECOND_PHONE = '';
 
     /**
      * The work time.
      *
      * @var string
      */
-    const WORK_TIME = '09:00–19:00, пн–пт';
+    const WORK_TIME = '';
 
     /**
      * Gets the crediting email.

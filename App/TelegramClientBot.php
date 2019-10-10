@@ -305,4 +305,34 @@ class TelegramClientBot
 
         $telegram->sendMessage($message);
     }
+
+    /**
+     * Sends a message about the error.
+     *
+     * @param int $shop_id
+     * @param array $errors
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function clientGetError(
+        int $shop_id,
+        array $errors
+    ): void {
+        $message = '<b>Покупатель получил ошибку(-и) при переходе на сайт.</b>' . PHP_EOL;
+        $message .= 'Идентификатор магазина: ' . $shop_id . PHP_EOL;
+        $message .= '<b>Ошибки</b>' . PHP_EOL;
+
+        foreach ($errors as $error) {
+            $message .= $error . PHP_EOL;
+        }
+
+        $telegram = new Telegram(
+            static::TELEGRAM_DEV_TOKEN,
+            static::TELEGRAM_DEV_CHAT_ID,
+            $this->handler_telegram_bot
+        );
+
+        $telegram->sendMessage($message);
+    }
 }

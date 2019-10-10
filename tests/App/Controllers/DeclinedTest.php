@@ -103,7 +103,7 @@ class DeclinedTest extends TestCase
     public function testGetCallbackUrl($stub): void
     {
         $test_method = static::getNotPublicMethod($stub, 'getCallbackUrl');
-        $this->assertIsString($test_method->invoke($stub, 'declined', '1', 'test', 'http://example.com'));
+        $this->assertIsString($test_method->invoke($stub, 'declined', '1', 'test', 'http://example.com', 0));
     }
 
     /**

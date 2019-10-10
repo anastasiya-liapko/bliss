@@ -10,8 +10,8 @@
 
       <div class="header__logo logo">
         <img src="{{ abs_url('/assets/front/img/bliss-logotype.png') }}"
-             srcset="{{ abs_url('/assets/front/img/bliss-logotype@2x.png') }} 2x, assets/front/img/bliss-logotype@3x.png 3x" width="89"
-             height="102" alt="">
+             srcset="{{ abs_url('/assets/front/img/bliss-logotype@2x.png') }} 2x, assets/front/img/bliss-logotype@3x.png 3x"
+             width="89" height="102" alt="">
       </div><!-- header__logo -->
 
     </div><!-- header -->
@@ -53,14 +53,19 @@
       </div><!-- footer__logo -->
 
       <div class="footer__phone-wrapper d-flex flex-column align-items-center align-items-sm-end">
-        <div class="footer__phone phone d-flex align-items-center justify-content-end">
-          <div class="phone__number d-flex align-items-center">
-            <span class="icon icon-phone"></span>
-            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
-          </div>
-        </div><!-- footer__phone -->
 
-        <p class="footer__phone-hours">{{ work_time }}</p>
+        {% if second_phone_number %}
+          <div class="footer__phone phone d-flex align-items-center justify-content-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+            </div>
+          </div><!-- footer__phone -->
+        {% endif %}
+
+        {% if second_phone_number and work_time %}
+          <p class="footer__phone-hours">{{ work_time }}</p>
+        {% endif %}
 
         <div class="footer__phone phone d-flex align-items-center justify-content-end">
           <div class="phone__number d-flex align-items-center">

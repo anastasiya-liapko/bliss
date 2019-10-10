@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Config;
 use App\Helper;
 use App\Models\Order;
+use App\Models\Request;
 use App\Models\Shop;
 use App\SiteInfo;
 use Core\Controller;
@@ -44,13 +45,22 @@ class ProcessOrder extends Controller
         $shop_id              = $order->getShopId();
         $order_id             = $order->getOrderIdInShop();
         $order_price          = $order->getOrderPrice();
+        $goods                = $order->getGoods();
         $callback_url         = $this->getAbsUrl('/result');
         $is_loan_postponed    = 1;
-        $goods                = $order->getGoods();
         $is_test_mode_enabled = Config::isDevServer() ? 1 : 0;
         $secret_key           = $shop->getSecretKey();
-        $signature            = hash('sha256', $shop_id . $order_id . $order_price . $callback_url
-            . $is_loan_postponed . $goods . $is_test_mode_enabled . $secret_key);
+
+        $signature = Request::createRequestSignature(
+            $shop_id,
+            $order_id,
+            $order_price,
+            $goods,
+            $callback_url,
+            $is_loan_postponed,
+            $is_test_mode_enabled,
+            $secret_key
+        );
 
         return $this->render('ProcessOrder/index.twig', [
             'title'                => 'Обработка заказа',
@@ -65,9 +75,9 @@ class ProcessOrder extends Controller
             'shop_id'              => $shop_id,
             'order_id'             => $order_id,
             'order_price'          => $order_price,
+            'goods'                => $goods,
             'callback_url'         => $callback_url,
             'is_loan_postponed'    => $is_loan_postponed,
-            'goods'                => $goods,
             'is_test_mode_enabled' => $is_test_mode_enabled,
             'signature'            => $signature,
         ]);

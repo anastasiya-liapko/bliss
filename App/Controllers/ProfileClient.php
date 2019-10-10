@@ -100,6 +100,8 @@ class ProfileClient extends Controller
             $this->remembered_client->getOrderId()
         );
 
+        $this->client = Client::findByPhone($this->remembered_client->getPhone());
+
         return true;
     }
 
@@ -149,7 +151,7 @@ class ProfileClient extends Controller
             $args['ajax']['contentType']     = 'application/x-www-form-urlencoded; charset=UTF-8';
         }
 
-        if ($this->client = Client::findByPhone($this->remembered_client->getPhone())) {
+        if ($this->client) {
             $args['client']             = $this->client->getDataForProfile();
             $args['is_photos_required'] = false;
         } else {
@@ -169,8 +171,6 @@ class ProfileClient extends Controller
     public function createRequestAction(): JsonResponse
     {
         $this->forbidNotXmlHttpRequest();
-
-        $this->client = Client::findByPhone($this->remembered_client->getPhone());
 
         if (! $this->validateForm()) {
             return $this->sendJsonResponse(['errors' => $this->errors]);
@@ -474,7 +474,8 @@ class ProfileClient extends Controller
             $status,
             $this->remembered_client->getOrderId(),
             $shop->getSecretKey(),
-            $this->remembered_client->getCallbackUrl()
+            $this->remembered_client->getCallbackUrl(),
+            $shop->getIsOldIntegration()
         );
 
         return $callback_url;

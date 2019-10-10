@@ -556,16 +556,24 @@ class Crediting
         $is_loan_postponed    = $this->request->getIsLoanPostponed();
         $is_test_mode_enabled = $this->request->getIsTestModeEnabled();
 
-        $signature = hash('sha256', $shop_id . $order_id . $order_price . $callback_url
-            . $is_loan_postponed . $goods . $is_test_mode_enabled . $shop->getSecretKey());
+        $signature = Request::createRequestSignature(
+            $shop_id,
+            $order_id,
+            $order_price,
+            $goods,
+            $callback_url,
+            $is_loan_postponed,
+            $is_test_mode_enabled,
+            $shop->getSecretKey()
+        );
 
         $remembered_client = new RememberedClient([
             'shop_id'              => $shop_id,
             'order_id'             => $order_id,
             'order_price'          => $order_price,
+            'goods'                => $goods,
             'callback_url'         => $callback_url,
             'is_loan_postponed'    => $is_loan_postponed,
-            'goods'                => $goods,
             'is_test_mode_enabled' => $is_test_mode_enabled,
             'signature'            => $signature,
         ]);

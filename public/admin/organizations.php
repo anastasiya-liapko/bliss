@@ -147,6 +147,7 @@ function allowInsert()
 	   }
 	   ob_start();
 	   $df = fopen("php://output", 'w');
+	   fprintf($df, chr(0xEF).chr(0xBB).chr(0xBF));
 	   fputcsv($df, array_keys($array[0]));
 	   foreach ($array as $row)
 	   {
@@ -2921,7 +2922,7 @@ if(isset2($_REQUEST['is_documents_checked_filter']))
 			}
 		}
 
-		$sql = "SELECT 1 as stub  FROM (SELECT main_table.* , (select text FROM (SELECT IF (type = 'llc', legal_name, CONCAT('ИП «', boss_full_name, '»')) AS text, id AS value FROM organizations) tmp_e427dd5e WHERE value=main_table.id) as id_text FROM organizations main_table) temp $srch $filter $where $order";
+		$sql = "SELECT 1 as stub  FROM (SELECT main_table.* , (select text FROM (SELECT IF (type = 'llc', legal_name, CONCAT('ИП «', boss_full_name, '»')) AS text, id AS value FROM organizations) tmp_564e7446 WHERE value=main_table.id) as id_text FROM organizations main_table) temp $srch $filter $where $order";
 
 		$debug = (isset($_REQUEST['alef_debug']) && $_REQUEST['alef_debug']==1);
 		if(in_array($_SERVER['SERVER_NAME'], ["test-genesis.alef.im", "devtest-genesis.alef.im", "localhost"]) || $debug)
@@ -2986,7 +2987,7 @@ if(isset2($_REQUEST['is_documents_checked_filter']))
 		$debug = (isset($_REQUEST['alef_debug']) && $_REQUEST['alef_debug']==1);
 		if($pagination == 1)
 		{
-			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT  main_table.* , (select text FROM (SELECT IF (type = 'llc', legal_name, CONCAT('ИП «', boss_full_name, '»')) AS text, id AS value FROM organizations) tmp_e427dd5e WHERE value=main_table.id) as id_text FROM organizations main_table) temp $srch $filter $where $order LIMIT :start, :limit";
+			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT  main_table.* , (select text FROM (SELECT IF (type = 'llc', legal_name, CONCAT('ИП «', boss_full_name, '»')) AS text, id AS value FROM organizations) tmp_564e7446 WHERE value=main_table.id) as id_text FROM organizations main_table) temp $srch $filter $where $order LIMIT :start, :limit";
 			if(function_exists("processSelectQuery"))
 			{
 				$sql = processSelectQuery($sql);
@@ -3008,7 +3009,7 @@ if(isset2($_REQUEST['is_documents_checked_filter']))
 		}
 		else
 		{
-			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT main_table.* , (select text FROM (SELECT IF (type = 'llc', legal_name, CONCAT('ИП «', boss_full_name, '»')) AS text, id AS value FROM organizations) tmp_e427dd5e WHERE value=main_table.id) as id_text FROM organizations main_table) temp $srch $filter $where $order";
+			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT main_table.* , (select text FROM (SELECT IF (type = 'llc', legal_name, CONCAT('ИП «', boss_full_name, '»')) AS text, id AS value FROM organizations) tmp_564e7446 WHERE value=main_table.id) as id_text FROM organizations main_table) temp $srch $filter $where $order";
 			if(in_array($_SERVER['SERVER_NAME'], ["test-genesis.alef.im", "devtest-genesis.alef.im", "localhost"]) || $debug)
 			{
 				echo "<!--SQL DATA {$sql} -->";

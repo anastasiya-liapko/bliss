@@ -17,14 +17,19 @@
       </a><!-- header__logo -->
 
       <div class="header__phone-wrapper order-1 order-sm-2 d-flex flex-column align-items-center align-items-sm-end">
-        <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
-          <div class="phone__number d-flex align-items-center">
-            <span class="icon icon-phone"></span>
-            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
-          </div>
-        </div><!-- header__phone -->
 
-        <p class="header__phone-hours">{{ work_time }}</p>
+        {% if second_phone_number %}
+          <div class="header__phone phone d-flex align-items-center justify-content-center justify-content-sm-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+            </div>
+          </div><!-- header__phone -->
+        {% endif %}
+
+        {% if second_phone_number and work_time %}
+          <p class="header__phone-hours">{{ work_time }}</p>
+        {% endif %}
 
         <div
           class="header__phone phone order-1 order-sm-2 d-flex align-items-center justify-content-center justify-content-sm-end mb-3 mb-sm-0">
@@ -317,7 +322,8 @@
               <label for="js-formProfileShopInputDocumentSnils" class="custom-file-label">
                 PDF, JPEG, максимум 30 МБ
               </label>
-              <input id="js-formProfileShopInputDocumentSnils" class="custom-file-input custom-file-input__multiple" type="file"
+              <input id="js-formProfileShopInputDocumentSnils" class="custom-file-input custom-file-input__multiple"
+                     type="file"
                      accept="application/pdf,image/jpg,image/jpeg" name="document_snils[]" multiple>
             </div>
           </div>
@@ -330,7 +336,8 @@
               <label for="js-formProfileShopInputDocumentPassport" class="custom-file-label">
                 PDF, JPEG максимум 30 МБ
               </label>
-              <input id="js-formProfileShopInputDocumentPassport" class="custom-file-input custom-file-input__multiple" type="file"
+              <input id="js-formProfileShopInputDocumentPassport" class="custom-file-input custom-file-input__multiple"
+                     type="file"
                      accept="application/pdf,image/jpg,image/jpeg" name="document_passport[]" multiple>
             </div>
           </div>
@@ -343,7 +350,8 @@
               <label for="js-formProfileShopInputDocumentStatuteWithTaxMark" class="custom-file-label">
                 PDF, JPEG максимум 30 МБ
               </label>
-              <input id="js-formProfileShopInputDocumentStatuteWithTaxMark" class="custom-file-input custom-file-input__multiple" type="file"
+              <input id="js-formProfileShopInputDocumentStatuteWithTaxMark"
+                     class="custom-file-input custom-file-input__multiple" type="file"
                      accept="application/pdf,image/jpg,image/jpeg" name="document_statute_with_tax_mark[]" multiple>
             </div>
           </div>
@@ -356,7 +364,8 @@
               <label for="js-formProfileShopInputDocumentParticipantsDecision" class="custom-file-label">
                 PDF, JPEG максимум 30 МБ
               </label>
-              <input id="js-formProfileShopInputDocumentParticipantsDecision" class="custom-file-input custom-file-input__multiple" type="file"
+              <input id="js-formProfileShopInputDocumentParticipantsDecision"
+                     class="custom-file-input custom-file-input__multiple" type="file"
                      accept="application/pdf,image/jpg,image/jpeg" name="document_participants_decision[]" multiple>
             </div>
           </div>
@@ -370,7 +379,8 @@
               <label for="js-formProfileShopInputDocumentBin" class="custom-file-label">
                 PDF, JPEG, максимум 30 МБ
               </label>
-              <input id="js-formProfileShopInputDocumentBin" class="custom-file-input custom-file-input__multiple" type="file"
+              <input id="js-formProfileShopInputDocumentBin" class="custom-file-input custom-file-input__multiple"
+                     type="file"
                      accept="application/pdf,image/jpg,image/jpeg" name="document_bin[]" multiple>
             </div>
           </div>
@@ -381,7 +391,8 @@
               <label for="js-formProfileShopInputDocumentStatuteOfCurrentEdition" class="custom-file-label">
                 PDF, JPEG максимум 30 МБ
               </label>
-              <input id="js-formProfileShopInputDocumentStatuteOfCurrentEdition" class="custom-file-input custom-file-input__multiple" type="file"
+              <input id="js-formProfileShopInputDocumentStatuteOfCurrentEdition"
+                     class="custom-file-input custom-file-input__multiple" type="file"
                      accept="application/pdf,image/jpg,image/jpeg" name="document_statute_of_current_edition[]"
                      multiple>
             </div>
@@ -396,7 +407,8 @@
               <label for="js-formProfileShopInputDocumentOrderOnAppointment" class="custom-file-label">
                 PDF, JPEG максимум 30 МБ
               </label>
-              <input id="js-formProfileShopInputDocumentOrderOnAppointment" class="custom-file-input custom-file-input__multiple" type="file"
+              <input id="js-formProfileShopInputDocumentOrderOnAppointment"
+                     class="custom-file-input custom-file-input__multiple" type="file"
                      accept="application/pdf,image/jpg,image/jpeg" name="document_order_on_appointment[]" multiple>
             </div>
           </div>
@@ -417,14 +429,19 @@
       </div><!-- footer__logo -->
 
       <div class="footer__phone-wrapper d-flex flex-column align-items-center align-items-sm-end">
-        <div class="footer__phone phone d-flex align-items-center justify-content-end">
-          <div class="phone__number d-flex align-items-center">
-            <span class="icon icon-phone"></span>
-            <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
-          </div>
-        </div><!-- footer__phone -->
 
-        <p class="footer__phone-hours">{{ work_time }}</p>
+        {% if second_phone_number %}
+          <div class="footer__phone phone d-flex align-items-center justify-content-end">
+            <div class="phone__number d-flex align-items-center">
+              <span class="icon icon-phone"></span>
+              <a href="tel:{{ second_phone_link }}" class="link link_black">{{ second_phone_number }}</a>
+            </div>
+          </div><!-- footer__phone -->
+        {% endif %}
+
+        {% if second_phone_number and work_time %}
+          <p class="footer__phone-hours">{{ work_time }}</p>
+        {% endif %}
 
         <div class="footer__phone phone d-flex align-items-center justify-content-end">
           <div class="phone__number d-flex align-items-center">

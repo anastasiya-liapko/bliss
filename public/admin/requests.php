@@ -78,6 +78,7 @@ function allowUpdate()
 	   }
 	   ob_start();
 	   $df = fopen("php://output", 'w');
+	   fprintf($df, chr(0xEF).chr(0xBB).chr(0xBF));
 	   fputcsv($df, array_keys($array[0]));
 	   foreach ($array as $row)
 	   {
@@ -1376,7 +1377,7 @@ if(isset2($_REQUEST['is_loan_postponed_filter']))
 			}
 		}
 
-		$sql = "SELECT 1 as stub  FROM (SELECT main_table.* , (select text FROM (SELECT CONCAT(last_name, ' ', first_name, ' ', middle_name, ' (ID', id, ')') AS text, id as value FROM clients) tmp_9e7ecc4b WHERE value=main_table.client_id) as client_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM shops) tmp_438f0e4e WHERE value=main_table.shop_id) as shop_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_3e6c9f24 WHERE value=main_table.approved_mfi_id) as approved_mfi_id_text FROM requests main_table) temp $srch $filter $where $order";
+		$sql = "SELECT 1 as stub  FROM (SELECT main_table.* , (select text FROM (SELECT CONCAT(last_name, ' ', first_name, ' ', middle_name, ' (ID', id, ')') AS text, id as value FROM clients) tmp_8f002b14 WHERE value=main_table.client_id) as client_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM shops) tmp_ef1f4f70 WHERE value=main_table.shop_id) as shop_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_f179a12c WHERE value=main_table.approved_mfi_id) as approved_mfi_id_text FROM requests main_table) temp $srch $filter $where $order";
 
 		$debug = (isset($_REQUEST['alef_debug']) && $_REQUEST['alef_debug']==1);
 		if(in_array($_SERVER['SERVER_NAME'], ["test-genesis.alef.im", "devtest-genesis.alef.im", "localhost"]) || $debug)
@@ -1441,7 +1442,7 @@ if(isset2($_REQUEST['is_loan_postponed_filter']))
 		$debug = (isset($_REQUEST['alef_debug']) && $_REQUEST['alef_debug']==1);
 		if($pagination == 1)
 		{
-			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT  main_table.* , (select text FROM (SELECT CONCAT(last_name, ' ', first_name, ' ', middle_name, ' (ID', id, ')') AS text, id as value FROM clients) tmp_9e7ecc4b WHERE value=main_table.client_id) as client_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM shops) tmp_438f0e4e WHERE value=main_table.shop_id) as shop_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_3e6c9f24 WHERE value=main_table.approved_mfi_id) as approved_mfi_id_text FROM requests main_table) temp $srch $filter $where $order LIMIT :start, :limit";
+			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT  main_table.* , (select text FROM (SELECT CONCAT(last_name, ' ', first_name, ' ', middle_name, ' (ID', id, ')') AS text, id as value FROM clients) tmp_8f002b14 WHERE value=main_table.client_id) as client_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM shops) tmp_ef1f4f70 WHERE value=main_table.shop_id) as shop_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_f179a12c WHERE value=main_table.approved_mfi_id) as approved_mfi_id_text FROM requests main_table) temp $srch $filter $where $order LIMIT :start, :limit";
 			if(function_exists("processSelectQuery"))
 			{
 				$sql = processSelectQuery($sql);
@@ -1463,7 +1464,7 @@ if(isset2($_REQUEST['is_loan_postponed_filter']))
 		}
 		else
 		{
-			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT main_table.* , (select text FROM (SELECT CONCAT(last_name, ' ', first_name, ' ', middle_name, ' (ID', id, ')') AS text, id as value FROM clients) tmp_9e7ecc4b WHERE value=main_table.client_id) as client_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM shops) tmp_438f0e4e WHERE value=main_table.shop_id) as shop_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_3e6c9f24 WHERE value=main_table.approved_mfi_id) as approved_mfi_id_text FROM requests main_table) temp $srch $filter $where $order";
+			$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM (SELECT main_table.* , (select text FROM (SELECT CONCAT(last_name, ' ', first_name, ' ', middle_name, ' (ID', id, ')') AS text, id as value FROM clients) tmp_8f002b14 WHERE value=main_table.client_id) as client_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM shops) tmp_ef1f4f70 WHERE value=main_table.shop_id) as shop_id_text, (select text FROM (SELECT CONCAT(name, ' (ID', id, ')') AS text, id as value FROM mfi) tmp_f179a12c WHERE value=main_table.approved_mfi_id) as approved_mfi_id_text FROM requests main_table) temp $srch $filter $where $order";
 			if(in_array($_SERVER['SERVER_NAME'], ["test-genesis.alef.im", "devtest-genesis.alef.im", "localhost"]) || $debug)
 			{
 				echo "<!--SQL DATA {$sql} -->";
